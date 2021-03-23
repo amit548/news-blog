@@ -2,10 +2,12 @@
   "name": "news-blog-project",
   "version": "0.0.1",
   "description": "News Blog Project for Client",
-  "main": "src/server.ts",
+  "private": true,
   "scripts": {
-    "start": "",
-    "dev": ""
+    "start": "node dist/server.ts",
+    "build": "tsc",
+    "serve": "ts-node src/server.ts",
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
