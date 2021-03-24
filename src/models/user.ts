@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt';
-import { Document, model, Schema } from 'mongoose';
+import { Document, model, ObjectId, Schema } from 'mongoose';
 
 interface User extends Document {
   firstName: string;
@@ -9,6 +9,7 @@ interface User extends Document {
   password: string;
   role: string;
   createdUsers?: any;
+  createdPosts?: any;
 }
 
 const UserSchema = new Schema<User>(
@@ -43,6 +44,7 @@ const UserSchema = new Schema<User>(
       required: true,
     },
     createdUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    createdPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   {
     timestamps: true,
