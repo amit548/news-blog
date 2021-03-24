@@ -7,6 +7,8 @@ interface User extends Document {
   username: string;
   email: string;
   password: string;
+  role: string;
+  createdUsers?: any;
 }
 
 const UserSchema = new Schema<User>(
@@ -21,15 +23,10 @@ const UserSchema = new Schema<User>(
       trim: true,
       required: true,
     },
-    username: {
-      type: String,
-      unique: true,
-      trim: true,
-      required: true,
-    },
     email: {
       type: String,
       unique: true,
+      lowercase: true,
       trim: true,
       required: true,
     },
@@ -38,16 +35,24 @@ const UserSchema = new Schema<User>(
       trim: true,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
+      trim: true,
+      required: true,
+    },
+    createdUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,
     toObject: {
-      transform: (doc: any, ret: any) => {
+      transform: (_: any, ret: any) => {
         delete ret.password;
       },
     },
     toJSON: {
-      transform: (doc: any, ret: any) => {
+      transform: (_: any, ret: any) => {
         delete ret.password;
       },
     },
@@ -56,6 +61,14 @@ const UserSchema = new Schema<User>(
 
 UserSchema.pre('save', async function (next) {
   try {
+    const firstName = this.firstName.trim();
+    const lastName = this.lastName.trim();
+
+    this.firstName =
+      firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+    this.lastName =
+      lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
+
     if (this.isNew || this.isModified) {
       this.password = await hash(this.password, 12);
     }

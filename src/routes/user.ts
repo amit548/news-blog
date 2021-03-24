@@ -1,37 +1,12 @@
-import { NextFunction, Request, Response, Router } from 'express';
-import { body, validationResult } from 'express-validator';
-import createError from 'http-errors';
+import { Router } from 'express';
+import { body } from 'express-validator';
 
 import { UserModel } from '../models/user';
+import { login, logout, register, user } from '../controllers/user';
+import auth from '../middlewares/auth';
+import notAuth from '../middlewares/not-auth';
 
 const router = Router();
-
-const createUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { firstName, lastName, username, email, password } = req.body;
-
-  try {
-    let errors: any = {};
-
-    const validationErrors = validationResult(req);
-    validationErrors.array().forEach((err) => {
-      errors[err.param] = err.msg;
-    });
-    if (!validationErrors.isEmpty())
-      throw next(createError(406, { body: errors }));
-
-    const user = new UserModel({
-      firstName,
-      lastName,
-      username,
-      email,
-      password,
-    });
-    await user.save();
-    res.status(201).json(user);
-  } catch (error) {
-    next(error);
-  }
-};
 
 router.post(
   '/register',
@@ -46,15 +21,6 @@ router.post(
       .withMessage('Min length 3')
       .notEmpty()
       .withMessage('Last name empty'),
-    body('username')
-      .isLength({ min: 3 })
-      .withMessage('Min 3 lenght')
-      .notEmpty()
-      .withMessage('Username empty')
-      .custom(async (value: string) => {
-        const user = await UserModel.findOne({ username: value });
-        if (user) return Promise.reject(`${value} - already exists`);
-      }),
     body('email')
       .notEmpty()
       .withMessage('Email empty')
@@ -76,7 +42,31 @@ router.post(
       .notEmpty()
       .withMessage('Password empty'),
   ],
-  createUser
+  auth,
+  register
 );
+
+router.post(
+  '/login',
+  [
+    body('email')
+      .notEmpty()
+      .withMessage('Email empty')
+      .isEmail()
+      .withMessage('Please enter an valid E-mail address')
+      .normalizeEmail(),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Min 6 lenght')
+      .notEmpty()
+      .withMessage('Password empty'),
+  ],
+  notAuth,
+  login
+);
+
+router.delete('/logout', auth, logout);
+
+router.get('/', auth, user);
 
 export default router;

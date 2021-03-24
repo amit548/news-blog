@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { connect } from 'mongoose';
+import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
 
@@ -9,6 +10,7 @@ import HttpException from './exceptions/http-exception';
 const server = express();
 
 server.use(express.json());
+server.use(cookieParser());
 server.use(morgan('dev'));
 
 server.use('/api/user', userRoutes);
