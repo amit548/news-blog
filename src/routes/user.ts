@@ -2,7 +2,14 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 
 import { UserModel } from '../models/user';
-import { login, logout, register, user } from '../controllers/user';
+import {
+  deleteListUser,
+  login,
+  logout,
+  register,
+  updateListUser,
+  userList,
+} from '../controllers/user';
 import auth from '../middlewares/auth';
 import notAuth from '../middlewares/not-auth';
 
@@ -65,8 +72,52 @@ router.post(
   login
 );
 
-router.delete('/logout', auth, logout);
+router.post('/logout', auth, logout);
 
-router.get('/', auth, user);
+router.get('/list', auth, userList);
+
+router.delete('/list/:id', auth, deleteListUser);
+
+router.put(
+  '/list/:id',
+  [
+    body('firstName')
+      .isLength({ min: 3 })
+      .withMessage('Min length 3')
+      .notEmpty()
+      .withMessage('First name empty')
+      .optional({ nullable: true, checkFalsy: true }),
+    body('lastName')
+      .isLength({ min: 3 })
+      .withMessage('Min length 3')
+      .notEmpty()
+      .withMessage('Last name empty')
+      .optional({ nullable: true, checkFalsy: true }),
+    body('email')
+      .notEmpty()
+      .withMessage('Email empty')
+      .isEmail()
+      .withMessage('Please enter an valid E-mail address')
+      .custom(async (value) => {
+        const user = await UserModel.findOne({ email: value });
+        if (user) return Promise.reject(`${value} - already in use`);
+      })
+      .normalizeEmail()
+      .optional({ nullable: true, checkFalsy: true }),
+    body('password')
+      .custom((value, { req }) => {
+        if (value !== req.body.confirmPassword)
+          throw new Error('Password confirmation is incorrect');
+        return true;
+      })
+      .isLength({ min: 6 })
+      .withMessage('Min 6 lenght')
+      .notEmpty()
+      .withMessage('Password empty')
+      .optional({ nullable: true, checkFalsy: true }),
+  ],
+  auth,
+  updateListUser
+);
 
 export default router;

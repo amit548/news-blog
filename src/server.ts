@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import createError from 'http-errors';
 
 import userRoutes from './routes/user';
+import meRoutes from './routes/me';
 import HttpException from './exceptions/http-exception';
 
 const server = express();
@@ -14,6 +15,7 @@ server.use(cookieParser());
 server.use(morgan('dev'));
 
 server.use('/api/user', userRoutes);
+server.use('/api/me', meRoutes);
 
 server.use((_, __, next) => next(createError(404)));
 
