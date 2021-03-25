@@ -2,10 +2,12 @@ import { Document, model, ObjectId, Schema } from 'mongoose';
 
 interface Post extends Document {
   title: string;
-  thumbnail: string;
+  thumbnailImage: string;
   description: string;
-  image: string;
+  descriptionImage: string;
+  category: string;
   creator: any;
+  private: boolean;
 }
 
 const PostSchema = new Schema<Post>(
@@ -29,10 +31,22 @@ const PostSchema = new Schema<Post>(
       type: String,
       trim: true,
     },
+    category: {
+      type: String,
+      enum: ['cat1', 'cat2'],
+      default: 'cat1',
+      trim: true,
+      required: true,
+    },
     creator: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    private: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
   { timestamps: true }
