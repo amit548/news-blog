@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Divider,
   Grid,
   makeStyles,
@@ -11,6 +12,9 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
+import { FormEvent, useState } from 'react';
+import axios from 'axios';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -33,13 +37,40 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '30%',
     },
   },
+  alert: {
+    marginBottom: theme.spacing(1),
+  },
+  progress: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const Login = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const onSumbitLogin = () => {
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<any>({});
+
+  const onSumbitLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const result = await axios.post(
+        'http://localhost:4000/api/user/login',
+        loginData,
+        { withCredentials: true }
+      );
+      setLoading(false);
+      setError({});
+      console.log(result);
+    } catch (error) {
+      setLoading(false);
+      setError({
+        ...error.response.data.body,
+      });
+    }
     router.push('/admin');
   };
 
@@ -56,20 +87,56 @@ const Login = () => {
             Please Login
           </Typography>
           <Divider className={classes.divider} />
-          <form noValidate autoComplete="off">
+
+          {loading && (
+            <Box
+              display="flex"
+              justifyContent="center"
+              className={classes.progress}
+            >
+              <CircularProgress />
+            </Box>
+          )}
+
+          {Object.keys(error).map((err) => (
+            <Alert severity="error" key={err} className={classes.alert}>
+              {error[err]}
+            </Alert>
+          ))}
+
+          <form noValidate autoComplete="off" onSubmit={onSumbitLogin}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <TextField fullWidth label="Email" type="email" />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  required
+                  error={!!error.email}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, email: e.target.value })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth label="Password" type="password" />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  required
+                  error={!!error.password}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, password: e.target.value })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
                 <Button
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  onClick={onSumbitLogin}
+                  type="submit"
+                  disabled={loading}
                 >
                   Login
                 </Button>

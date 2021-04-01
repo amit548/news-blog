@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { connect } from 'mongoose';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
@@ -12,6 +13,7 @@ import HttpException from './exceptions/http-exception';
 const server = express();
 
 server.use(express.json());
+server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 
