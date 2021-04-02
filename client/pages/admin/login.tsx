@@ -12,9 +12,10 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import axios from 'axios';
 import { Alert } from '@material-ui/lab';
+import { AuthContext } from '../../context/auth';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -49,6 +50,8 @@ const Login = () => {
   const classes = useStyles();
   const router = useRouter();
 
+  const { setUser } = useContext(AuthContext);
+
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>({});
@@ -64,14 +67,15 @@ const Login = () => {
       );
       setLoading(false);
       setError({});
-      console.log(result);
+      setUser(result.data);
+      router.push('/admin');
     } catch (error) {
       setLoading(false);
-      setError({
-        ...error.response.data.body,
-      });
+      if (error.response)
+        setError({
+          ...error.response.data.body,
+        });
     }
-    router.push('/admin');
   };
 
   return (

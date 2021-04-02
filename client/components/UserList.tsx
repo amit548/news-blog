@@ -11,7 +11,7 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const UserList = () => {
+const UserList = ({ registeredUser }) => {
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <List>
@@ -19,7 +19,10 @@ const UserList = () => {
           <ListItemAvatar>
             <Avatar>J</Avatar>
           </ListItemAvatar>
-          <ListItemText primary="John Doe" secondary="john@email.com" />
+          <ListItemText
+            primary={`${registeredUser.firstName} ${registeredUser.lastName}`}
+            secondary={registeredUser.email}
+          />
           <ListItemSecondaryAction>
             <IconButton>
               <EditIcon color="primary" />

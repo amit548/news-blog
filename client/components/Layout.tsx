@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   AppBar,
   Button,
@@ -15,6 +15,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Box,
+  Hidden,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
@@ -25,6 +27,8 @@ import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
 import SubtitlesOutlinedIcon from '@material-ui/icons/SubtitlesOutlined';
 import WorkOffOutlinedIcon from '@material-ui/icons/WorkOffOutlined';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
+import { AuthContext } from '../context/auth';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -56,73 +60,130 @@ const Layout = ({ children }) => {
   const classes = useStyles();
   const router = useRouter();
 
+  const { user, setUser } = useContext(AuthContext);
+
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const drawerList = [
-    {
-      path: '/admin/register',
-      title: 'Create User',
-      icon: <PersonAddIcon color="secondary" />,
-    },
-    {
-      path: '/admin/users',
-      title: 'Manage Users',
-      icon: <PeopleAltIcon color="secondary" />,
-    },
-    {
-      path: '/admin/posts',
-      title: 'Manage Posts',
-      icon: <PhotoAlbumOutlinedIcon color="secondary" />,
-    },
-    {
-      path: '/admin/register',
-      title: 'সরকারি চাকরি',
-      icon: <WorkOutlineOutlinedIcon color="secondary" />,
-    },
-    {
-      path: '/admin/register',
-      title: 'বেসরকারি চাকরি',
-      icon: <WorkOffOutlinedIcon color="secondary" />,
-    },
-    {
-      path: '/admin/register',
-      title: 'পরিক্ষার সিলেবাস',
-      icon: <ReceiptOutlinedIcon color="secondary" />,
-    },
-    {
-      path: '/admin/register',
-      title: 'রেজাল্ট',
-      icon: <SubtitlesOutlinedIcon color="secondary" />,
-    },
-    {
-      path: '/admin/register',
-      title: 'নোটিশ',
-      icon: <EventNoteOutlinedIcon color="secondary" />,
-    },
-  ];
+  let drawerList = [];
+
+  if (user) {
+    drawerList = [
+      {
+        path: '/admin/register',
+        title: 'Create User',
+        icon: <PersonAddIcon color="secondary" />,
+      },
+      {
+        path: '/admin/users',
+        title: 'Manage Users',
+        icon: <PeopleAltIcon color="secondary" />,
+      },
+      {
+        path: '/admin/posts',
+        title: 'Manage Posts',
+        icon: <PhotoAlbumOutlinedIcon color="secondary" />,
+      },
+    ];
+  } else {
+    drawerList = [
+      {
+        path: '/admin/register',
+        title: 'সরকারি চাকরি',
+        icon: <WorkOutlineOutlinedIcon color="secondary" />,
+      },
+      {
+        path: '/admin/register',
+        title: 'বেসরকারি চাকরি',
+        icon: <WorkOffOutlinedIcon color="secondary" />,
+      },
+      {
+        path: '/admin/register',
+        title: 'পরিক্ষার সিলেবাস',
+        icon: <ReceiptOutlinedIcon color="secondary" />,
+      },
+      {
+        path: '/admin/register',
+        title: 'রেজাল্ট',
+        icon: <SubtitlesOutlinedIcon color="secondary" />,
+      },
+      {
+        path: '/admin/register',
+        title: 'নোটিশ',
+        icon: <EventNoteOutlinedIcon color="secondary" />,
+      },
+    ];
+  }
 
   const onDrawerOpen = () => setOpenDrawer(true);
 
   const onDrawerClose = () => setOpenDrawer(false);
 
+  const logoutUser = async () => {
+    try {
+      await axios.post(
+        'http://localhost:4000/api/user/logout',
+        {},
+        { withCredentials: true }
+      );
+      setUser(null);
+    } catch (_) {}
+  };
+
   return (
     <>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton color="inherit" onClick={() => onDrawerOpen()}>
-            <MenuIcon />
-          </IconButton>
+          <Hidden mdUp>
+            <IconButton color="inherit" onClick={() => onDrawerOpen()}>
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
           <Link href="/">
             <Typography variant="h6" className={classes.title}>
               কর্মের খোঁজ
             </Typography>
           </Link>
-          <Link href="/admin/login">
-            <Button color="inherit">Login</Button>
-          </Link>
-          <Link href="/login">
-            <Button color="inherit">Logout</Button>
-          </Link>
+
+          {user ? (
+            <>
+              <Hidden smDown>
+                <Link href="/admin/register">
+                  <Button>Create User</Button>
+                </Link>
+                <Link href="/admin/users">
+                  <Button>Manage Users</Button>
+                </Link>
+                <Link href="/admin/posts">
+                  <Button>Manage Posts</Button>
+                </Link>
+              </Hidden>
+              <Button color="inherit" onClick={logoutUser}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Hidden smDown>
+              <Link href="/">
+                <Button>সরকারি চাকরি</Button>
+              </Link>
+
+              <Link href="/">
+                <Button>বেসরকারি চাকরি</Button>
+              </Link>
+
+              <Link href="/">
+                <Button>পরিক্ষার সিলেবাস</Button>
+              </Link>
+
+              <Link href="/">
+                <Button>রেজাল্ট</Button>
+              </Link>
+
+              <Link href="/">
+                <Button>নোটিশ</Button>
+              </Link>
+            </Hidden>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer

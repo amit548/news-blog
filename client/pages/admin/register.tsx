@@ -10,7 +10,11 @@ import {
   TextField,
   Theme,
   Typography,
+  CircularProgress,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import axios from 'axios';
+import { FormEvent, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -33,14 +37,44 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '30%',
     },
   },
+  progress: {
+    marginBottom: theme.spacing(2),
+  },
+  alert: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 const Register = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const onSumbitRegister = () => {
-    router.push('/admin');
+  const [loading, setLoading] = useState(false);
+  const [registerData, setRegisterData] = useState({});
+  const [error, setError] = useState<any>({});
+
+  const onSumbitRegister = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    try {
+      const result = await axios.post(
+        'http://localhost:4000/api/user/register',
+        registerData,
+        { withCredentials: true }
+      );
+      console.log(result.data);
+
+      setLoading(false);
+      setError({});
+      router.push('/admin/users');
+    } catch (error) {
+      setLoading(false);
+      if (error.response)
+        setError({
+          ...error.response.data.body,
+        });
+    }
   };
 
   return (
@@ -56,26 +90,96 @@ const Register = () => {
             Create New User
           </Typography>
           <Divider className={classes.divider} />
-          <form noValidate autoComplete="off">
+
+          {loading && (
+            <Box
+              display="flex"
+              justifyContent="center"
+              className={classes.progress}
+            >
+              <CircularProgress />
+            </Box>
+          )}
+
+          {Object.keys(error).map((err) => (
+            <Alert severity="error" key={err} className={classes.alert}>
+              {error[err]}
+            </Alert>
+          ))}
+
+          <form noValidate autoComplete="off" onSubmit={onSumbitRegister}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <TextField fullWidth label="First Name" type="text" />
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  type="text"
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth label="Last Name" type="text" />
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  type="text"
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      lastName: e.target.value,
+                    })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth label="Email" type="email" />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      email: e.target.value,
+                    })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth label="Password" type="password" />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      password: e.target.value,
+                    })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Confirm Password"
+                  type="password"
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                />
               </Grid>
               <Grid item xs={12}>
                 <Button
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  onClick={onSumbitRegister}
+                  type="submit"
                 >
                   Add User
                 </Button>
