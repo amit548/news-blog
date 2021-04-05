@@ -17,7 +17,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const adminUser: User = res.locals.user;
     if (!adminUser) errors.admin = 'Please login as admin first';
 
-    if (adminUser.role !== 'admin')
+    if (adminUser.role !== 'admin' || !adminUser.role)
       errors.admin =
         "Unfortunately it's not possible to add members to the database because you're not the admin";
 

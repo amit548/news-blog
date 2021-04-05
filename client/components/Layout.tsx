@@ -27,6 +27,7 @@ import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
 import SubtitlesOutlinedIcon from '@material-ui/icons/SubtitlesOutlined';
 import WorkOffOutlinedIcon from '@material-ui/icons/WorkOffOutlined';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
+import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 import { AuthContext } from '../context/auth';
 import axios from 'axios';
 
@@ -77,6 +78,11 @@ const Layout = ({ children }) => {
         path: '/admin/users',
         title: 'Manage Users',
         icon: <PeopleAltIcon color="secondary" />,
+      },
+      {
+        path: '/admin/create-post',
+        title: 'Create Posts',
+        icon: <AddPhotoAlternateOutlinedIcon color="secondary" />,
       },
       {
         path: '/admin/posts',
@@ -152,6 +158,9 @@ const Layout = ({ children }) => {
                 </Link>
                 <Link href="/admin/users">
                   <Button>Manage Users</Button>
+                </Link>
+                <Link href="/admin/create-post">
+                  <Button>Create Post</Button>
                 </Link>
                 <Link href="/admin/posts">
                   <Button>Manage Posts</Button>

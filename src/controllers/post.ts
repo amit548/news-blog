@@ -2,18 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import createError from 'http-errors';
 import { isValidObjectId } from 'mongoose';
+import { join } from 'path';
 
 import { PostModel } from '../models/post';
 import { User, UserModel } from '../models/user';
+import { deleteFile, makeId } from '../utils/util';
 
 const createPost = async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    title,
-    thumbnailImage,
-    description,
-    descriptionImage,
-    category,
-  } = req.body;
+  const { title, description, category } = req.body;
 
   const user: User = res.locals.user;
 
@@ -28,17 +24,103 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!user) errors.user = 'You are not a creator';
 
-    if (Object.assign(errors).length > 0)
+    if (Object.keys(errors).length > 0)
       throw createError(403, { body: errors });
 
-    const post = new PostModel({
+    const newPost: any = {
       title,
-      thumbnailImage,
+      thumbnailImage: '',
       description,
-      descriptionImage,
       category,
       creator: user.id,
-    });
+    };
+
+    if (req.files) {
+      if ((req.files as any).thumbnailImage) {
+        if (
+          (req.files as any).thumbnailImage.mimetype === 'image/jpeg' ||
+          (req.files as any).thumbnailImage.mimetype === 'image/png'
+        ) {
+          const fileName =
+            makeId(8) + '-' + (req.files as any).thumbnailImage.name;
+          newPost.thumbnailImage = fileName;
+          (req.files as any).thumbnailImage.mv(
+            join(__dirname, '../../public/images/' + fileName)
+          );
+        } else {
+          errors.thumbnailImage = 'Only jpeg, jpg & png accepted';
+        }
+      } else {
+        errors.thumbnailImage = 'Thumbnail image required';
+      }
+    }
+
+    if (req.files) {
+      if ((req.files as any).image1) {
+        if (
+          (req.files as any).image1.mimetype === 'image/jpeg' ||
+          (req.files as any).image1.mimetype === 'image/png'
+        ) {
+          const fileName = makeId(8) + '-' + (req.files as any).image1.name;
+          newPost.image1 = fileName;
+          (req.files as any).image1.mv(
+            join(__dirname, '../../public/images/' + fileName)
+          );
+        } else {
+          errors.image1 = 'Only jpeg, jpg & png accepted';
+        }
+      }
+
+      if ((req.files as any).image2) {
+        if (
+          (req.files as any).image2.mimetype === 'image/jpeg' ||
+          (req.files as any).image2.mimetype === 'image/png'
+        ) {
+          const fileName = makeId(8) + '-' + (req.files as any).image2.name;
+          newPost.image2 = fileName;
+          (req.files as any).image2.mv(
+            join(__dirname, '../../public/images/' + fileName)
+          );
+        } else {
+          errors.image2 = 'Only jpeg, jpg & png accepted';
+        }
+      }
+
+      if ((req.files as any).image3) {
+        if (
+          (req.files as any).image3.mimetype === 'image/jpeg' ||
+          (req.files as any).image3.mimetype === 'image/png'
+        ) {
+          const fileName = makeId(8) + '-' + (req.files as any).image3.name;
+          newPost.image3 = fileName;
+          (req.files as any).image3.mv(
+            join(__dirname, '../../public/images/' + fileName)
+          );
+        } else {
+          errors.image3 = 'Only jpeg, jpg & png accepted';
+        }
+      }
+
+      if ((req.files as any).image4) {
+        if (
+          (req.files as any).image4.mimetype === 'image/jpeg' ||
+          (req.files as any).image4.mimetype === 'image/png'
+        ) {
+          const fileName = makeId(8) + '-' + (req.files as any).image4.name;
+          newPost.image4 = fileName;
+          (req.files as any).image4.mv(
+            join(__dirname, '../../public/images/' + fileName)
+          );
+        } else {
+          errors.image4 = 'Only jpeg, jpg & png accepted';
+        }
+      }
+    }
+
+    if (Object.keys(errors).length > 0)
+      throw createError(403, { body: errors });
+
+    const post = new PostModel({ ...newPost });
     await post.save();
 
     user.createdPosts.push(post.id);
@@ -84,14 +166,7 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const { id } = req.params;
-  const {
-    title,
-    thumbnailImage,
-    description,
-    descriptionImage,
-    category,
-    status,
-  } = req.body;
+  const { title, description, category, status } = req.body;
 
   try {
     let errors: any = {};
@@ -154,6 +229,10 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
     const creatorUser = await UserModel.findById(post?.creator);
 
     await post?.remove();
+    if (post?.image1) await deleteFile(post?.image1);
+    if (post?.image2) await deleteFile(post?.image2);
+    if (post?.image3) await deleteFile(post?.image3);
+    if (post?.image4) await deleteFile(post?.image4);
     creatorUser?.createdPosts.pull(id);
     await creatorUser?.save();
 

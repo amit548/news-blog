@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
+import expressFileupload from 'express-fileupload';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -15,6 +16,7 @@ const server = express();
 server.use(express.json());
 server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
+server.use(expressFileupload());
 server.use(morgan('dev'));
 
 server.use('/api/user', userRoutes);

@@ -1,10 +1,13 @@
-import { Document, model, ObjectId, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
 interface Post extends Document {
   title: string;
   thumbnailImage: string;
   description: string;
-  descriptionImage: string;
+  image1?: string;
+  image2?: string;
+  image3?: string;
+  image4?: string;
   category: string;
   creator: any;
   private: boolean;
@@ -27,9 +30,17 @@ const PostSchema = new Schema<Post>(
       required: true,
       trim: true,
     },
-    descriptionImage: {
+    image1: {
       type: String,
-      trim: true,
+    },
+    image2: {
+      type: String,
+    },
+    image3: {
+      type: String,
+    },
+    image4: {
+      type: String,
     },
     category: {
       type: String,
