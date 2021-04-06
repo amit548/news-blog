@@ -184,7 +184,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     if (Object.keys(errors).length > 0)
       throw createError(404, { body: errors });
 
-    if (post?.creator !== user.id && user.role !== 'admin')
+    if (post?.creator.toString() !== user.id && user.role !== 'admin')
       errors.user = 'You are not owner/admin of this post';
     if (Object.keys(errors).length > 0)
       throw createError(406, { body: errors });
