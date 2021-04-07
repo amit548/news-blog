@@ -9,7 +9,7 @@ import { User, UserModel } from '../models/user';
 import { deleteFile, makeId } from '../utils/util';
 
 const createPost = async (req: Request, res: Response, next: NextFunction) => {
-  const { title, description, category } = req.body;
+  let { title, description, category, private: isPrivate } = req.body;
 
   const user: User = res.locals.user;
 
@@ -27,12 +27,14 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
     if (Object.keys(errors).length > 0)
       throw createError(403, { body: errors });
 
+    if (user.role === 'user') isPrivate = true;
+
     const newPost: any = {
       title,
-      thumbnailImage: '',
       description,
       category,
       creator: user.id,
+      private: isPrivate,
     };
 
     if (req.files) {
@@ -53,6 +55,8 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
       } else {
         errors.thumbnailImage = 'Thumbnail image required';
       }
+    } else {
+      errors.thumbnailImage = 'Thumbnail image required';
     }
 
     if (req.files) {

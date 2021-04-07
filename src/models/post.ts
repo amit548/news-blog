@@ -30,6 +30,10 @@ const PostSchema = new Schema<Post>(
       required: true,
       trim: true,
     },
+    videoUrl: {
+      type: String,
+      trim: true,
+    },
     image1: {
       type: String,
     },
@@ -44,8 +48,14 @@ const PostSchema = new Schema<Post>(
     },
     category: {
       type: String,
-      enum: ['cat1', 'cat2'],
-      default: 'cat1',
+      enum: [
+        'সরকারি চাকরি',
+        'বেসরকারি চাকরি',
+        'পরীক্ষার সিলেবাস',
+        'রেজাল্ট',
+        'নোটিশ',
+      ],
+      default: 'সরকারি চাকরি',
       trim: true,
       required: true,
     },
