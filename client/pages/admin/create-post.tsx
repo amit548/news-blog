@@ -1,4 +1,5 @@
-import dyanic from 'next/dynamic';
+import dynamic from 'next/dynamic';
+import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -24,8 +25,9 @@ import { FormEvent, useState } from 'react';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import axios from 'axios';
 import { Alert } from '@material-ui/lab';
+import { AuthContext } from '../../context/auth';
 
-const Editor = dyanic(() => import('../../components/Editor'), {
+const Editor = dynamic(() => import('../../components/Editor'), {
   ssr: false,
 });
 
@@ -60,6 +62,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const CreatePost = () => {
   const classes = useStyles();
+
+  const { user } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -374,6 +378,7 @@ const CreatePost = () => {
               <Grid item xs={12} sm={6}>
                 <Box display="flex" justifyContent="center">
                   <FormControlLabel
+                    disabled={user && user.role !== 'admin'}
                     control={
                       <Checkbox
                         checked={availableForPublic}

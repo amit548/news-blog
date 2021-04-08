@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Pagination, Alert } from '@material-ui/lab';
 import {
   Box,
   Grid,
@@ -5,12 +8,8 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
-import { Pagination, Alert } from '@material-ui/lab';
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
 
 import UserList from '../../components/UserList';
-import { AuthContext } from '../../context/auth';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -24,8 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Users = () => {
   const classes = useStyles();
 
-  const [user, setUser] = useContext(AuthContext);
-
   const [loading, setLoading] = useState(false);
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [error, setError] = useState<any>({});
@@ -37,14 +34,15 @@ const Users = () => {
         const result = await axios.get('http://localhost:4000/api/user/list', {
           withCredentials: true,
         });
-        setLoading(false);
         setRegisteredUsers(result.data);
-      } catch (error) {
+        setError({});
         setLoading(false);
+      } catch (error) {
         if (error.response)
           setError({
             ...error.response.data.body,
           });
+        setLoading(false);
       }
     })();
   }, []);

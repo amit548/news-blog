@@ -10,6 +10,7 @@ import userRoutes from './routes/user';
 import meRoutes from './routes/me';
 import postsRoutes from './routes/post';
 import HttpException from './exceptions/http-exception';
+import { join } from 'path';
 
 const server = express();
 
@@ -18,6 +19,8 @@ server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
+
+server.use('/public', express.static(join(__dirname, '../public')));
 
 server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);

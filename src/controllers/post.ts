@@ -9,7 +9,7 @@ import { User, UserModel } from '../models/user';
 import { deleteFile, makeId } from '../utils/util';
 
 const createPost = async (req: Request, res: Response, next: NextFunction) => {
-  let { title, description, category, private: isPrivate } = req.body;
+  let { title, description, category, private: isPrivate, videoUrl } = req.body;
 
   const user: User = res.locals.user;
 
@@ -35,6 +35,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
       category,
       creator: user.id,
       private: isPrivate,
+      videoUrl,
     };
 
     if (req.files) {
@@ -138,7 +139,34 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 
 const getPosts = async (_: Request, res: Response, next: NextFunction) => {
   try {
-    const posts = await PostModel.find({}).exec();
+    const posts = await PostModel.find({ private: false })
+      .sort({ createdAt: -1 })
+      .populate('creator')
+      .exec();
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPostsForAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user: User = res.locals.user;
+
+  try {
+    let adminConfig: any = {};
+
+    if (user.role !== 'admin') {
+      adminConfig.creator = user.id;
+    }
+
+    const posts = await PostModel.find(adminConfig)
+      .sort({ createdAt: -1 })
+      .populate('creator')
+      .exec();
     res.status(200).json(posts);
   } catch (error) {
     next(error);
@@ -341,4 +369,11 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { createPost, getPost, getPosts, updatePost, deletePost };
+export {
+  createPost,
+  getPost,
+  getPosts,
+  updatePost,
+  deletePost,
+  getPostsForAdmin,
+};
