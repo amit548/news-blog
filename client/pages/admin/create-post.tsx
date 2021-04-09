@@ -22,10 +22,11 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormEvent, useState } from 'react';
-import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import axios from 'axios';
 import { Alert } from '@material-ui/lab';
-import { AuthContext } from '../../context/auth';
+
+import FileUploadButton from '../../components/FileUploadButton';
+import { useSelector } from 'react-redux';
 
 const Editor = dynamic(() => import('../../components/Editor'), {
   ssr: false,
@@ -62,10 +63,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const CreatePost = () => {
   const classes = useStyles();
-
-  const { user } = useContext(AuthContext);
-
   const router = useRouter();
+
+  const authData = useSelector((state: any) => state.auth);
 
   const [loading, setLoading] = useState(false);
   const [postTitle, setPostTitle] = useState('');
@@ -110,8 +110,6 @@ const CreatePost = () => {
       setError({});
       router.push('/admin/posts');
     } catch (error) {
-      console.error(error.response);
-
       setLoading(false);
       if (error.response)
         setError({
@@ -178,180 +176,40 @@ const CreatePost = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginTop: 10 }}
-                >
-                  {thumbnail && (
-                    <Typography
-                      noWrap
-                      component="span"
-                      style={{ marginRight: 20 }}
-                    >
-                      {thumbnail.name}
-                    </Typography>
-                  )}
-
-                  <input
-                    accept="image/*"
-                    id="contained-button-thumbnail-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={(e) => setThumbnail(e.target.files[0])}
-                  />
-                  <label htmlFor="contained-button-thumbnail-file">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      component="span"
-                      startIcon={<AddAPhotoOutlinedIcon />}
-                    >
-                      Thumbnail
-                    </Button>
-                  </label>
-                </Box>
+                <FileUploadButton
+                  fileId="thumbnail-image-upload"
+                  image={thumbnail}
+                  setImage={setThumbnail}
+                  actionName="Thumbnail"
+                />
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginTop: 10 }}
-                >
-                  {image1 && (
-                    <Typography
-                      noWrap
-                      component="span"
-                      style={{ marginRight: 20 }}
-                    >
-                      {image1.name}
-                    </Typography>
-                  )}
-                  <input
-                    accept="image/*"
-                    id="contained-button-image1-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={(e) => setImage1(e.target.files[0])}
-                  />
-                  <label htmlFor="contained-button-image1-file">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      component="span"
-                      startIcon={<AddAPhotoOutlinedIcon />}
-                    >
-                      Image
-                    </Button>
-                  </label>
-                </Box>
+                <FileUploadButton
+                  fileId="image1-upload"
+                  image={image1}
+                  setImage={setImage1}
+                />
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginTop: 10 }}
-                >
-                  {image2 && (
-                    <Typography
-                      noWrap
-                      component="span"
-                      style={{ marginRight: 20 }}
-                    >
-                      {image2.name}
-                    </Typography>
-                  )}
-                  <input
-                    accept="image/*"
-                    id="contained-button-image2-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={(e) => setImage2(e.target.files[0])}
-                  />
-                  <label htmlFor="contained-button-image2-file">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      component="span"
-                      startIcon={<AddAPhotoOutlinedIcon />}
-                    >
-                      Image
-                    </Button>
-                  </label>
-                </Box>
+                <FileUploadButton
+                  fileId="image2-upload"
+                  image={image2}
+                  setImage={setImage2}
+                />
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginTop: 10 }}
-                >
-                  {image3 && (
-                    <Typography
-                      noWrap
-                      component="span"
-                      style={{ marginRight: 20 }}
-                    >
-                      {image3.name}
-                    </Typography>
-                  )}
-                  <input
-                    accept="image/*"
-                    id="contained-button-image3-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={(e) => setImage3(e.target.files[0])}
-                  />
-                  <label htmlFor="contained-button-image3-file">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      component="span"
-                      startIcon={<AddAPhotoOutlinedIcon />}
-                    >
-                      Image
-                    </Button>
-                  </label>
-                </Box>
+                <FileUploadButton
+                  fileId="image3-upload"
+                  image={image3}
+                  setImage={setImage3}
+                />
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginTop: 10 }}
-                >
-                  {image4 && (
-                    <Typography
-                      noWrap
-                      component="span"
-                      style={{ marginRight: 20 }}
-                    >
-                      {image4.name}
-                    </Typography>
-                  )}
-                  <input
-                    accept="image/*"
-                    id="contained-button-image4-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={(e) => setImage4(e.target.files[0])}
-                  />
-                  <label htmlFor="contained-button-image4-file">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      component="span"
-                      startIcon={<AddAPhotoOutlinedIcon />}
-                    >
-                      Image
-                    </Button>
-                  </label>
-                </Box>
+                <FileUploadButton
+                  fileId="image4-upload"
+                  image={image4}
+                  setImage={setImage4}
+                />
               </Grid>
               <Grid item xs={12} />
               <Grid item xs={12} sm={6}>
@@ -378,7 +236,7 @@ const CreatePost = () => {
               <Grid item xs={12} sm={6}>
                 <Box display="flex" justifyContent="center">
                   <FormControlLabel
-                    disabled={user && user.role !== 'admin'}
+                    disabled={authData.user && authData.user.role !== 'admin'}
                     control={
                       <Checkbox
                         checked={availableForPublic}

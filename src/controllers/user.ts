@@ -127,6 +127,31 @@ const userList = async (_: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const singleUser = async (req: Request, res: Response, next: NextFunction) => {
+  const adminUser = res.locals.user;
+
+  try {
+    let errors: any = {};
+
+    if (!adminUser) errors.admin = 'Please login as admin first';
+
+    if (adminUser.role !== 'admin')
+      errors.admin =
+        "Unfortunately it's not possible to show all members because you're not the admin";
+
+    if (!isValidObjectId(req.params.id)) errors.id = 'Id Not valid';
+
+    if (Object.keys(errors).length > 0)
+      throw createError(403, { body: errors });
+
+    const user = await UserModel.findById(req.params.id).exec();
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteListUser = async (
   req: Request,
   res: Response,
@@ -224,4 +249,12 @@ const updateListUser = async (
   }
 };
 
-export { register, login, logout, userList, deleteListUser, updateListUser };
+export {
+  register,
+  login,
+  logout,
+  userList,
+  deleteListUser,
+  updateListUser,
+  singleUser,
+};

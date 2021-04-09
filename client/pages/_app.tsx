@@ -1,15 +1,13 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
 
 import Layout from '../components/Layout';
-import { AuthContext } from '../context/auth';
 import theme from '../src/theme';
+import store from '../store';
 
 const App = ({ Component, pageProps }) => {
-  const [user, setUser] = useState<any>(null);
-
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -17,27 +15,14 @@ const App = ({ Component, pageProps }) => {
     }
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await axios.get('http://localhost:4000/api/me', {
-          withCredentials: true,
-        });
-        setUser(result.data);
-      } catch (error) {
-        console.error(error.response);
-      }
-    })();
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AuthContext.Provider value={{ user, setUser }}>
+      <Provider store={store}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </AuthContext.Provider>
+      </Provider>
     </ThemeProvider>
   );
 };

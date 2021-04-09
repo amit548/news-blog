@@ -11,6 +11,7 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   media: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
 
 const AdminPostCard = ({ post, setPosts, setLoading, setError }) => {
   const classes = useStyles();
+  const router = useRouter();
 
   const handlePostDelete = async (id: string) => {
     setLoading(true);
@@ -60,7 +62,12 @@ const AdminPostCard = ({ post, setPosts, setLoading, setError }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton color="primary">
+          <IconButton
+            color="primary"
+            onClick={() => {
+              router.push(`/admin/edit-post/${post._id}`);
+            }}
+          >
             <EditIcon />
           </IconButton>
           <IconButton

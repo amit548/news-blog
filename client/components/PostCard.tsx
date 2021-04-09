@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -7,6 +8,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   media: {
@@ -16,36 +18,35 @@ const useStyles = makeStyles({
   title: {
     display: '-webkit-box',
     WebkitBoxOrient: 'vertical',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 2,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
 });
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <Grid item xs={12} sm={4}>
       <Card variant="outlined">
-        <CardActionArea>
+        <CardActionArea
+          onClick={() => {
+            router.push(`/post/${post._id}`);
+          }}
+        >
           <CardMedia
-            image="/news-paper.jpg"
+            image={`http://localhost:4000/public/images/${post.thumbnailImage}`}
             title="News Paper"
             className={classes.media}
           />
-          <CardContent>
-            <Typography
-              variant="body1"
-              color="textPrimary"
-              component="p"
-              className={classes.title}
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-              in ut voluptates modi sed porro doloremque nisi, id animi rem
-              incidunt explicabo quibusdam accusamus possimus ipsa ullam culpa
-              sunt ea?
-            </Typography>
+          <CardContent style={{ height: 80 }}>
+            <Box display="flex" alignItems="center" style={{ height: '100%' }}>
+              <Typography color="textPrimary" className={classes.title}>
+                {post.title}
+              </Typography>
+            </Box>
           </CardContent>
         </CardActionArea>
       </Card>

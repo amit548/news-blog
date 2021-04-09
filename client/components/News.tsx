@@ -1,19 +1,17 @@
-import { Grid, Chip, Avatar } from '@material-ui/core';
+import { Grid, Chip } from '@material-ui/core';
 
 import PostCard from './PostCard';
 
-const News = () => {
+const News = ({ chipName, posts }) => {
   return (
     <>
       <Grid item xs={12}>
-        <Chip
-          clickable
-          color="primary"
-          avatar={<Avatar>স</Avatar>}
-          label="সরকারি চাকরি"
-        />
+        <Chip clickable color="primary" label={chipName} />
       </Grid>
-      <PostCard />
+
+      {posts.map((post: any) => (
+        <PostCard key={post._id} post={post} />
+      ))}
     </>
   );
 };

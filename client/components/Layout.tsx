@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppBar,
   Button,
@@ -15,8 +15,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Box,
   Hidden,
+  Box,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
@@ -28,8 +28,15 @@ import SubtitlesOutlinedIcon from '@material-ui/icons/SubtitlesOutlined';
 import WorkOffOutlinedIcon from '@material-ui/icons/WorkOffOutlined';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
 import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
-import { AuthContext } from '../context/auth';
+
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadingData,
+  login,
+  loginError,
+  logout,
+} from '../features/auth/authSlice';
 
 const drawerWidth = 240;
 
@@ -60,25 +67,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Layout = ({ children }) => {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const { user, setUser } = useContext(AuthContext);
+  useEffect(() => {
+    (async () => {
+      dispatch(loadingData());
+      try {
+        const response = await axios.get('http://localhost:4000/api/me', {
+          withCredentials: true,
+        });
+        dispatch(login(response.data));
+      } catch (error) {
+        dispatch(loginError(error.response.data.body));
+      }
+    })();
+  }, []);
+
+  const authData = useSelector((state: any) => state.auth);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   let drawerList = [];
 
-  if (user) {
+  if (authData.user) {
     drawerList = [
-      {
-        path: '/admin/register',
-        title: 'Create User',
-        icon: <PersonAddIcon color="secondary" />,
-      },
-      {
-        path: '/admin/users',
-        title: 'Manage Users',
-        icon: <PeopleAltIcon color="secondary" />,
-      },
       {
         path: '/admin/create-post',
         title: 'Create Posts',
@@ -90,6 +102,20 @@ const Layout = ({ children }) => {
         icon: <PhotoAlbumOutlinedIcon color="secondary" />,
       },
     ];
+
+    if (authData.user.role === 'admin')
+      drawerList.unshift(
+        {
+          path: '/admin/register',
+          title: 'Create User',
+          icon: <PersonAddIcon color="secondary" />,
+        },
+        {
+          path: '/admin/users',
+          title: 'Manage Users',
+          icon: <PeopleAltIcon color="secondary" />,
+        }
+      );
   } else {
     drawerList = [
       {
@@ -104,7 +130,7 @@ const Layout = ({ children }) => {
       },
       {
         path: '/admin/register',
-        title: 'পরিক্ষার সিলেবাস',
+        title: 'পরীক্ষার সিলেবাস',
         icon: <ReceiptOutlinedIcon color="secondary" />,
       },
       {
@@ -131,7 +157,8 @@ const Layout = ({ children }) => {
         {},
         { withCredentials: true }
       );
-      setUser(null);
+      dispatch(logout());
+      await router.push('/');
     } catch (_) {}
   };
 
@@ -150,15 +177,19 @@ const Layout = ({ children }) => {
             </Typography>
           </Link>
 
-          {user ? (
+          {authData.user ? (
             <>
               <Hidden smDown>
-                <Link href="/admin/register">
-                  <Button>Create User</Button>
-                </Link>
-                <Link href="/admin/users">
-                  <Button>Manage Users</Button>
-                </Link>
+                {authData.user && authData.user.role === 'admin' && (
+                  <>
+                    <Link href="/admin/register">
+                      <Button>Create User</Button>
+                    </Link>
+                    <Link href="/admin/users">
+                      <Button>Manage Users</Button>
+                    </Link>
+                  </>
+                )}
                 <Link href="/admin/create-post">
                   <Button>Create Post</Button>
                 </Link>

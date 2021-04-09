@@ -12,10 +12,12 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Alert } from '@material-ui/lab';
-import { AuthContext } from '../../context/auth';
+import Redirect from '../../components/Redirect';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../features/auth/authSlice';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -49,8 +51,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Login = () => {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const { setUser } = useContext(AuthContext);
+  const authData = useSelector((state: any) => state.auth);
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
@@ -67,7 +70,7 @@ const Login = () => {
       );
       setLoading(false);
       setError({});
-      setUser(result.data);
+      dispatch(login(result.data));
       router.push('/admin');
     } catch (error) {
       setLoading(false);
@@ -78,7 +81,9 @@ const Login = () => {
     }
   };
 
-  return (
+  return authData.user ? (
+    <Redirect to="/admin" />
+  ) : (
     <Box display="flex" justifyContent="center" alignItems="center">
       <Card variant="outlined" className={classes.card}>
         <CardContent>

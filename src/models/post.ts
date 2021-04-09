@@ -11,6 +11,7 @@ interface Post extends Document {
   category: string;
   creator: any;
   private: boolean;
+  videoUrl: string;
 }
 
 const PostSchema = new Schema<Post>(

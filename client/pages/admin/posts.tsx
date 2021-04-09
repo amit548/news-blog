@@ -1,11 +1,13 @@
 import axios from 'axios';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Pagination from '@material-ui/lab/Pagination';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Box, CircularProgress, Grid, Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import AdminPostCard from '../../components/AdminPostCard';
+import Redirect from '../../components/Redirect';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -19,6 +21,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Posts = () => {
   const classes = useStyles();
+
+  const authData = useSelector((state: any) => state.auth);
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,7 +51,7 @@ const Posts = () => {
     })();
   }, []);
 
-  return (
+  return authData.user ? (
     <Grid container spacing={1}>
       {loading && (
         <Box
@@ -83,6 +87,8 @@ const Posts = () => {
         </Box>
       </Grid>
     </Grid>
+  ) : (
+    <Redirect to="/" />
   );
 };
 

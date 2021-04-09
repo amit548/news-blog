@@ -15,8 +15,9 @@ import {
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import { FormEvent, useState } from 'react';
-import Redirect from '../../components/Redirect';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Redirect from '../../../components/Redirect';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -47,15 +48,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Register = () => {
-  const classes = useStyles();
+const EditUser = () => {
   const router = useRouter();
-
+  const classes = useStyles();
   const authData = useSelector((state: any) => state.auth);
 
   const [loading, setLoading] = useState(false);
   const [registerData, setRegisterData] = useState({});
   const [error, setError] = useState<any>({});
+
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const { id } = router.query;
+
+  useEffect(() => {
+    (async () => {
+      const result = await axios.get(
+        `http://localhost:4000/api/user/list/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      setSelectedUser(result.data);
+    })();
+  }, [id]);
 
   const onSumbitRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,6 +83,7 @@ const Register = () => {
         registerData,
         { withCredentials: true }
       );
+      console.log(result.data);
 
       setLoading(false);
       setError({});
@@ -81,7 +98,7 @@ const Register = () => {
   };
 
   return authData.user ? (
-    authData.user.role === 'admin' ? (
+    selectedUser && (
       <Box display="flex" justifyContent="center" alignItems="center">
         <Card variant="outlined" className={classes.card}>
           <CardContent>
@@ -91,7 +108,7 @@ const Register = () => {
               align="center"
               color="textSecondary"
             >
-              Create New User
+              Update User
             </Typography>
             <Divider className={classes.divider} />
 
@@ -115,7 +132,9 @@ const Register = () => {
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <TextField
+                    value={selectedUser.firstName}
                     fullWidth
+                    focused
                     label="First Name"
                     type="text"
                     onChange={(e) =>
@@ -128,6 +147,8 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    value={selectedUser.lastName}
+                    focused
                     fullWidth
                     label="Last Name"
                     type="text"
@@ -141,6 +162,8 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    value={selectedUser.email}
+                    focused
                     fullWidth
                     label="Email"
                     type="email"
@@ -185,7 +208,7 @@ const Register = () => {
                     color="primary"
                     type="submit"
                   >
-                    Add User
+                    Update User
                   </Button>
                 </Grid>
               </Grid>
@@ -193,12 +216,10 @@ const Register = () => {
           </CardContent>
         </Card>
       </Box>
-    ) : (
-      <Redirect to="/admin" />
     )
   ) : (
     <Redirect to="/" />
   );
 };
 
-export default Register;
+export default EditUser;

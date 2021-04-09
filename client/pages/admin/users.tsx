@@ -8,8 +8,11 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 
 import UserList from '../../components/UserList';
+import Redirect from '../../components/Redirect';
+import { fetchUsers } from '../../features/user/userSlice';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -23,8 +26,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Users = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const authData = useSelector((state: any) => state.auth);
+  const userData = useSelector((state: any) => state.user);
+
   const [loading, setLoading] = useState(false);
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [error, setError] = useState<any>({});
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const Users = () => {
         const result = await axios.get('http://localhost:4000/api/user/list', {
           withCredentials: true,
         });
-        setRegisteredUsers(result.data);
+        dispatch(fetchUsers(result.data));
         setError({});
         setLoading(false);
       } catch (error) {
@@ -47,37 +53,46 @@ const Users = () => {
     })();
   }, []);
 
-  return (
-    <>
-      <Grid container>
-        {loading && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            className={classes.progress}
-          >
-            <CircularProgress />
-          </Box>
-        )}
+  return authData.user ? (
+    authData.user.role === 'admin' ? (
+      <>
+        <Grid container>
+          {loading && (
+            <Box
+              display="flex"
+              justifyContent="center"
+              className={classes.progress}
+            >
+              <CircularProgress />
+            </Box>
+          )}
 
-        {Object.keys(error).map((err) => (
+          {Object.keys(error).map((err) => (
+            <Grid item xs={12}>
+              <Alert severity="error" key={err} className={classes.alert}>
+                {error[err]}
+              </Alert>
+            </Grid>
+          ))}
+
+          {userData.users.map((registeredUser) => (
+            <UserList
+              key={registeredUser._id}
+              registeredUser={registeredUser}
+            />
+          ))}
           <Grid item xs={12}>
-            <Alert severity="error" key={err} className={classes.alert}>
-              {error[err]}
-            </Alert>
+            <Box display="flex" justifyContent="center">
+              <Pagination variant="outlined" color="primary" count={20} />
+            </Box>
           </Grid>
-        ))}
-
-        {registeredUsers.map((registeredUser) => (
-          <UserList key={registeredUser._id} registeredUser={registeredUser} />
-        ))}
-        <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
-            <Pagination variant="outlined" color="primary" count={20} />
-          </Box>
         </Grid>
-      </Grid>
-    </>
+      </>
+    ) : (
+      <Redirect to="/admin" />
+    )
+  ) : (
+    <Redirect to="/" />
   );
 };
 

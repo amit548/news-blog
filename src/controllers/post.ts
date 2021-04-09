@@ -198,7 +198,13 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const { id } = req.params;
-  const { title, description, category, status } = req.body;
+  const {
+    title,
+    description,
+    category,
+    private: isPrivate,
+    videoUrl,
+  } = req.body;
 
   try {
     let errors: any = {};
@@ -224,7 +230,8 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     if (title) post!.title = title;
     if (description) post!.description = description;
     if (category) post!.category = category;
-    if (status) post!.private = status;
+    if (isPrivate) post!.private = isPrivate;
+    if (videoUrl) post!.videoUrl = videoUrl;
     if (req.files) {
       if ((req.files as any).thumbnailImage) {
         if (

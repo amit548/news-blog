@@ -1,20 +1,22 @@
 import { Grid, Typography } from '@material-ui/core';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/auth';
+import { useSelector } from 'react-redux';
+import Redirect from '../../components/Redirect';
 
 const Admin = () => {
-  const { user } = useContext(AuthContext);
+  const authData = useSelector((state: any) => state.auth);
 
-  return (
+  return authData.user ? (
     <Grid container>
-      {user && (
+      {authData.user && (
         <Typography variant="h6">
-          Role - {user.role}
+          Role - {authData.user.role}
           <br />
-          Name - {user.firstName} {user.lastName}
+          Name - {authData.user.firstName} {authData.user.lastName}
         </Typography>
       )}
     </Grid>
+  ) : (
+    <Redirect to="/" />
   );
 };
 

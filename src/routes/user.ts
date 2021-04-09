@@ -7,6 +7,7 @@ import {
   login,
   logout,
   register,
+  singleUser,
   updateListUser,
   userList,
 } from '../controllers/user';
@@ -75,6 +76,8 @@ router.post(
 router.post('/logout', auth, logout);
 
 router.get('/list', auth, userList);
+
+router.get('/list/:id', auth, singleUser);
 
 router.delete('/list/:id', auth, deleteListUser);
 
