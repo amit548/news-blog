@@ -1,7 +1,10 @@
-import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import News from '../../components/News';
 import SideBar from '../../components/SideBar';
@@ -13,6 +16,7 @@ const NewsSlug = () => {
   const [loadedData, setLoadedData] = useState([]);
   const [postsAscategory, setPostsAscategory] = useState<any>({});
   const [error, setError] = useState<any>({});
+  const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -29,6 +33,15 @@ const NewsSlug = () => {
       }
     })();
   }, [router.query.slug]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await axios.get('http://localhost:4000/api/post/video');
+        setVideoList(result.data);
+      } catch (error) {}
+    })();
+  }, []);
 
   useEffect(() => {
     const সরকারি_চাকরি = loadedData.filter(
@@ -82,7 +95,13 @@ const NewsSlug = () => {
           <Grid item xs={12}>
             <Typography variant="h5">Useful videos</Typography>
           </Grid>
-          <SideBar />
+          {videoList.length > 0 ? (
+            videoList.map((video) => <SideBar video={video} key={video._id} />)
+          ) : (
+            <Grid item xs={12}>
+              <Typography>No videos found</Typography>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

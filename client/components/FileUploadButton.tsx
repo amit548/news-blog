@@ -1,7 +1,10 @@
-import { Box, Typography, Button, IconButton } from '@material-ui/core';
+import axios from 'axios';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import DeleteForeverOutlined from '@material-ui/icons/DeleteForeverOutlined';
-import axios from 'axios';
 
 const FileUploadButton = ({
   image,

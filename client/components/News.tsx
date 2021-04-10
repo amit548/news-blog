@@ -1,5 +1,6 @@
-import { Grid, Chip } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 
 import PostCard from './PostCard';
 

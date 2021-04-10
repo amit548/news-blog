@@ -1,22 +1,21 @@
-import {
-  Grid,
-  Typography,
-  Box,
-  CircularProgress,
-  makeStyles,
-} from '@material-ui/core';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import { Carousel } from 'react-responsive-carousel';
-import SideBar from '../../components/SideBar';
+import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
-import { Alert } from '@material-ui/lab';
-import ReactPlayer from 'react-player';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-const useStyles = makeStyles((theme) => ({
+import SideBar from '../../components/SideBar';
+
+const useStyles = makeStyles((theme: Theme) => ({
   alert: {
     marginBottom: theme.spacing(1),
   },

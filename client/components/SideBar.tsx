@@ -1,6 +1,10 @@
-import { Box, Card, CardActionArea, Grid, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const SideBar = ({ video }) => {
   const router = useRouter();
