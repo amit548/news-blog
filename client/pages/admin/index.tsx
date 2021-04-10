@@ -16,7 +16,7 @@ const Admin = () => {
       )}
     </Grid>
   ) : (
-    <Redirect to="/" />
+    !authData.isLoading && <Redirect to="/" />
   );
 };
 

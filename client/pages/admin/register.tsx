@@ -62,7 +62,7 @@ const Register = () => {
 
     setLoading(true);
     try {
-      const result = await axios.post(
+      await axios.post(
         'http://localhost:4000/api/user/register',
         registerData,
         { withCredentials: true }
@@ -194,10 +194,10 @@ const Register = () => {
         </Card>
       </Box>
     ) : (
-      <Redirect to="/admin" />
+      !authData.isLoading && <Redirect to="/admin" />
     )
   ) : (
-    <Redirect to="/" />
+    !authData.isLoading && <Redirect to="/" />
   );
 };
 

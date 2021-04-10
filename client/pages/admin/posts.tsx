@@ -88,7 +88,7 @@ const Posts = () => {
       </Grid>
     </Grid>
   ) : (
-    <Redirect to="/" />
+    !authData.isLoading && <Redirect to="/" />
   );
 };
 

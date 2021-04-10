@@ -89,10 +89,10 @@ const Users = () => {
         </Grid>
       </>
     ) : (
-      <Redirect to="/admin" />
+      !authData.isLoading && <Redirect to="/admin" />
     )
   ) : (
-    <Redirect to="/" />
+    !authData.isLoading && <Redirect to="/" />
   );
 };
 
