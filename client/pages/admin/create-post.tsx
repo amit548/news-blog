@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -37,21 +36,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   card: {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '60%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '40%',
-    },
-    [theme.breakpoints.up('xl')]: {
-      width: '30%',
-    },
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   width: '60%',
+    // },
+    // [theme.breakpoints.up('lg')]: {
+    //   width: '40%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   width: '30%',
+    // },
   },
   alert: {
     marginBottom: theme.spacing(1),

@@ -1,4 +1,4 @@
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { serialize } from 'cookie';
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
@@ -240,7 +240,7 @@ const updateListUser = async (
     if (firstName) updateUser!.firstName = firstName;
     if (lastName) updateUser!.lastName = lastName;
     if (email) updateUser!.email = email;
-    if (password) updateUser!.password = password;
+    if (password) updateUser!.password = await hash(password, 12);
     const updatedUserData = await updateUser?.save();
 
     res.status(201).json(updatedUserData);

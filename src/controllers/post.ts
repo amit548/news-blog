@@ -149,6 +149,25 @@ const getPosts = async (_: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getPostsByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { category = 'সরকারি চাকরি' } = req.query as any;
+
+    const posts = await PostModel.find({
+      private: false,
+      category,
+    }).exec();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getPostsForAdmin = async (
   req: Request,
   res: Response,
@@ -383,4 +402,5 @@ export {
   updatePost,
   deletePost,
   getPostsForAdmin,
+  getPostsByCategory,
 };

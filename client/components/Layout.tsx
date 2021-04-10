@@ -212,7 +212,7 @@ const Layout = ({ children }) => {
               </Link>
 
               <Link href="/">
-                <Button>পরিক্ষার সিলেবাস</Button>
+                <Button>পরীক্ষার সিলেবাস</Button>
               </Link>
 
               <Link href="/">
@@ -253,7 +253,7 @@ const Layout = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      <Container maxWidth="xl" className={classes.container}>
+      <Container maxWidth="lg" className={classes.container}>
         {children}
       </Container>
     </>

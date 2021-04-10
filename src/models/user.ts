@@ -71,7 +71,7 @@ UserSchema.pre('save', async function (next) {
     this.lastName =
       lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
 
-    if (this.isNew || this.isModified(this.password)) {
+    if (this.isNew) {
       this.password = await hash(this.password, 12);
     }
     next();

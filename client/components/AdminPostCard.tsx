@@ -47,7 +47,7 @@ const AdminPostCard = ({ post, setPosts, setLoading, setError }) => {
   const fullName = `${post.creator.firstName} ${post.creator.lastName}`;
 
   return (
-    <Grid item xs={12} sm={4} md={4} lg={3}>
+    <Grid item xs={12} sm={6} md={4}>
       <Card variant="outlined">
         <CardMedia
           image={`http://localhost:4000/public/images/${post.thumbnailImage}`}

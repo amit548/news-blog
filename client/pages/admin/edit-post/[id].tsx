@@ -37,21 +37,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   card: {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '60%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '40%',
-    },
-    [theme.breakpoints.up('xl')]: {
-      width: '30%',
-    },
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   width: '60%',
+    // },
+    // [theme.breakpoints.up('lg')]: {
+    //   width: '40%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   width: '30%',
+    // },
   },
   alert: {
     marginBottom: theme.spacing(1),
@@ -67,7 +67,7 @@ const EditPost = () => {
 
   const authData = useSelector((state: any) => state.auth);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [postTitle, setPostTitle] = useState('');
   const [postDescription, setPostDescription] = useState('');
   const [postVideoUrl, setVideoUrl] = useState('');
@@ -107,6 +107,7 @@ const EditPost = () => {
         setImage3({ name: result.data.image3 });
         setImage4({ name: result.data.image4 });
       } catch (error) {
+        router.push('/admin/posts');
         setLoading(false);
       }
     })();
@@ -146,159 +147,159 @@ const EditPost = () => {
     }
   };
 
-  return authData.user ? (
-    authData.user && (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined" className={classes.card}>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              align="center"
-              color="textSecondary"
-            >
-              Update Post
-            </Typography>
-            <Divider className={classes.divider} />
-
-            {loading && (
-              <Box
-                display="flex"
-                justifyContent="center"
-                className={classes.progress}
+  return authData.user
+    ? authData.user && (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Card variant="outlined" className={classes.card}>
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                align="center"
+                color="textSecondary"
               >
-                <CircularProgress />
-              </Box>
-            )}
+                Update Post
+              </Typography>
+              <Divider className={classes.divider} />
 
-            {Object.keys(error).map((err) => (
-              <Alert severity="error" key={err} className={classes.alert}>
-                {error[err]}
-              </Alert>
-            ))}
+              {loading && (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  className={classes.progress}
+                >
+                  <CircularProgress />
+                </Box>
+              )}
 
-            <form noValidate autoComplete="off" onSubmit={onSubmitHandler}>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <TextField
-                    value={postTitle}
-                    fullWidth
-                    label="Post Title"
-                    type="text"
-                    required
-                    onChange={(e) => setPostTitle(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <br />
-                  <FormLabel component="legend">Post Description</FormLabel>
-                  <Editor
-                    setPostDescription={setPostDescription}
-                    postDescription={postDescription}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    value={postVideoUrl}
-                    fullWidth
-                    label="Post Video URL"
-                    type="text"
-                    onChange={(e) => setVideoUrl(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FileUploadButton
-                    fileId="thumbnail-image-upload"
-                    image={thumbnail}
-                    setImage={setThumbnail}
-                    actionName="Thumbnail"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FileUploadButton
-                    fileId="image1-upload"
-                    image={image1}
-                    setImage={setImage1}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FileUploadButton
-                    fileId="image2-upload"
-                    image={image2}
-                    setImage={setImage2}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FileUploadButton
-                    fileId="image3-upload"
-                    image={image3}
-                    setImage={setImage3}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FileUploadButton
-                    fileId="image4-upload"
-                    image={image4}
-                    setImage={setImage4}
-                  />
-                </Grid>
-                <Grid item xs={12} />
-                <Grid item xs={12} sm={6}>
-                  <Box display="flex" justifyContent="center">
-                    <FormControl
-                      variant="filled"
-                      style={{ minWidth: 120 }}
+              {Object.keys(error).map((err) => (
+                <Alert severity="error" key={err} className={classes.alert}>
+                  {error[err]}
+                </Alert>
+              ))}
+
+              <form noValidate autoComplete="off" onSubmit={onSubmitHandler}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={postTitle}
+                      fullWidth
+                      label="Post Title"
+                      type="text"
                       required
-                    >
-                      <InputLabel>Category</InputLabel>
-                      <Select
-                        value={category}
-                        onChange={(e: any) => setCategory(e.target.value)}
-                      >
-                        {categoryList.map((cat) => (
-                          <MenuItem key={cat.name} value={cat.value}>
-                            {cat.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Box display="flex" justifyContent="center">
-                    <FormControlLabel
-                      disabled={authData.user && authData.user.role !== 'admin'}
-                      control={
-                        <Checkbox
-                          checked={availableForPublic}
-                          onChange={(e) =>
-                            setAvailableForPublic(e.target.checked)
-                          }
-                        />
-                      }
-                      label="Available for Public"
+                      onChange={(e) => setPostTitle(e.target.value)}
                     />
-                  </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <br />
+                    <FormLabel component="legend">Post Description</FormLabel>
+                    <Editor
+                      setPostDescription={setPostDescription}
+                      postDescription={postDescription}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={postVideoUrl}
+                      fullWidth
+                      label="Post Video URL"
+                      type="text"
+                      onChange={(e) => setVideoUrl(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FileUploadButton
+                      fileId="thumbnail-image-upload"
+                      image={thumbnail}
+                      setImage={setThumbnail}
+                      actionName="Thumbnail"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FileUploadButton
+                      fileId="image1-upload"
+                      image={image1}
+                      setImage={setImage1}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FileUploadButton
+                      fileId="image2-upload"
+                      image={image2}
+                      setImage={setImage2}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FileUploadButton
+                      fileId="image3-upload"
+                      image={image3}
+                      setImage={setImage3}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FileUploadButton
+                      fileId="image4-upload"
+                      image={image4}
+                      setImage={setImage4}
+                    />
+                  </Grid>
+                  <Grid item xs={12} />
+                  <Grid item xs={12} sm={6}>
+                    <Box display="flex" justifyContent="center">
+                      <FormControl
+                        variant="filled"
+                        style={{ minWidth: 120 }}
+                        required
+                      >
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                          value={category}
+                          onChange={(e: any) => setCategory(e.target.value)}
+                        >
+                          {categoryList.map((cat) => (
+                            <MenuItem key={cat.name} value={cat.value}>
+                              {cat.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Box display="flex" justifyContent="center">
+                      <FormControlLabel
+                        disabled={
+                          authData.user && authData.user.role !== 'admin'
+                        }
+                        control={
+                          <Checkbox
+                            checked={availableForPublic}
+                            onChange={(e) =>
+                              setAvailableForPublic(e.target.checked)
+                            }
+                          />
+                        }
+                        label="Available for Public"
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                      type="submit"
+                    >
+                      Update Post
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    type="submit"
-                  >
-                    Update Post
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </CardContent>
-        </Card>
-      </Box>
-    )
-  ) : (
-    <Redirect to="/" />
-  );
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+      )
+    : !loading && <Redirect to="/" />;
 };
 
 export default EditPost;

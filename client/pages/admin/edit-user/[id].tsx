@@ -24,21 +24,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   card: {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '60%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '40%',
-    },
-    [theme.breakpoints.up('xl')]: {
-      width: '30%',
-    },
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   width: '60%',
+    // },
+    // [theme.breakpoints.up('lg')]: {
+    //   width: '40%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   width: '30%',
+    // },
   },
   progress: {
     marginBottom: theme.spacing(2),
@@ -53,23 +53,28 @@ const EditUser = () => {
   const classes = useStyles();
   const authData = useSelector((state: any) => state.auth);
 
-  const [loading, setLoading] = useState(false);
-  const [registerData, setRegisterData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [registerData, setRegisterData] = useState<any>({});
   const [error, setError] = useState<any>({});
-
-  const [selectedUser, setSelectedUser] = useState(null);
 
   const { id } = router.query;
 
   useEffect(() => {
     (async () => {
-      const result = await axios.get(
-        `http://localhost:4000/api/user/list/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
-      setSelectedUser(result.data);
+      setLoading(true);
+      try {
+        const result = await axios.get(
+          `http://localhost:4000/api/user/list/${id}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setRegisterData(result.data);
+        setLoading(false);
+      } catch (_) {
+        router.push('/admin/users');
+        setLoading(false);
+      }
     })();
   }, [id]);
 
@@ -78,148 +83,144 @@ const EditUser = () => {
 
     setLoading(true);
     try {
-      const result = await axios.post(
-        'http://localhost:4000/api/user/register',
+      await axios.put(
+        `http://localhost:4000/api/user/list/${router.query.id}`,
         registerData,
         { withCredentials: true }
       );
-      console.log(result.data);
-
-      setLoading(false);
       setError({});
+      setLoading(false);
       router.push('/admin/users');
     } catch (error) {
-      setLoading(false);
       if (error.response)
         setError({
           ...error.response.data.body,
         });
+      setLoading(false);
     }
   };
 
-  return authData.user ? (
-    selectedUser && (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined" className={classes.card}>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              align="center"
-              color="textSecondary"
-            >
-              Update User
-            </Typography>
-            <Divider className={classes.divider} />
-
-            {loading && (
-              <Box
-                display="flex"
-                justifyContent="center"
-                className={classes.progress}
+  return authData.user
+    ? registerData && (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Card variant="outlined" className={classes.card}>
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                align="center"
+                color="textSecondary"
               >
-                <CircularProgress />
-              </Box>
-            )}
+                Update User
+              </Typography>
+              <Divider className={classes.divider} />
 
-            {Object.keys(error).map((err) => (
-              <Alert severity="error" key={err} className={classes.alert}>
-                {error[err]}
-              </Alert>
-            ))}
+              {loading && (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  className={classes.progress}
+                >
+                  <CircularProgress />
+                </Box>
+              )}
 
-            <form noValidate autoComplete="off" onSubmit={onSumbitRegister}>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <TextField
-                    value={selectedUser.firstName}
-                    fullWidth
-                    focused
-                    label="First Name"
-                    type="text"
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        firstName: e.target.value,
-                      })
-                    }
-                  />
+              {Object.keys(error).map((err) => (
+                <Alert severity="error" key={err} className={classes.alert}>
+                  {error[err]}
+                </Alert>
+              ))}
+
+              <form noValidate autoComplete="off" onSubmit={onSumbitRegister}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={registerData.firstName}
+                      fullWidth
+                      focused
+                      label="First Name"
+                      type="text"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          firstName: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={registerData.lastName}
+                      focused
+                      fullWidth
+                      label="Last Name"
+                      type="text"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          lastName: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={registerData.email}
+                      focused
+                      fullWidth
+                      label="Email"
+                      type="email"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          email: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Password"
+                      type="password"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          password: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Confirm Password"
+                      type="password"
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          confirmPassword: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                      type="submit"
+                    >
+                      Update User
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    value={selectedUser.lastName}
-                    focused
-                    fullWidth
-                    label="Last Name"
-                    type="text"
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        lastName: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    value={selectedUser.email}
-                    focused
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        email: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        password: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Confirm Password"
-                    type="password"
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        confirmPassword: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    type="submit"
-                  >
-                    Update User
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </CardContent>
-        </Card>
-      </Box>
-    )
-  ) : (
-    <Redirect to="/" />
-  );
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+      )
+    : !loading && <Redirect to="/" />;
 };
 
 export default EditUser;

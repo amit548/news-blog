@@ -24,21 +24,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   card: {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '60%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '40%',
-    },
-    [theme.breakpoints.up('xl')]: {
-      width: '30%',
-    },
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   width: '60%',
+    // },
+    // [theme.breakpoints.up('lg')]: {
+    //   width: '40%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   width: '30%',
+    // },
   },
   alert: {
     marginBottom: theme.spacing(1),
@@ -82,81 +82,79 @@ const Login = () => {
   };
 
   return authData.user ? (
-    <Redirect to="/admin" />
+    !authData.isLoading && <Redirect to="/admin" />
   ) : (
-    !authData.isLoading && (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined" className={classes.card}>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              align="center"
-              color="textSecondary"
+    <Box display="flex" justifyContent="center" alignItems="center">
+      <Card variant="outlined" className={classes.card}>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            align="center"
+            color="textSecondary"
+          >
+            Please Login
+          </Typography>
+          <Divider className={classes.divider} />
+
+          {loading && (
+            <Box
+              display="flex"
+              justifyContent="center"
+              className={classes.progress}
             >
-              Please Login
-            </Typography>
-            <Divider className={classes.divider} />
+              <CircularProgress />
+            </Box>
+          )}
 
-            {loading && (
-              <Box
-                display="flex"
-                justifyContent="center"
-                className={classes.progress}
-              >
-                <CircularProgress />
-              </Box>
-            )}
+          {Object.keys(error).map((err) => (
+            <Alert severity="error" key={err} className={classes.alert}>
+              {error[err]}
+            </Alert>
+          ))}
 
-            {Object.keys(error).map((err) => (
-              <Alert severity="error" key={err} className={classes.alert}>
-                {error[err]}
-              </Alert>
-            ))}
-
-            <form noValidate autoComplete="off" onSubmit={onSumbitLogin}>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    required
-                    error={!!error.email}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, email: e.target.value })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    required
-                    error={!!error.password}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, password: e.target.value })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    type="submit"
-                    disabled={loading}
-                  >
-                    Login
-                  </Button>
-                </Grid>
+          <form noValidate autoComplete="off" onSubmit={onSumbitLogin}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  required
+                  error={!!error.email}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, email: e.target.value })
+                  }
+                />
               </Grid>
-            </form>
-          </CardContent>
-        </Card>
-      </Box>
-    )
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  required
+                  error={!!error.password}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, password: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  type="submit"
+                  disabled={loading}
+                >
+                  Login
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

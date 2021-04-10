@@ -6,6 +6,7 @@ import {
   deletePost,
   getPost,
   getPosts,
+  getPostsByCategory,
   getPostsForAdmin,
   updatePost,
 } from '../controllers/post';
@@ -33,6 +34,8 @@ router.post(
 );
 
 router.get('/', getPosts);
+
+router.get('/news', getPostsByCategory);
 
 router.get('/admin', auth, getPostsForAdmin);
 

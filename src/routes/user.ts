@@ -101,9 +101,12 @@ router.put(
       .withMessage('Email empty')
       .isEmail()
       .withMessage('Please enter an valid E-mail address')
-      .custom(async (value) => {
-        const user = await UserModel.findOne({ email: value });
-        if (user) return Promise.reject(`${value} - already in use`);
+      .custom(async (value, { req }) => {
+        const user = await UserModel.findById((req.params as any).id);
+        const emailUser = await UserModel.findOne({ email: value });
+
+        if (emailUser?.id !== user?.id && emailUser)
+          return Promise.reject(`${value} - already in use`);
       })
       .normalizeEmail()
       .optional({ nullable: true, checkFalsy: true }),
