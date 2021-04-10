@@ -78,7 +78,7 @@ const Layout = ({ children }) => {
         });
         dispatch(login(response.data));
       } catch (error) {
-        dispatch(loginError(error.response.data.body));
+        error.response && dispatch(loginError(error.response.data.body));
       }
     })();
   }, []);

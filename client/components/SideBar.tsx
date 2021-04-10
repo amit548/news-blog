@@ -1,18 +1,21 @@
 import { Box, Card, CardActionArea, Grid, Typography } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
 
-const SideBar = () => {
+const SideBar = ({ video }) => {
+  const router = useRouter();
+
   return (
     <Grid item xs={12} sm={6} md={12}>
       <Card variant="outlined">
-        <CardActionArea>
+        <CardActionArea
+          onClick={() => {
+            router.push(`/post/${video._id}`);
+          }}
+        >
           <Grid container spacing={1}>
             <Grid item xs={4}>
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                width="100%"
-                height="70px"
-              />
+              <ReactPlayer url={video.videoUrl} width="100%" height="70px" />
             </Grid>
             <Grid item xs={8}>
               <Box
@@ -22,7 +25,7 @@ const SideBar = () => {
                 justifyContent="center"
               >
                 <Typography noWrap variant="h6">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  {video.title}
                 </Typography>
               </Box>
             </Grid>

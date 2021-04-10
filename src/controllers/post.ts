@@ -434,6 +434,30 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getVideoList = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await PostModel.find({ private: false })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    const videoExistsPosts = posts
+      .map((post) => ({
+        _id: post.id,
+        videoUrl: post.videoUrl,
+        title: post.title,
+      }))
+      .filter((vdo) => vdo.videoUrl !== '');
+
+    res.status(200).json(videoExistsPosts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   createPost,
   getPost,
@@ -443,4 +467,5 @@ export {
   getPostsForAdmin,
   getPostsByCategory,
   deleteImageFormPost,
+  getVideoList,
 };

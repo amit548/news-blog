@@ -1,7 +1,10 @@
-import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
@@ -17,6 +20,8 @@ const Home = () => {
 
   const postsData = useSelector((state: any) => state.posts);
 
+  const [videoList, setVideoList] = useState([]);
+
   useEffect(() => {
     (async () => {
       dispatch(loadingData());
@@ -27,6 +32,15 @@ const Home = () => {
       } catch (error) {
         dispatch(fetchFaild(error.response.data.body));
       }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await axios.get('http://localhost:4000/api/post/video');
+        setVideoList(result.data);
+      } catch (error) {}
     })();
   }, []);
 
@@ -55,7 +69,13 @@ const Home = () => {
           <Grid item xs={12}>
             <Typography variant="h5">Useful videos</Typography>
           </Grid>
-          <SideBar />
+          {videoList.length > 0 ? (
+            videoList.map((video) => <SideBar video={video} key={video._id} />)
+          ) : (
+            <Grid item xs={12}>
+              <Typography>No videos found</Typography>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

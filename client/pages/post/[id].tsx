@@ -14,14 +14,18 @@ import SideBar from '../../components/SideBar';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
 import { Alert } from '@material-ui/lab';
+import ReactPlayer from 'react-player';
 
 const useStyles = makeStyles((theme) => ({
   alert: {
     marginBottom: theme.spacing(1),
   },
   imageContainer: {
+    [theme.breakpoints.down('xs')]: {
+      height: 300,
+    },
     [theme.breakpoints.up('xs')]: {
-      height: 250,
+      height: 300,
     },
     [theme.breakpoints.up('sm')]: {
       height: 350,
@@ -46,6 +50,7 @@ const Post = () => {
   const [post, setPost] = useState(null);
   const [error, setError] = useState<any>({});
   const [images, setImages] = useState([]);
+  const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -63,6 +68,15 @@ const Post = () => {
       }
     })();
   }, [router.query.id]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await axios.get('http://localhost:4000/api/post/video');
+        setVideoList(result.data);
+      } catch (error) {}
+    })();
+  }, []);
 
   useEffect(() => {
     setImages(() => {
@@ -111,13 +125,22 @@ const Post = () => {
             ))}
           </Carousel>
           <Typography component="div">{parser(post.description)}</Typography>
+          {post.videoUrl && <ReactPlayer url={post.videoUrl} width="100%" />}
         </Grid>
         <Grid item xs={12} md={3}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Typography variant="h5">Useful videos</Typography>
             </Grid>
-            <SideBar />
+            {videoList.length > 0 ? (
+              videoList.map((video) => (
+                <SideBar video={video} key={video._id} />
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Typography>No videos found</Typography>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>

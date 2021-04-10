@@ -9,6 +9,7 @@ import {
   getPosts,
   getPostsByCategory,
   getPostsForAdmin,
+  getVideoList,
   updatePost,
 } from '../controllers/post';
 import auth from '../middlewares/auth';
@@ -35,6 +36,8 @@ router.post(
 );
 
 router.get('/', getPosts);
+
+router.get('/video', getVideoList);
 
 router.get('/news', getPostsByCategory);
 
