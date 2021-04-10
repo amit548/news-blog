@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 
 import {
   createPost,
+  deleteImageFormPost,
   deletePost,
   getPost,
   getPosts,
@@ -42,6 +43,8 @@ router.get('/admin', auth, getPostsForAdmin);
 router.get('/:id', getPost);
 
 router.delete('/:id', auth, deletePost);
+
+router.delete('/del/:fileName', auth, deleteImageFormPost);
 
 router.put('/:id', auth, updatePost);
 

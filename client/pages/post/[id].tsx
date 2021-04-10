@@ -19,6 +19,24 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     marginBottom: theme.spacing(1),
   },
+  imageContainer: {
+    [theme.breakpoints.up('xs')]: {
+      height: 250,
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: 350,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 405,
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: 519,
+    },
+  },
+  imageBlock: {
+    overflow: 'hidden',
+    objectFit: 'cover',
+  },
 }));
 
 const Post = () => {
@@ -84,8 +102,11 @@ const Post = () => {
           </Typography>
           <Carousel showThumbs={false}>
             {images.map((image) => (
-              <div key={image}>
-                <img src={`http://localhost:4000/public/images/${image}`} />
+              <div key={image} className={classes.imageContainer}>
+                <img
+                  className={classes.imageBlock}
+                  src={`http://localhost:4000/public/images/${image}`}
+                />
               </div>
             ))}
           </Carousel>

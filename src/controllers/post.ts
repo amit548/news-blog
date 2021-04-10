@@ -353,6 +353,45 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const deleteImageFormPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { fileName } = req.params;
+
+  try {
+    const post1 = await PostModel.findOne({ image1: fileName });
+    const post2 = await PostModel.findOne({ image2: fileName });
+    const post3 = await PostModel.findOne({ image3: fileName });
+    const post4 = await PostModel.findOne({ image4: fileName });
+
+    if (post1) {
+      post1.image1 = undefined;
+      await post1.save();
+    }
+
+    if (post2) {
+      post2.image1 = undefined;
+      await post2.save();
+    }
+
+    if (post3) {
+      post3.image1 = undefined;
+      await post3.save();
+    }
+
+    if (post4) {
+      post4.image1 = undefined;
+      await post4.save();
+    }
+
+    await deleteFile(fileName);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const { id } = req.params;
@@ -403,4 +442,5 @@ export {
   deletePost,
   getPostsForAdmin,
   getPostsByCategory,
+  deleteImageFormPost,
 };

@@ -1,5 +1,7 @@
-import { Box, Typography, Button } from '@material-ui/core';
+import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
+import DeleteForeverOutlined from '@material-ui/icons/DeleteForeverOutlined';
+import axios from 'axios';
 
 const FileUploadButton = ({
   image,
@@ -32,9 +34,25 @@ const FileUploadButton = ({
           color="primary"
           component="span"
           startIcon={<AddAPhotoOutlinedIcon />}
+          style={{ marginRight: 16 }}
         >
           {actionName}
         </Button>
+        {fileId !== 'thumbnail-image-upload' && (
+          <IconButton
+            onClick={async () => {
+              setImage(null);
+              try {
+                await axios.delete(
+                  `http://localhost:4000/api/post/del/${image.name}`,
+                  { withCredentials: true }
+                );
+              } catch (_) {}
+            }}
+          >
+            <DeleteForeverOutlined color="error" />
+          </IconButton>
+        )}
       </label>
     </Box>
   );
