@@ -35,23 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-  card: {
-    // [theme.breakpoints.up('xs')]: {
-    //   width: '100%',
-    // },
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '100%',
-    // },
-    // [theme.breakpoints.up('md')]: {
-    //   width: '60%',
-    // },
-    // [theme.breakpoints.up('lg')]: {
-    //   width: '40%',
-    // },
-    // [theme.breakpoints.up('xl')]: {
-    //   width: '30%',
-    // },
-  },
   alert: {
     marginBottom: theme.spacing(1),
   },
@@ -119,7 +102,7 @@ const CreatePost = () => {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <Card variant="outlined" className={classes.card}>
+      <Card variant="outlined">
         <CardContent>
           <Typography
             gutterBottom

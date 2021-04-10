@@ -36,23 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-  card: {
-    // [theme.breakpoints.up('xs')]: {
-    //   width: '100%',
-    // },
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '100%',
-    // },
-    // [theme.breakpoints.up('md')]: {
-    //   width: '60%',
-    // },
-    // [theme.breakpoints.up('lg')]: {
-    //   width: '40%',
-    // },
-    // [theme.breakpoints.up('xl')]: {
-    //   width: '30%',
-    // },
-  },
   alert: {
     marginBottom: theme.spacing(1),
   },
@@ -100,18 +83,18 @@ const EditPost = () => {
         setPostDescription(result.data.description);
         setAvailableForPublic(!result.data.private);
         setCategory(result.data.category);
-        setLoading(false);
         setThumbnail({ name: result.data.thumbnailImage });
         setImage1({ name: result.data.image1 });
         setImage2({ name: result.data.image2 });
         setImage3({ name: result.data.image3 });
         setImage4({ name: result.data.image4 });
+        setLoading(false);
       } catch (error) {
         router.push('/admin/posts');
         setLoading(false);
       }
     })();
-  }, []);
+  }, [router.query.id]);
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -150,7 +133,7 @@ const EditPost = () => {
   return authData.user
     ? authData.user && (
         <Box display="flex" justifyContent="center" alignItems="center">
-          <Card variant="outlined" className={classes.card}>
+          <Card variant="outlined">
             <CardContent>
               <Typography
                 gutterBottom
