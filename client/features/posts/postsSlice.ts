@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
-    isLoading: true,
+    isLoading: false,
     posts: [],
     postsAscategory: {},
     error: null,

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   imageContainer: {
     [theme.breakpoints.down('xs')]: {
-      height: 300,
+      height: 192,
     },
     [theme.breakpoints.up('xs')]: {
       height: 300,

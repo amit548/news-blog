@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
+import Pagination from '@material-ui/lab/Pagination';
 
 import News from '../../components/News';
 import SideBar from '../../components/SideBar';
@@ -26,22 +27,27 @@ const NewsSlug = () => {
   const [postsAscategory, setPostsAscategory] = useState<any>({});
   const [error, setError] = useState<any>({});
   const [videoList, setVideoList] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
+
+  const postsPerPage = 30;
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/post/news?category=${router.query.slug}`
+          `http://localhost:4000/api/post/news?category=${router.query.slug}&page=${page}&limit=${postsPerPage}`
         );
         setLoadedData(result.data.posts);
+        setPageCount(Math.ceil((result.data.totalPosts || 0) / postsPerPage));
         setError({});
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     })();
-  }, [router.query.slug]);
+  }, [router.query.slug, page]);
 
   useEffect(() => {
     (async () => {
@@ -99,13 +105,35 @@ const NewsSlug = () => {
       <Grid item xs={12} md={9}>
         <Grid container spacing={1}>
           {!loading && Object.keys(postsAscategory).length > 0 ? (
-            Object.keys(postsAscategory).map((categoryPostKey, i) => (
-              <News
-                key={i}
-                chipName={categoryPostKey}
-                posts={postsAscategory[categoryPostKey]}
-              />
-            ))
+            <>
+              {Object.keys(postsAscategory).map((categoryPostKey, i) => (
+                <News
+                  key={i}
+                  chipName={categoryPostKey}
+                  posts={postsAscategory[categoryPostKey]}
+                />
+              ))}
+              {pageCount > 1 && (
+                <Grid
+                  item
+                  xs={12}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Pagination
+                    count={pageCount}
+                    page={page}
+                    onChange={(_, value) => {
+                      setPage(value);
+                    }}
+                  />
+                </Grid>
+              )}
+            </>
           ) : (
             <Typography variant="h5">No Post Found</Typography>
           )}

@@ -156,8 +156,8 @@ const getPostsByCategory = async (
 ) => {
   try {
     const category = (req.query as any).category || 'সরকারি চাকরি';
-    const postsPerPage = (req.query as any).limit || 6;
-    const currentPage = (req.query as any).currentPage || 1;
+    const postsPerPage = parseInt((req.query as any).limit) || 6;
+    const currentPage = parseInt((req.query as any).page) || 1;
 
     const totalPosts = await PostModel.find({
       private: false,
@@ -185,6 +185,8 @@ const getPostsForAdmin = async (
   next: NextFunction
 ) => {
   const user: User = res.locals.user;
+  const currentPage = parseInt((req.query as any).page) || 1;
+  const postsPerPage = parseInt((req.query as any).limit) || 30;
 
   try {
     let adminConfig: any = {};
@@ -193,11 +195,15 @@ const getPostsForAdmin = async (
       adminConfig.creator = user.id;
     }
 
+    const postsDocCount = await PostModel.find(adminConfig).countDocuments();
+
     const posts = await PostModel.find(adminConfig)
+      .skip((currentPage - 1) * postsPerPage)
+      .limit(postsPerPage)
       .sort({ createdAt: -1 })
       .populate('creator')
       .exec();
-    res.status(200).json(posts);
+    res.status(200).json({ totalPosts: postsDocCount, posts });
   } catch (error) {
     next(error);
   }
@@ -261,7 +267,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     if (description) post!.description = description;
     if (category) post!.category = category;
     if (isPrivate) post!.private = isPrivate;
-    if (videoUrl) post!.videoUrl = videoUrl;
+    if (videoUrl || videoUrl === '') post!.videoUrl = videoUrl;
     if (req.files) {
       if ((req.files as any).thumbnailImage) {
         if (
@@ -446,13 +452,17 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getVideoList = async (
-  req: Request,
+  _: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const posts = await PostModel.find({ private: false })
+    const posts = await PostModel.find({
+      private: false,
+      videoUrl: { $exists: true, $ne: '' },
+    })
       .sort({ createdAt: -1 })
+      .limit(10)
       .exec();
 
     const videoExistsPosts = posts

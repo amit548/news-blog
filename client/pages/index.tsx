@@ -20,20 +20,48 @@ const Home = () => {
 
   const postsData = useSelector((state: any) => state.posts);
 
+  const [allPosts, setAllPosts] = useState([]);
+
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     (async () => {
       dispatch(loadingData());
       try {
-        const result = await axios.get('http://localhost:4000/api/post');
-        dispatch(fetchPosts(result.data));
-        dispatch(savePostsAsCategory());
+        const result1 = await axios.get(
+          'http://localhost:4000/api/post/news?category=সরকারি চাকরি'
+        );
+        const result2 = await axios.get(
+          'http://localhost:4000/api/post/news?category=বেসরকারি চাকরি'
+        );
+        const result3 = await axios.get(
+          'http://localhost:4000/api/post/news?category=পরীক্ষার সিলেবাস'
+        );
+        const result4 = await axios.get(
+          'http://localhost:4000/api/post/news?category=রেজাল্ট'
+        );
+        const result5 = await axios.get(
+          'http://localhost:4000/api/post/news?category=নোটিশ'
+        );
+
+        setAllPosts((prevPosts) => [
+          ...prevPosts,
+          ...result1.data.posts,
+          ...result2.data.posts,
+          ...result3.data.posts,
+          ...result4.data.posts,
+          ...result5.data.posts,
+        ]);
       } catch (error) {
         dispatch(fetchFaild(error.response.data.body));
       }
     })();
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchPosts(allPosts));
+    dispatch(savePostsAsCategory());
+  }, [allPosts]);
 
   useEffect(() => {
     (async () => {
@@ -46,28 +74,32 @@ const Home = () => {
 
   return (
     <Grid container spacing={1}>
-      {postsData.isLoading && (
+      {postsData.isLoading ? (
         <Grid item xs={12}>
           <Box display="flex" justifyContent="center">
             <CircularProgress />
           </Box>
         </Grid>
-      )}
-      <Grid item xs={12} md={9}>
-        <Grid container spacing={1}>
-          {Object.keys(postsData.postsAscategory).length > 0 ? (
-            Object.keys(postsData.postsAscategory).map((categoryPostKey, i) => (
-              <News
-                key={i}
-                chipName={categoryPostKey}
-                posts={postsData.postsAscategory[categoryPostKey]}
-              />
-            ))
-          ) : (
-            <Typography variant="h5">No Post Found</Typography>
-          )}
+      ) : (
+        <Grid item xs={12} md={9}>
+          <Grid container spacing={1}>
+            {Object.keys(postsData.postsAscategory).length > 0 ? (
+              Object.keys(
+                postsData.postsAscategory
+              ).map((categoryPostKey, i) => (
+                <News
+                  key={i}
+                  chipName={categoryPostKey}
+                  posts={postsData.postsAscategory[categoryPostKey]}
+                />
+              ))
+            ) : (
+              <Typography variant="h5">No Post Found</Typography>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
+      )}
+
       <Grid item xs={12} md={3}>
         <Grid container spacing={1}>
           <Grid item xs={12}>

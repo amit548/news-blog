@@ -29,18 +29,23 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>({});
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
+
+  const postsPerPage = 30;
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          'http://localhost:4000/api/post/admin',
+          `http://localhost:4000/api/post/admin?page=${page}&limit=${postsPerPage}`,
           {
             withCredentials: true,
           }
         );
-        setPosts(response.data);
+        setPosts(response.data.posts);
+        setPageCount(Math.ceil(response.data.totalPosts / postsPerPage));
         setError({});
         setLoading(false);
       } catch (error) {
@@ -51,7 +56,7 @@ const Posts = () => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [page]);
 
   return authData.user ? (
     <Grid container spacing={1}>
@@ -83,11 +88,19 @@ const Posts = () => {
         />
       ))}
 
-      <Grid item xs={12}>
-        <Box display="flex" justifyContent="center">
-          <Pagination variant="outlined" color="primary" count={20} />
-        </Box>
-      </Grid>
+      {page > 1 && (
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
+            <Pagination
+              variant="outlined"
+              color="primary"
+              count={pageCount}
+              page={page}
+              onChange={(_, value) => setPage(value)}
+            />
+          </Box>
+        </Grid>
+      )}
     </Grid>
   ) : (
     !authData.isLoading && <Redirect to="/" />

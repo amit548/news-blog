@@ -104,8 +104,10 @@ const logout = async (_: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const userList = async (_: Request, res: Response, next: NextFunction) => {
+const userList = async (req: Request, res: Response, next: NextFunction) => {
   const adminUser = res.locals.user;
+  const currentPage = parseInt((req.query as any).page) || 1;
+  const userPerPage = parseInt((req.query as any).limit) || 30;
 
   try {
     let errors: any = {};
@@ -119,9 +121,16 @@ const userList = async (_: Request, res: Response, next: NextFunction) => {
     if (Object.keys(errors).length > 0)
       throw createError(403, { body: errors });
 
-    const users = await UserModel.find({ role: 'user' }).exec();
+    const usersDocCount = await UserModel.find({
+      role: 'user',
+    }).countDocuments();
 
-    res.status(200).json(users);
+    const users = await UserModel.find({ role: 'user' })
+      .skip((currentPage - 1) * userPerPage)
+      .limit(userPerPage)
+      .exec();
+
+    res.status(200).json({ totalUsers: usersDocCount, users });
   } catch (error) {
     next(error);
   }
