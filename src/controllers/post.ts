@@ -155,14 +155,25 @@ const getPostsByCategory = async (
   next: NextFunction
 ) => {
   try {
-    const { category = 'সরকারি চাকরি' } = req.query as any;
+    const category = (req.query as any).category || 'সরকারি চাকরি';
+    const postsPerPage = (req.query as any).limit || 6;
+    const currentPage = (req.query as any).currentPage || 1;
+
+    const totalPosts = await PostModel.find({
+      private: false,
+      category,
+    }).countDocuments();
 
     const posts = await PostModel.find({
       private: false,
       category,
-    }).exec();
+    })
+      .skip((currentPage - 1) * postsPerPage)
+      .limit(postsPerPage)
+      .sort({ createdAt: -1 })
+      .exec();
 
-    res.status(200).json(posts);
+    res.status(200).json({ totalPosts, posts });
   } catch (error) {
     next(error);
   }

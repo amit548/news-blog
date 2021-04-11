@@ -1,22 +1,20 @@
 import { useRouter } from 'next/router';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CircularProgress,
-  Divider,
-  Grid,
-  makeStyles,
-  TextField,
-  Theme,
-  Typography,
-} from '@material-ui/core';
-import { FormEvent, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import { Alert } from '@material-ui/lab';
-import Redirect from '../../components/Redirect';
+import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import axios from 'axios';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@material-ui/lab/Alert';
+
+import Redirect from '../../components/Redirect';
 import { login } from '../../features/auth/authSlice';
 
 const useStyles = makeStyles((theme: Theme) => ({

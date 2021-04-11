@@ -115,27 +115,27 @@ const Layout = ({ children }) => {
   } else {
     drawerList = [
       {
-        path: '/admin/register',
+        path: '/news/সরকারি চাকরি',
         title: 'সরকারি চাকরি',
         icon: <WorkOutlineOutlinedIcon color="secondary" />,
       },
       {
-        path: '/admin/register',
+        path: '/news/বেসরকারি চাকরি',
         title: 'বেসরকারি চাকরি',
         icon: <WorkOffOutlinedIcon color="secondary" />,
       },
       {
-        path: '/admin/register',
+        path: '/news/পরীক্ষার সিলেবাস',
         title: 'পরীক্ষার সিলেবাস',
         icon: <ReceiptOutlinedIcon color="secondary" />,
       },
       {
-        path: '/admin/register',
+        path: '/news/রেজাল্ট',
         title: 'রেজাল্ট',
         icon: <SubtitlesOutlinedIcon color="secondary" />,
       },
       {
-        path: '/admin/register',
+        path: '/news/নোটিশ',
         title: 'নোটিশ',
         icon: <EventNoteOutlinedIcon color="secondary" />,
       },
@@ -199,23 +199,23 @@ const Layout = ({ children }) => {
             </>
           ) : (
             <Hidden smDown>
-              <Link href="/">
+              <Link href="/news/সরকারি চাকরি">
                 <Button>সরকারি চাকরি</Button>
               </Link>
 
-              <Link href="/">
+              <Link href="/news/বেসরকারি চাকরি">
                 <Button>বেসরকারি চাকরি</Button>
               </Link>
 
-              <Link href="/">
+              <Link href="/news/পরীক্ষার সিলেবাস">
                 <Button>পরীক্ষার সিলেবাস</Button>
               </Link>
 
-              <Link href="/">
+              <Link href="/news/রেজাল্ট">
                 <Button>রেজাল্ট</Button>
               </Link>
 
-              <Link href="/">
+              <Link href="/news/নোটিশ">
                 <Button>নোটিশ</Button>
               </Link>
             </Hidden>

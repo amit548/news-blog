@@ -1,13 +1,15 @@
 import axios from 'axios';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-import { useContext, useEffect, useState } from 'react';
-import { Box, CircularProgress, Grid, Theme } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 
 import AdminPostCard from '../../components/AdminPostCard';
 import Redirect from '../../components/Redirect';
-import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {

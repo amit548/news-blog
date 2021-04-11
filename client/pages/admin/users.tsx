@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Pagination, Alert } from '@material-ui/lab';
-import {
-  Box,
-  Grid,
-  CircularProgress,
-  makeStyles,
-  Theme,
-} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import UserList from '../../components/UserList';
 import Redirect from '../../components/Redirect';

@@ -1,16 +1,25 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 
 import News from '../../components/News';
 import SideBar from '../../components/SideBar';
 
+const useStyles = makeStyles((theme: Theme) => ({
+  alert: {
+    marginBottom: theme.spacing(1),
+  },
+}));
+
 const NewsSlug = () => {
   const router = useRouter();
+  const classes = useStyles();
 
   const [loading, setLoading] = useState(true);
   const [loadedData, setLoadedData] = useState([]);
@@ -25,7 +34,7 @@ const NewsSlug = () => {
         const result = await axios.get(
           `http://localhost:4000/api/post/news?category=${router.query.slug}`
         );
-        setLoadedData(result.data);
+        setLoadedData(result.data.posts);
         setError({});
         setLoading(false);
       } catch (error) {
@@ -44,6 +53,8 @@ const NewsSlug = () => {
   }, []);
 
   useEffect(() => {
+    setPostsAscategory({});
+
     const সরকারি_চাকরি = loadedData.filter(
       (post) => post.category === 'সরকারি চাকরি'
     );
@@ -78,16 +89,26 @@ const NewsSlug = () => {
           </Box>
         </Grid>
       )}
+
+      {Object.keys(error).map((err) => (
+        <Alert severity="error" key={err} className={classes.alert}>
+          {error[err]}
+        </Alert>
+      ))}
+
       <Grid item xs={12} md={9}>
         <Grid container spacing={1}>
-          {!loading &&
+          {!loading && Object.keys(postsAscategory).length > 0 ? (
             Object.keys(postsAscategory).map((categoryPostKey, i) => (
               <News
                 key={i}
                 chipName={categoryPostKey}
                 posts={postsAscategory[categoryPostKey]}
               />
-            ))}
+            ))
+          ) : (
+            <Typography variant="h5">No Post Found</Typography>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={12} md={3}>

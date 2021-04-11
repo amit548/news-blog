@@ -55,13 +55,17 @@ const Home = () => {
       )}
       <Grid item xs={12} md={9}>
         <Grid container spacing={1}>
-          {Object.keys(postsData.postsAscategory).map((categoryPostKey, i) => (
-            <News
-              key={i}
-              chipName={categoryPostKey}
-              posts={postsData.postsAscategory[categoryPostKey]}
-            />
-          ))}
+          {Object.keys(postsData.postsAscategory).length > 0 ? (
+            Object.keys(postsData.postsAscategory).map((categoryPostKey, i) => (
+              <News
+                key={i}
+                chipName={categoryPostKey}
+                posts={postsData.postsAscategory[categoryPostKey]}
+              />
+            ))
+          ) : (
+            <Typography variant="h5">No Post Found</Typography>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={12} md={3}>
