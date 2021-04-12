@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 
 import Layout from '../components/Layout';
+import PostContextProvider from '../context/PostContext';
 import theme from '../src/theme';
 import store from '../store';
 
@@ -19,9 +20,11 @@ const App = ({ Component, pageProps }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <PostContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PostContextProvider>
       </Provider>
     </ThemeProvider>
   );
