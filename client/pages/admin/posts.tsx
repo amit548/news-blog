@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Box from '@material-ui/core/Box';
@@ -10,6 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 
 import AdminPostCard from '../../components/AdminPostCard';
 import Redirect from '../../components/Redirect';
+import { AuthContext } from '../../context/AuthContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Posts = () => {
   const classes = useStyles();
 
-  const authData = useSelector((state: any) => state.auth);
+  const { user, isLoading } = useContext(AuthContext);
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,7 +58,7 @@ const Posts = () => {
     })();
   }, [page]);
 
-  return authData.user ? (
+  return user ? (
     <Grid container spacing={1}>
       {loading && (
         <Box
@@ -103,7 +103,7 @@ const Posts = () => {
       )}
     </Grid>
   ) : (
-    !authData.isLoading && <Redirect to="/" />
+    !isLoading && <Redirect to="/" />
   );
 };
 

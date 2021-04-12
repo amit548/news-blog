@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEvent, useContext, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
@@ -15,7 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 
 import Redirect from '../../components/Redirect';
-import { login } from '../../features/auth/authSlice';
+import { AuthContext } from '../../context/AuthContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -32,29 +31,33 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Login = () => {
   const classes = useStyles();
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const authData = useSelector((state: any) => state.auth);
+  const {
+    setIsLoading,
+    setError,
+    setUser,
+    user,
+    isLoading,
+    error,
+  } = useContext(AuthContext);
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>({});
 
   const onSumbitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     try {
       const result = await axios.post(
         'http://localhost:4000/api/user/login',
         loginData,
         { withCredentials: true }
       );
-      setLoading(false);
       setError({});
-      dispatch(login(result.data));
+      setUser(result.data);
       router.push('/admin');
+      setIsLoading(false);
     } catch (error) {
-      setLoading(false);
+      setIsLoading(false);
       if (error.response)
         setError({
           ...error.response.data.body,
@@ -62,8 +65,8 @@ const Login = () => {
     }
   };
 
-  return authData.user ? (
-    !authData.isLoading && <Redirect to="/admin" />
+  return user ? (
+    !isLoading && <Redirect to="/admin" />
   ) : (
     <Box display="flex" justifyContent="center" alignItems="center">
       <Card variant="outlined">
@@ -78,7 +81,7 @@ const Login = () => {
           </Typography>
           <Divider className={classes.divider} />
 
-          {loading && (
+          {isLoading && (
             <Box
               display="flex"
               justifyContent="center"
@@ -126,7 +129,7 @@ const Login = () => {
                   variant="outlined"
                   color="primary"
                   type="submit"
-                  disabled={loading}
+                  disabled={isLoading}
                 >
                   Login
                 </Button>

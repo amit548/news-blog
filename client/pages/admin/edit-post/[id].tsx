@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { FormEvent, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { FormEvent, useState, useEffect, useContext } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
@@ -24,6 +23,7 @@ import Alert from '@material-ui/lab/Alert';
 
 import FileUploadButton from '../../../components/FileUploadButton';
 import Redirect from '../../../components/Redirect';
+import { AuthContext } from '../../../context/AuthContext';
 
 const Editor = dynamic(() => import('../../../components/Editor'), {
   ssr: false,
@@ -45,7 +45,7 @@ const EditPost = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const authData = useSelector((state: any) => state.auth);
+  const { user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
   const [postTitle, setPostTitle] = useState('');
@@ -127,8 +127,8 @@ const EditPost = () => {
     }
   };
 
-  return authData.user
-    ? authData.user && (
+  return user
+    ? user && (
         <Box display="flex" justifyContent="center" alignItems="center">
           <Card variant="outlined">
             <CardContent>
@@ -248,9 +248,7 @@ const EditPost = () => {
                   <Grid item xs={12} sm={6}>
                     <Box display="flex" justifyContent="center">
                       <FormControlLabel
-                        disabled={
-                          authData.user && authData.user.role !== 'admin'
-                        }
+                        disabled={user && user.role !== 'admin'}
                         control={
                           <Checkbox
                             checked={availableForPublic}

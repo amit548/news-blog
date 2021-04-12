@@ -11,8 +11,8 @@ export const PostContext = createContext({
 });
 
 const PostContextProvider = ({ children }) => {
-  const [isPostLoading, setIsPostLoading] = useState(false);
-  const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [isPostLoading, setIsPostLoading] = useState(true);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
   const [postsAscategory, setPostsAscategory] = useState<any>({});

@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -27,12 +25,7 @@ import WorkOffOutlinedIcon from '@material-ui/icons/WorkOffOutlined';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
 import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
-import {
-  loadingData,
-  login,
-  loginError,
-  logout,
-} from '../features/auth/authSlice';
+import { AuthContext } from '../context/AuthContext';
 
 const drawerWidth = 240;
 
@@ -63,29 +56,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Layout = ({ children }) => {
   const classes = useStyles();
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async () => {
-      dispatch(loadingData());
-      try {
-        const response = await axios.get('http://localhost:4000/api/me', {
-          withCredentials: true,
-        });
-        dispatch(login(response.data));
-      } catch (error) {
-        error.response && dispatch(loginError(error.response.data.body));
-      }
-    })();
-  }, []);
-
-  const authData = useSelector((state: any) => state.auth);
+  const { user, logout } = useContext(AuthContext);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   let drawerList = [];
 
-  if (authData.user) {
+  if (user) {
     drawerList = [
       {
         path: '/admin/create-post',
@@ -99,7 +77,7 @@ const Layout = ({ children }) => {
       },
     ];
 
-    if (authData.user.role === 'admin')
+    if (user.role === 'admin')
       drawerList.unshift(
         {
           path: '/admin/register',
@@ -146,18 +124,6 @@ const Layout = ({ children }) => {
 
   const onDrawerClose = () => setOpenDrawer(false);
 
-  const logoutUser = async () => {
-    try {
-      await axios.post(
-        'http://localhost:4000/api/user/logout',
-        {},
-        { withCredentials: true }
-      );
-      dispatch(logout());
-      await router.push('/');
-    } catch (_) {}
-  };
-
   return (
     <>
       <AppBar position="sticky">
@@ -173,10 +139,10 @@ const Layout = ({ children }) => {
             </Typography>
           </Link>
 
-          {authData.user ? (
+          {user ? (
             <>
               <Hidden smDown>
-                {authData.user && authData.user.role === 'admin' && (
+                {user && user.role === 'admin' && (
                   <>
                     <Link href="/admin/register">
                       <Button>Create User</Button>
@@ -193,7 +159,13 @@ const Layout = ({ children }) => {
                   <Button>Manage Posts</Button>
                 </Link>
               </Hidden>
-              <Button color="inherit" onClick={logoutUser}>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  logout();
+                  router.push('/');
+                }}
+              >
                 Logout
               </Button>
             </>

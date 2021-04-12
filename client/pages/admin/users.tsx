@@ -1,17 +1,17 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useContext, useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
 import UserList from '../../components/UserList';
 import Redirect from '../../components/Redirect';
-import { fetchUsers } from '../../features/user/userSlice';
-import { Typography } from '@material-ui/core';
+import { AuthContext } from '../../context/AuthContext';
+import { UserContext } from '../../context/UserContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Users = () => {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-  const authData = useSelector((state: any) => state.auth);
-  const userData = useSelector((state: any) => state.user);
+  const { user, isLoading: asAuthUserLoading } = useContext(AuthContext);
+  const {
+    setUsers,
+    users,
+    isLoading: asUserLoading,
+    setIsLoading: asSetUserIsLoading,
+    error,
+    setError,
+  } = useContext(UserContext);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>({});
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
 
@@ -38,7 +42,7 @@ const Users = () => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
+      asSetUserIsLoading(true);
       try {
         const result = await axios.get(
           `http://localhost:4000/api/user/list?page=${page}&limit=${usersPerPage}`,
@@ -46,25 +50,25 @@ const Users = () => {
             withCredentials: true,
           }
         );
-        dispatch(fetchUsers(result.data.users));
+        setUsers(result.data.users);
         setPageCount(Math.ceil((result.data.totalUsers || 0) / usersPerPage));
         setError({});
-        setLoading(false);
+        asSetUserIsLoading(false);
       } catch (error) {
         if (error.response)
           setError({
             ...error.response.data.body,
           });
-        setLoading(false);
+        asSetUserIsLoading(false);
       }
     })();
   }, [page]);
 
-  return authData.user ? (
-    authData.user.role === 'admin' ? (
+  return user ? (
+    user.role === 'admin' ? (
       <>
         <Grid container>
-          {loading && (
+          {asUserLoading && (
             <Box
               display="flex"
               justifyContent="center"
@@ -74,17 +78,19 @@ const Users = () => {
             </Box>
           )}
 
-          {Object.keys(error).map((err) => (
-            <Grid item xs={12}>
-              <Alert severity="error" key={err} className={classes.alert}>
-                {error[err]}
-              </Alert>
-            </Grid>
-          ))}
+          {error &&
+            Object.keys(error).length > 0 &&
+            Object.keys(error).map((err) => (
+              <Grid item xs={12}>
+                <Alert severity="error" key={err} className={classes.alert}>
+                  {error[err]}
+                </Alert>
+              </Grid>
+            ))}
 
-          {userData.users.length > 0 ? (
+          {users.length > 0 ? (
             <>
-              {userData.users.map((registeredUser: any) => (
+              {users.map((registeredUser: any) => (
                 <UserList
                   key={registeredUser._id}
                   registeredUser={registeredUser}
@@ -113,10 +119,10 @@ const Users = () => {
         </Grid>
       </>
     ) : (
-      !authData.isLoading && <Redirect to="/admin" />
+      !asAuthUserLoading && <Redirect to="/admin" />
     )
   ) : (
-    !authData.isLoading && <Redirect to="/" />
+    !asAuthUserLoading && <Redirect to="/" />
   );
 };
 

@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { FormEvent, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { FormEvent, useState, useEffect, useContext } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
@@ -15,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 
 import Redirect from '../../../components/Redirect';
+import { AuthContext } from '../../../context/AuthContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const EditUser = () => {
   const router = useRouter();
   const classes = useStyles();
-  const authData = useSelector((state: any) => state.auth);
+
+  const { user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
   const [registerData, setRegisterData] = useState<any>({});
@@ -80,7 +81,7 @@ const EditUser = () => {
     }
   };
 
-  return authData.user
+  return user
     ? registerData && (
         <Box display="flex" justifyContent="center" alignItems="center">
           <Card variant="outlined">

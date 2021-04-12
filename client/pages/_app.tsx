@@ -1,12 +1,12 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
-import { Provider } from 'react-redux';
 
 import Layout from '../components/Layout';
+import AuthContextProvider from '../context/AuthContext';
 import PostContextProvider from '../context/PostContext';
+import UserContextProvider from '../context/UserContext';
 import theme from '../src/theme';
-import store from '../store';
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -19,13 +19,15 @@ const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Provider store={store}>
-        <PostContextProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </PostContextProvider>
-      </Provider>
+      <AuthContextProvider>
+        <UserContextProvider>
+          <PostContextProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PostContextProvider>
+        </UserContextProvider>
+      </AuthContextProvider>
     </ThemeProvider>
   );
 };

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,12 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useContext } from 'react';
 
-import { deleteUser } from '../features/user/userSlice';
+import { UserContext } from '../context/UserContext';
 
 const UserList = ({ registeredUser }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
+
+  const { deleteUser } = useContext(UserContext);
 
   return (
     <Grid item xs={12} sm={6}>
@@ -44,7 +45,7 @@ const UserList = ({ registeredUser }) => {
                     `http://localhost:4000/api/user/list/${registeredUser._id}`,
                     { withCredentials: true }
                   );
-                  dispatch(deleteUser(registeredUser._id));
+                  deleteUser(registeredUser._id);
                 } catch (error) {}
               }}
             >
