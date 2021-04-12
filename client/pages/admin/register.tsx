@@ -92,10 +92,14 @@ const Register = () => {
               </Alert>
             ))}
 
+            {Object.keys(error).length > 0 && <br />}
+
             <form noValidate autoComplete="off" onSubmit={onSumbitRegister}>
               <Grid container spacing={1}>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                   <TextField
+                    error={!!error.firstName}
+                    variant="outlined"
                     fullWidth
                     label="First Name"
                     type="text"
@@ -107,8 +111,10 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                   <TextField
+                    error={!!error.lastName}
+                    variant="outlined"
                     fullWidth
                     label="Last Name"
                     type="text"
@@ -122,6 +128,8 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    error={!!error.email}
+                    variant="outlined"
                     fullWidth
                     label="Email"
                     type="email"
@@ -133,8 +141,10 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                   <TextField
+                    error={!!error.password}
+                    variant="outlined"
                     fullWidth
                     label="Password"
                     type="password"
@@ -146,8 +156,10 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                   <TextField
+                    error={!!error.password}
+                    variant="outlined"
                     fullWidth
                     label="Confirm Password"
                     type="password"

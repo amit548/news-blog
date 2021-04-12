@@ -218,7 +218,7 @@ const updateListUser = async (
 
   try {
     let errors: any = {};
-
+    
     if (!adminUser) errors.admin = 'Please login as admin first';
 
     if (adminUser.role !== 'admin')

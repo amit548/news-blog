@@ -97,6 +97,8 @@ const Login = () => {
             </Alert>
           ))}
 
+          {Object.keys(error).length > 0 && <br />}
+
           <form noValidate autoComplete="off" onSubmit={onSumbitLogin}>
             <Grid container spacing={1}>
               <Grid item xs={12}>

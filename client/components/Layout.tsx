@@ -120,6 +120,8 @@ const Layout = ({ children }) => {
     ];
   }
 
+  console.log(router.query.slug);
+
   const onDrawerOpen = () => setOpenDrawer(true);
 
   const onDrawerClose = () => setOpenDrawer(false);

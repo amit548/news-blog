@@ -21,17 +21,17 @@ router.post(
   [
     body('firstName')
       .isLength({ min: 3 })
-      .withMessage('Min length 3')
+      .withMessage('First name must be 3 chars long')
       .notEmpty()
-      .withMessage('First name empty'),
+      .withMessage('First name is required'),
     body('lastName')
       .isLength({ min: 3 })
-      .withMessage('Min length 3')
+      .withMessage('Last name must be 3 chars long')
       .notEmpty()
-      .withMessage('Last name empty'),
+      .withMessage('Last name is required'),
     body('email')
       .notEmpty()
-      .withMessage('Email empty')
+      .withMessage('E-mail is required')
       .isEmail()
       .withMessage('Please enter an valid E-mail address')
       .custom(async (value) => {
@@ -42,13 +42,13 @@ router.post(
     body('password')
       .custom((value, { req }) => {
         if (value !== req.body.confirmPassword)
-          throw new Error('Password confirmation is incorrect');
+          throw new Error('Password confirmation does not match password');
         return true;
       })
       .isLength({ min: 6 })
-      .withMessage('Min 6 lenght')
+      .withMessage('The password must be 6+ chars long')
       .notEmpty()
-      .withMessage('Password empty'),
+      .withMessage('Password is required'),
   ],
   auth,
   register
@@ -59,15 +59,15 @@ router.post(
   [
     body('email')
       .notEmpty()
-      .withMessage('Email empty')
+      .withMessage('E-mail is required')
       .isEmail()
       .withMessage('Please enter an valid E-mail address')
       .normalizeEmail(),
     body('password')
       .isLength({ min: 6 })
-      .withMessage('Min 6 lenght')
+      .withMessage('The password must be 6+ chars long')
       .notEmpty()
-      .withMessage('Password empty'),
+      .withMessage('Password is required'),
   ],
   notAuth,
   login
@@ -86,19 +86,19 @@ router.put(
   [
     body('firstName')
       .isLength({ min: 3 })
-      .withMessage('Min length 3')
+      .withMessage('First name must be 3 chars long')
       .notEmpty()
-      .withMessage('First name empty')
+      .withMessage('First name is required')
       .optional({ nullable: true, checkFalsy: true }),
     body('lastName')
       .isLength({ min: 3 })
-      .withMessage('Min length 3')
+      .withMessage('Last name must be 3 chars long')
       .notEmpty()
-      .withMessage('Last name empty')
+      .withMessage('Last name is required')
       .optional({ nullable: true, checkFalsy: true }),
     body('email')
       .notEmpty()
-      .withMessage('Email empty')
+      .withMessage('E-mail is required')
       .isEmail()
       .withMessage('Please enter an valid E-mail address')
       .custom(async (value, { req }) => {
@@ -113,13 +113,13 @@ router.put(
     body('password')
       .custom((value, { req }) => {
         if (value !== req.body.confirmPassword)
-          throw new Error('Password confirmation is incorrect');
+          throw new Error('Password confirmation does not match password');
         return true;
       })
       .isLength({ min: 6 })
-      .withMessage('Min 6 lenght')
+      .withMessage('The password must be 6+ chars long')
       .notEmpty()
-      .withMessage('Password empty')
+      .withMessage('Password is required')
       .optional({ nullable: true, checkFalsy: true }),
   ],
   auth,

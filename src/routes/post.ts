@@ -23,13 +23,13 @@ router.post(
       .isLength({ min: 6 })
       .withMessage('Title must be 6 char long')
       .notEmpty()
-      .withMessage('Title is empty'),
+      .withMessage('Title is required'),
     body('description')
       .isLength({ min: 6 })
       .withMessage('Description must be 20 char long')
       .notEmpty()
-      .withMessage('Description is empty'),
-    body('category').notEmpty().withMessage('Category is empty'),
+      .withMessage('Description is required'),
+    body('category').notEmpty().withMessage('Category is required'),
   ],
   auth,
   createPost
@@ -49,6 +49,23 @@ router.delete('/:id', auth, deletePost);
 
 router.delete('/del/:fileName', auth, deleteImageFormPost);
 
-router.put('/:id', auth, updatePost);
+router.put(
+  '/:id',
+  [
+    body('title')
+      .isLength({ min: 6 })
+      .withMessage('Title must be 6 char long')
+      .notEmpty()
+      .withMessage('Title is required'),
+    body('description')
+      .isLength({ min: 6 })
+      .withMessage('Description must be 20 char long')
+      .notEmpty()
+      .withMessage('Description is required'),
+    body('category').notEmpty().withMessage('Category is required'),
+  ],
+  auth,
+  updatePost
+);
 
 export default router;
