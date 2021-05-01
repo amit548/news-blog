@@ -14,7 +14,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     if (Object.keys(errors).length > 0)
       throw createError(401, { body: errors });
 
-    const decodedToken = verify(token, 'lol');
+    const decodedToken = verify(token, process.env.JWT_SECURITY || 'lol');
     if (!decodedToken) errors.token = 'Access token invalid, please relogin';
     if (Object.keys(errors).length > 0)
       throw createError(401, { body: errors });

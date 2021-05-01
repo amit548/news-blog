@@ -11,7 +11,7 @@ const notAuth = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!token) return next();
 
-    const { id }: any = verify(token, 'lol');
+    const { id }: any = verify(token, process.env.JWT_SECURITY || 'lol');
     if (!id) return next();
 
     const user = await UserModel.findById(id);

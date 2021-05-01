@@ -69,7 +69,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     if (Object.keys(errors).length > 0)
       throw createError(401, { body: errors });
 
-    const token = sign({ id: user!.id }, 'lol');
+    const token = sign({ id: user!.id }, process.env.JWT_SECURITY || 'lol');
 
     res.set(
       'Set-Cookie',
@@ -218,7 +218,7 @@ const updateListUser = async (
 
   try {
     let errors: any = {};
-    
+
     if (!adminUser) errors.admin = 'Please login as admin first';
 
     if (adminUser.role !== 'admin')
