@@ -7,8 +7,6 @@ import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
 import { join } from 'path';
-import compression from 'compression';
-import helmet from 'helmet';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -27,8 +25,6 @@ server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
-server.use(compression());
-server.use(helmet());
 
 server.use('/public', express.static(join(__dirname, '../public')));
 
@@ -36,7 +32,7 @@ server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
-if (process.env.NODE_ENV == 'production') {
+// if (process.env.NODE_ENV === 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
   server.get('/admin/login', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/admin/login.html'));
@@ -47,7 +43,7 @@ if (process.env.NODE_ENV == 'production') {
   server.all('*', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/index.html'));
   });
-}
+// }
 
 server.use((_, __, next) => next(createError(404)));
 
