@@ -170,6 +170,7 @@ const Layout = ({ children }) => {
                 onClick={() => {
                   logout();
                   router.push("/");
+                  window.location.reload();
                 }}
               >
                 Logout
