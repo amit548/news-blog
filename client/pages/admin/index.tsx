@@ -53,7 +53,7 @@ const Admin = () => {
     setLoading(true);
     try {
       await axios.put(
-        `http://localhost:4000/api/user/list/${user._id}`,
+        `/api/user/list/${user._id}`,
         registerData,
         { withCredentials: true }
       );

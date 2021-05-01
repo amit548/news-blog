@@ -37,7 +37,7 @@ const NewsSlug = () => {
       setLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/post/news?category=${router.query.slug}&page=${page}&limit=${postsPerPage}`
+          `/api/post/news?category=${router.query.slug}&page=${page}&limit=${postsPerPage}`
         );
         setLoadedData(result.data.posts);
         setPageCount(Math.ceil((result.data.totalPosts || 0) / postsPerPage));
@@ -52,7 +52,7 @@ const NewsSlug = () => {
   useEffect(() => {
     (async () => {
       try {
-        const result = await axios.get('http://localhost:4000/api/post/video');
+        const result = await axios.get('/api/post/video');
         setVideoList(result.data);
       } catch (error) {}
     })();

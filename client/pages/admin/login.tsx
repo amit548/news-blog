@@ -48,7 +48,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       const result = await axios.post(
-        'http://localhost:4000/api/user/login',
+        '/api/user/login',
         loginData,
         { withCredentials: true }
       );

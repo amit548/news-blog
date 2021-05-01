@@ -35,13 +35,17 @@ server.use('/public', express.static(join(__dirname, '../public')));
 server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
-server.use('/', express.static(join(__dirname, '../client/out')));
-server.all("/admin/*", (req, res) => {
-  res.sendFile(join(__dirname, '../client/out/admin.html'))
-})
-server.all("*", (req, res) => {
-  res.sendFile(join(__dirname, '../client/out/index.html'))
-})
+
+if (process.env.NODE_ENV == 'production') {
+  server.use('/', express.static(join(__dirname, '../client/out')));
+  server.all('/admin/*', (req, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin.html'));
+  });
+  server.all('*', (req, res) => {
+    res.sendFile(join(__dirname, '../client/out/index.html'));
+  });
+}
+
 server.use((_, __, next) => next(createError(404)));
 
 server.use(

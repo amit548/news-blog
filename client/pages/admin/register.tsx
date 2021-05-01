@@ -44,7 +44,7 @@ const Register = () => {
     setLoading(true);
     try {
       await axios.post(
-        'http://localhost:4000/api/user/register',
+        '/api/user/register',
         registerData,
         { withCredentials: true }
       );

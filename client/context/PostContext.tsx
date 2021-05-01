@@ -23,19 +23,19 @@ const PostContextProvider = ({ children }) => {
       setIsPostLoading(true);
       try {
         const result1 = await axios.get(
-          'http://localhost:4000/api/post/news?category=সরকারি চাকরি'
+          '/api/post/news?category=সরকারি চাকরি'
         );
         const result2 = await axios.get(
-          'http://localhost:4000/api/post/news?category=বেসরকারি চাকরি'
+          '/api/post/news?category=বেসরকারি চাকরি'
         );
         const result3 = await axios.get(
-          'http://localhost:4000/api/post/news?category=পরীক্ষার সিলেবাস'
+          '/api/post/news?category=পরীক্ষার সিলেবাস'
         );
         const result4 = await axios.get(
-          'http://localhost:4000/api/post/news?category=রেজাল্ট'
+          '/api/post/news?category=রেজাল্ট'
         );
         const result5 = await axios.get(
-          'http://localhost:4000/api/post/news?category=নোটিশ'
+          '/api/post/news?category=নোটিশ'
         );
         setPosts([
           ...result1.data.posts,

@@ -45,7 +45,7 @@ const Users = () => {
       asSetUserIsLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/user/list?page=${page}&limit=${usersPerPage}`,
+          `/api/user/list?page=${page}&limit=${usersPerPage}`,
           {
             withCredentials: true,
           }

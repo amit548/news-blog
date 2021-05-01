@@ -39,7 +39,7 @@ const Posts = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/post/admin?page=${page}&limit=${postsPerPage}`,
+          `/api/post/admin?page=${page}&limit=${postsPerPage}`,
           {
             withCredentials: true,
           }

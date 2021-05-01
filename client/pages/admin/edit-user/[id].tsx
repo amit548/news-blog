@@ -45,7 +45,7 @@ const EditUser = () => {
       setLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/user/list/${id}`,
+          `/api/user/list/${id}`,
           {
             withCredentials: true,
           }
@@ -65,7 +65,7 @@ const EditUser = () => {
     setLoading(true);
     try {
       await axios.put(
-        `http://localhost:4000/api/user/list/${router.query.id}`,
+        `/api/user/list/${router.query.id}`,
         registerData,
         { withCredentials: true }
       );

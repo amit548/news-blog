@@ -20,7 +20,7 @@ const AuthContextProvider = ({ children }) => {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get('http://localhost:4000/api/me', {
+        const res = await axios.get('/api/me', {
           withCredentials: true,
         });
         setUser(res.data);
@@ -37,7 +37,7 @@ const AuthContextProvider = ({ children }) => {
     setIsLoading(true);
     try {
       await axios.post(
-        'http://localhost:4000/api/user/logout',
+        '/api/user/logout',
         {},
         { withCredentials: true }
       );

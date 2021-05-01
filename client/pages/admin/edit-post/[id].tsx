@@ -73,7 +73,7 @@ const EditPost = () => {
       setLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/post/${router.query.id}`
+          `/api/post/${router.query.id}`
         );
         setPostTitle(result.data.title);
         setVideoUrl(result.data.videoUrl);
@@ -109,7 +109,7 @@ const EditPost = () => {
       formData.append('image3', image3);
       formData.append('image4', image4);
       await axios.put(
-        `http://localhost:4000/api/post/${router.query.id}`,
+        `/api/post/${router.query.id}`,
         formData,
         {
           withCredentials: true,

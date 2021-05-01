@@ -83,7 +83,7 @@ const CreatePost = () => {
       formData.append('image2', image2);
       formData.append('image3', image3);
       formData.append('image4', image4);
-      await axios.post('http://localhost:4000/api/post', formData, {
+      await axios.post('/api/post', formData, {
         withCredentials: true,
       });
       setLoading(false);

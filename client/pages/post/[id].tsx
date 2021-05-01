@@ -57,7 +57,7 @@ const Post = () => {
       setLoading(true);
       try {
         const result = await axios.get(
-          `http://localhost:4000/api/post/${router.query.id}`
+          `/api/post/${router.query.id}`
         );
         setPost(result.data);
         setError({});
@@ -72,7 +72,7 @@ const Post = () => {
   useEffect(() => {
     (async () => {
       try {
-        const result = await axios.get('http://localhost:4000/api/post/video');
+        const result = await axios.get('/api/post/video');
         setVideoList(result.data);
       } catch (error) {}
     })();
@@ -123,7 +123,7 @@ const Post = () => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`http://localhost:4000/public/images/${image}`}
+                    src={`/public/images/${image}`}
                   />
                 </div>
               ))}
