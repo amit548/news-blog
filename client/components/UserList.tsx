@@ -42,7 +42,7 @@ const UserList = ({ registeredUser }) => {
               onClick={async () => {
                 try {
                   await axios.delete(
-                    `http://localhost:4000/api/user/list/${registeredUser._id}`,
+                    `/api/user/list/${registeredUser._id}`,
                     { withCredentials: true }
                   );
                   deleteUser(registeredUser._id);

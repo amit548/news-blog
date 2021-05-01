@@ -451,6 +451,11 @@
         "signature": "c4127f6d11957676f50868a4dd84c673e3104b3105cbc226a94c9f7f4d8345fa",
         "affectsGlobalScope": true
       },
+      "./node_modules/@types/compression/index.d.ts": {
+        "version": "12509b418cf3a93cf601026f9a82c496da31e355cd30b10bdd46c9e50a3e81c5",
+        "signature": "12509b418cf3a93cf601026f9a82c496da31e355cd30b10bdd46c9e50a3e81c5",
+        "affectsGlobalScope": true
+      },
       "./node_modules/express-validator/src/options.d.ts": {
         "version": "ce20ac7277c8ee806d88bc5c06f9a2f81199c8141f346da090516309124766dd",
         "signature": "ce20ac7277c8ee806d88bc5c06f9a2f81199c8141f346da090516309124766dd",
@@ -617,7 +622,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/user.ts": {
-        "version": "4f5f54bd157bbc06cba5986111503e7888956394a73d9162cee9d49b0d32d33d",
+        "version": "10c1006d51f7fcde4bd86cc4c141b623550dce57b2a821af7c59aabbab29916c",
         "signature": "446dd71b8182abb9ebfbc04359e782693c4a5d3829cfe0e3d1e50d5927502b43",
         "affectsGlobalScope": false
       },
@@ -672,7 +677,7 @@
         "affectsGlobalScope": false
       },
       "./src/server.ts": {
-        "version": "2f6980270cc52683d9eec65a43039cd2fa49c123cc340a1524d0c29882aa231a",
+        "version": "e5b3fb9392131d297c5270ab6e38978eecaea0879d6fa485e59571960f665c52",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -723,6 +728,11 @@
       "./node_modules/@types/bson/index.d.ts": [
         "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/index.d.ts",
+        "./node_modules/mongoose/index.d.ts"
+      ],
+      "./node_modules/@types/compression/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/mongoose/index.d.ts"
       ],
       "./node_modules/@types/connect/index.d.ts": [
@@ -1561,6 +1571,7 @@
         "./src/models/user.ts"
       ],
       "./src/server.ts": [
+        "./node_modules/@types/compression/index.d.ts",
         "./node_modules/@types/cookie-parser/index.d.ts",
         "./node_modules/@types/cors/index.d.ts",
         "./node_modules/@types/express-fileupload/index.d.ts",
@@ -1600,6 +1611,11 @@
       "./node_modules/@types/bson/index.d.ts": [
         "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/index.d.ts",
+        "./node_modules/mongoose/index.d.ts"
+      ],
+      "./node_modules/@types/compression/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/mongoose/index.d.ts"
       ],
       "./node_modules/@types/connect/index.d.ts": [
@@ -2390,6 +2406,7 @@
       "./node_modules/@types/bcrypt/index.d.ts",
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/bson/index.d.ts",
+      "./node_modules/@types/compression/index.d.ts",
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/cookie-parser/index.d.ts",
       "./node_modules/@types/cookie/index.d.ts",

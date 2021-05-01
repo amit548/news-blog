@@ -47,7 +47,7 @@ const FileUploadButton = ({
               setImage(null);
               try {
                 await axios.delete(
-                  `http://localhost:4000/api/post/del/${image.name}`,
+                  `/api/post/del/${image.name}`,
                   { withCredentials: true }
                 );
               } catch (_) {}

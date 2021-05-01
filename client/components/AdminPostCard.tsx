@@ -25,7 +25,7 @@ const AdminPostCard = ({ post, setPosts, setLoading, setError }) => {
   const handlePostDelete = async (id: string) => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:4000/api/post/${id}`, {
+      await axios.delete(`/api/post/${id}`, {
         withCredentials: true,
       });
       setPosts((prevPost: any) =>
@@ -48,7 +48,7 @@ const AdminPostCard = ({ post, setPosts, setLoading, setError }) => {
     <Grid item xs={12} sm={6} md={4}>
       <Card variant="outlined">
         <CardMedia
-          image={`http://localhost:4000/public/images/${post.thumbnailImage}`}
+          image={`/public/images/${post.thumbnailImage}`}
           className={classes.media}
         />
         <CardContent>
