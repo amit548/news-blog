@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
+import compression from 'compression';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -20,8 +21,9 @@ const server = express();
 
 const PORT = process.env.PORT || 4000;
 
+server.use(compression());
 server.use(express.json());
-server.use(cors({ credentials: true, origin: '*', optionsSuccessStatus: 200 }));
+server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
