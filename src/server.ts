@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { config } from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import { connect } from 'mongoose';
@@ -6,7 +7,8 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
-import { join } from 'path';
+import compression from 'compression';
+import helmet from 'helmet';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -24,6 +26,8 @@ server.use(express.json());
 server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
+server.use(helmet());
+server.use(compression());
 server.use(morgan('dev'));
 
 server.use('/public', express.static(join(__dirname, '../public')));
@@ -32,7 +36,7 @@ server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
-// if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
   server.get('/admin/login', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/admin/login.html'));
@@ -43,7 +47,7 @@ server.use('/api/post', postsRoutes);
   server.all('*', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/index.html'));
   });
-// }
+}
 
 server.use((_, __, next) => next(createError(404)));
 
