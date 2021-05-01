@@ -22,21 +22,15 @@ const PostContextProvider = ({ children }) => {
     const fetchPosts = async () => {
       setIsPostLoading(true);
       try {
-        const result1 = await axios.get(
-          '/api/post/news?category=সরকারি চাকরি'
-        );
+        const result1 = await axios.get('/api/post/news?category=সরকারি চাকরি');
         const result2 = await axios.get(
           '/api/post/news?category=বেসরকারি চাকরি'
         );
         const result3 = await axios.get(
           '/api/post/news?category=পরীক্ষার সিলেবাস'
         );
-        const result4 = await axios.get(
-          '/api/post/news?category=রেজাল্ট'
-        );
-        const result5 = await axios.get(
-          '/api/post/news?category=নোটিশ'
-        );
+        const result4 = await axios.get('/api/post/news?category=রেজাল্ট');
+        const result5 = await axios.get('/api/post/news?category=নোটিশ');
         setPosts([
           ...result1.data.posts,
           ...result2.data.posts,
@@ -101,7 +95,7 @@ const PostContextProvider = ({ children }) => {
     const fetchVideoUrls = async () => {
       setIsVideoLoading(true);
       try {
-        const res = await axios.get('http://localhost:4000/api/post/video');
+        const res = await axios.get('/api/post/video');
         setVideos(res.data);
         setIsVideoLoading(false);
       } catch (error) {
