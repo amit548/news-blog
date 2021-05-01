@@ -18,14 +18,14 @@ const PostContextProvider = ({ children }) => {
   const [postsAscategory, setPostsAscategory] = useState<any>({});
   const [videos, setVideos] = useState([]);
 
-  const host = window.location.host;
+  // const host = window.location.host;
 
   useEffect(() => {
     const fetchPosts = async () => {
       setIsPostLoading(true);
       try {
         const result1 = await axios.get(
-          `${host}/api/post/news?category=সরকারি চাকরি`
+          'http://localhost:4000/api/post/news?category=সরকারি চাকরি'
         );
         const result2 = await axios.get(
           'http://localhost:4000/api/post/news?category=বেসরকারি চাকরি'
