@@ -5,12 +5,14 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
+import { join } from 'path';
+import compression from 'compression';
+import helmet from 'helmet';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
 import postsRoutes from './routes/post';
 import HttpException from './exceptions/http-exception';
-import { join } from 'path';
 
 const server = express();
 
@@ -19,6 +21,8 @@ server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
+server.use(compression());
+server.use(helmet());
 
 server.use('/public', express.static(join(__dirname, '../public')));
 
