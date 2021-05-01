@@ -38,10 +38,13 @@ server.use('/api/post', postsRoutes);
 
 if (process.env.NODE_ENV == 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
-  server.all('/admin/*', (req, res) => {
+  server.get('/admin/login', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/login.html'));
+  });
+  server.get('/admin/*', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/admin.html'));
   });
-  server.all('*', (req, res) => {
+  server.all('*', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/index.html'));
   });
 }
