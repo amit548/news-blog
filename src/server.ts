@@ -21,7 +21,7 @@ const server = express();
 const PORT = process.env.PORT || 4000;
 
 server.use(express.json());
-server.use(cors({ credentials: true, origin: true }));
+server.use(cors({ credentials: true, origin: '*', optionsSuccessStatus: 200 }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
