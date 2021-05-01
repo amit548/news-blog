@@ -11,14 +11,14 @@ export const PostContext = createContext({
 });
 
 const PostContextProvider = ({ children }) => {
+  console.log(window.location.hostname);
+
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
   const [postsAscategory, setPostsAscategory] = useState<any>({});
   const [videos, setVideos] = useState([]);
-
-  // const host = window.location.host;
 
   useEffect(() => {
     const fetchPosts = async () => {

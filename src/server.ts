@@ -32,9 +32,9 @@ server.use(helmet());
 
 server.use('/public', express.static(join(__dirname, '../public')));
 
-server.use('/api/user', userRoutes);
-server.use('/api/me', meRoutes);
-server.use('/api/post', postsRoutes);
+server.use('/user', userRoutes);
+server.use('/me', meRoutes);
+server.use('/post', postsRoutes);
 
 server.use((_, __, next) => next(createError(404)));
 
