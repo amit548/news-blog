@@ -56,9 +56,7 @@ const Post = () => {
     (async () => {
       setLoading(true);
       try {
-        const result = await axios.get(
-          `/api/post/${router.query.id}`
-        );
+        const result = await axios.get(`/api/post/${router.query.id}`);
         setPost(result.data);
         setError({});
         setLoading(false);
@@ -129,7 +127,9 @@ const Post = () => {
               ))}
             </Carousel>
             <Typography component="div">{parser(post.description)}</Typography>
-            {post.videoUrl && <ReactPlayer url={post.videoUrl} width="100%" />}
+            {post.videoUrl && (
+              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
+            )}
           </Grid>
           <Grid item xs={12} md={3}>
             <Grid container spacing={1}>

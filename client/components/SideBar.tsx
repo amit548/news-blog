@@ -19,7 +19,12 @@ const SideBar = ({ video }) => {
         >
           <Grid container spacing={1}>
             <Grid item xs={4}>
-              <ReactPlayer url={video.videoUrl} width="100%" height="70px" />
+              <ReactPlayer
+                url={video.videoUrl}
+                width="100%"
+                height="70px"
+                controls={true}
+              />
             </Grid>
             <Grid item xs={8}>
               <Box

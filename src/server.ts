@@ -36,13 +36,48 @@ server.use('/api/post', postsRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
+
   server.get('/admin/login', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/admin/login.html'));
   });
-  server.get('/admin/*', (_, res) => {
+
+  server.get('/admin/register', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/register.html'));
+  });
+
+  server.get('/admin/users', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/users.html'));
+  });
+
+  server.get('/admin/posts', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/posts.html'));
+  });
+
+  server.get('/admin/create-post', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/create-post.html'));
+  });
+
+  server.get('/admin/edit-post/:id', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/edit-post/[id].html'));
+  });
+
+  server.get('/admin/edit-user/:id', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/admin/edit-user/[id].html'));
+  });
+
+  server.get('/admin', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/admin.html'));
   });
-  server.all('*', (_, res) => {
+
+  server.get('/post/:id', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/post/[id].html'));
+  });
+
+  server.get('/news/:slug', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/news/[slug].html'));
+  });
+
+  server.get('/', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/index.html'));
   });
 }
