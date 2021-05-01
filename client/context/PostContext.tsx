@@ -11,8 +11,6 @@ export const PostContext = createContext({
 });
 
 const PostContextProvider = ({ children }) => {
-  console.log(window.location.hostname);
-
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [error, setError] = useState(null);
