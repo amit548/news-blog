@@ -1,4 +1,5 @@
 import { Fragment, useContext } from 'react';
+import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -6,9 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-
 import { PostContext } from '../context/PostContext';
-import Head from 'next/head';
 
 const Home = () => {
   const { isPostLoading, postsAscategory, videos } = useContext(PostContext);
