@@ -1,5 +1,5 @@
 import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Main, Head, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import theme from '../src/theme';
@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <link rel="apple-touch-icon" href="/vercel.svg" />
         </Head>
         <body>
           <Main />

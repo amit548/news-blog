@@ -54,8 +54,8 @@ const PostContextProvider = ({ children }) => {
     );
     if (সরকারি_চাকরি.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
-        'সরকারি চাকরি': সরকারি_চাকরি,
         ...prevPostsAsCategory,
+        'সরকারি চাকরি': সরকারি_চাকরি,
       }));
 
     const বেসরকারি_চাকরি = posts.filter(
@@ -63,8 +63,8 @@ const PostContextProvider = ({ children }) => {
     );
     if (বেসরকারি_চাকরি.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
-        'বেসরকারি চাকরি': বেসরকারি_চাকরি,
         ...prevPostsAsCategory,
+        'বেসরকারি চাকরি': বেসরকারি_চাকরি,
       }));
 
     const পরীক্ষার_সিলেবাস = posts.filter(
@@ -72,22 +72,22 @@ const PostContextProvider = ({ children }) => {
     );
     if (পরীক্ষার_সিলেবাস.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
-        'পরীক্ষার সিলেবাস': পরীক্ষার_সিলেবাস,
         ...prevPostsAsCategory,
+        'পরীক্ষার সিলেবাস': পরীক্ষার_সিলেবাস,
       }));
 
     const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
     if (রেজাল্ট.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
-        রেজাল্ট: রেজাল্ট,
         ...prevPostsAsCategory,
+        রেজাল্ট: রেজাল্ট,
       }));
 
     const নোটিশ = posts.filter((post) => post.category === 'নোটিশ');
     if (নোটিশ.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
-        নোটিশ: নোটিশ,
         ...prevPostsAsCategory,
+        নোটিশ: নোটিশ,
       }));
   }, [posts]);
 
