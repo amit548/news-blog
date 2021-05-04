@@ -36,7 +36,7 @@ server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
 
   server.get('/admin/login', (_, res) => {
