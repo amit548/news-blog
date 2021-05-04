@@ -8,17 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^27.0.0",
-    "@ckeditor/ckeditor5-react": "^3.0.2",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "@tinymce/tinymce-react": "^3.12.3",
     "axios": "^0.21.1",
     "html-react-parser": "^1.2.4",
-    "next": "10.0.9",
+    "moment": "^2.29.1",
+    "next": "^10.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-masonry-css": "^1.0.16",
     "react-moment": "^1.1.1",
     "react-player": "^2.9.0",
     "react-responsive-carousel": "^3.2.18"

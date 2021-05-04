@@ -72,9 +72,7 @@ const EditPost = () => {
     (async () => {
       setLoading(true);
       try {
-        const result = await axios.get(
-          `/api/post/${router.query.id}`
-        );
+        const result = await axios.get(`/api/post/${router.query.id}`);
         setPostTitle(result.data.title);
         setVideoUrl(result.data.videoUrl);
         setPostDescription(result.data.description);
@@ -108,13 +106,9 @@ const EditPost = () => {
       formData.append('image2', image2);
       formData.append('image3', image3);
       formData.append('image4', image4);
-      await axios.put(
-        `/api/post/${router.query.id}`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      await axios.put(`/api/post/${router.query.id}`, formData, {
+        withCredentials: true,
+      });
       setLoading(false);
       setError({});
       router.push('/admin/posts');
@@ -173,10 +167,12 @@ const EditPost = () => {
                   <Grid item xs={12}>
                     <br />
                     <FormLabel component="legend">Post Description</FormLabel>
-                    <Editor
-                      setPostDescription={setPostDescription}
-                      postDescription={postDescription}
-                    />
+                    {postDescription && (
+                      <Editor
+                        setPostDescription={setPostDescription}
+                        postDescription={postDescription}
+                      />
+                    )}
                   </Grid>
                   <Grid item xs={12}>
                     <TextField

@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
 import compression from 'compression';
+import helmet from 'helmet';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 4000;
 
 server.use(compression());
 server.use(express.json());
+if (process.env.NODE_ENV === 'production') server.use(helmet());
 server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
@@ -34,7 +36,7 @@ server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
   server.use('/', express.static(join(__dirname, '../client/out')));
 
   server.get('/admin/login', (_, res) => {

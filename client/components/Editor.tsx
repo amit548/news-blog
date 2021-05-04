@@ -1,33 +1,26 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Editor } from '@tinymce/tinymce-react';
+import { useState } from 'react';
 
-const Editor = ({ setPostDescription, postDescription }) => {
+const RichTextEditor = ({ setPostDescription, postDescription }) => {
+  const onChange = (e: any) => {
+    setPostDescription(e.target.getContent());
+  };
+
+  const [initialValue] = useState(postDescription);
+
   return (
-    <CKEditor
-      editor={ClassicEditor}
-      data={postDescription}
-      config={{
-        toolbar: [
-          'heading',
-          'bold',
-          'italic',
-          'link',
-          'bulletedList',
-          'numberedList',
-          'outdent',
-          'indent',
-          'blockQuote',
-          'insertTable',
-          'undo',
-          'redo',
-        ],
-      }}
-      onChange={(_: any, editor: any) => {
-        const data = editor.getData();
-        setPostDescription(data);
-      }}
-    />
+    <>
+      <Editor
+        apiKey="1dnh24ildzal9f0jbzadjx4ly1ow3bbxwhtmwy444iwm68th"
+        initialValue={initialValue}
+        init={{
+          branding: false,
+          plugins: ['link', 'image'],
+        }}
+        onChange={onChange}
+      />
+    </>
   );
 };
 
-export default Editor;
+export default RichTextEditor;
