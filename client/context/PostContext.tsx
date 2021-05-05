@@ -27,15 +27,15 @@ const PostContextProvider = ({ children }) => {
           '/api/post/news?category=বেসরকারি চাকরি'
         );
         const result3 = await axios.get(
-          '/api/post/news?category=পরীক্ষার সিলেবাস'
+          '/api/post/news?category=পরীক্ষার প্রস্তুতি'
         );
-        const result4 = await axios.get('/api/post/news?category=রেজাল্ট');
+        // const result4 = await axios.get('/api/post/news?category=রেজাল্ট');
         const result5 = await axios.get('/api/post/news?category=নোটিশ');
         setPosts([
           ...result1.data.posts,
           ...result2.data.posts,
           ...result3.data.posts,
-          ...result4.data.posts,
+          // ...result4.data.posts,
           ...result5.data.posts,
         ]);
         setIsPostLoading(false);
@@ -67,21 +67,21 @@ const PostContextProvider = ({ children }) => {
         'বেসরকারি চাকরি': বেসরকারি_চাকরি,
       }));
 
-    const পরীক্ষার_সিলেবাস = posts.filter(
-      (post) => post.category === 'পরীক্ষার সিলেবাস'
+    const পরীক্ষার_প্রস্তুতি = posts.filter(
+      (post) => post.category === 'পরীক্ষার প্রস্তুতি'
     );
-    if (পরীক্ষার_সিলেবাস.length > 0)
+    if (পরীক্ষার_প্রস্তুতি.length > 0)
       setPostsAscategory((prevPostsAsCategory: any) => ({
         ...prevPostsAsCategory,
-        'পরীক্ষার সিলেবাস': পরীক্ষার_সিলেবাস,
+        'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি,
       }));
 
-    const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
-    if (রেজাল্ট.length > 0)
-      setPostsAscategory((prevPostsAsCategory: any) => ({
-        ...prevPostsAsCategory,
-        রেজাল্ট: রেজাল্ট,
-      }));
+    // const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
+    // if (রেজাল্ট.length > 0)
+    //   setPostsAscategory((prevPostsAsCategory: any) => ({
+    //     ...prevPostsAsCategory,
+    //     রেজাল্ট: রেজাল্ট,
+    //   }));
 
     const নোটিশ = posts.filter((post) => post.category === 'নোটিশ');
     if (নোটিশ.length > 0)

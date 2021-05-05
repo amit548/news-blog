@@ -49,13 +49,7 @@ const PostSchema = new Schema<Post>(
     },
     category: {
       type: String,
-      enum: [
-        'সরকারি চাকরি',
-        'বেসরকারি চাকরি',
-        'পরীক্ষার সিলেবাস',
-        'রেজাল্ট',
-        'নোটিশ',
-      ],
+      enum: ['সরকারি চাকরি', 'বেসরকারি চাকরি', 'পরীক্ষার প্রস্তুতি', 'নোটিশ'],
       default: 'সরকারি চাকরি',
       trim: true,
       required: true,

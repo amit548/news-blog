@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormEvent, useContext, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -24,10 +23,7 @@ import Alert from '@material-ui/lab/Alert';
 import FileUploadButton from '../../components/FileUploadButton';
 import { AuthContext } from '../../context/AuthContext';
 import Redirect from '../../components/Redirect';
-
-const Editor = dynamic(() => import('../../components/Editor'), {
-  ssr: false,
-});
+import Editor from '../../components/Editor';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -63,8 +59,7 @@ const CreatePost = () => {
   const categoryList = [
     { name: 'সরকারি চাকরি', value: 'সরকারি চাকরি' },
     { name: 'বেসরকারি চাকরি', value: 'বেসরকারি চাকরি' },
-    { name: 'পরীক্ষার সিলেবাস', value: 'পরীক্ষার সিলেবাস' },
-    { name: 'রেজাল্ট', value: 'রেজাল্ট' },
+    { name: 'পরীক্ষার প্রস্তুতি', value: 'পরীক্ষার প্রস্তুতি' },
     { name: 'নোটিশ', value: 'নোটিশ' },
   ];
 
@@ -142,10 +137,7 @@ const CreatePost = () => {
               <Grid item xs={12}>
                 <br />
                 <FormLabel component="legend">Post Description</FormLabel>
-                <Editor
-                  postDescription={postDescription}
-                  setPostDescription={setPostDescription}
-                />
+                <Editor setPostDescription={setPostDescription} />
               </Grid>
               <Grid item xs={12}>
                 <TextField

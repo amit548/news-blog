@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "start": "node dist/server.js",
-    "build": "tsc",
+    "build:server": "tsc",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:server && npm run build:client",
     "server": "ts-node src/server.ts",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""

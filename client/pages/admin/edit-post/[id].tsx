@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormEvent, useState, useEffect, useContext } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -24,10 +23,7 @@ import Alert from '@material-ui/lab/Alert';
 import FileUploadButton from '../../../components/FileUploadButton';
 import Redirect from '../../../components/Redirect';
 import { AuthContext } from '../../../context/AuthContext';
-
-const Editor = dynamic(() => import('../../../components/Editor'), {
-  ssr: false,
-});
+import Editor from '../../../components/Editor';
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -63,8 +59,7 @@ const EditPost = () => {
   const categoryList = [
     { name: 'সরকারি চাকরি', value: 'সরকারি চাকরি' },
     { name: 'বেসরকারি চাকরি', value: 'বেসরকারি চাকরি' },
-    { name: 'পরীক্ষার সিলেবাস', value: 'পরীক্ষার সিলেবাস' },
-    { name: 'রেজাল্ট', value: 'রেজাল্ট' },
+    { name: 'পরীক্ষার প্রস্তুতি', value: 'পরীক্ষার প্রস্তুতি' },
     { name: 'নোটিশ', value: 'নোটিশ' },
   ];
 
@@ -169,7 +164,7 @@ const EditPost = () => {
                     <FormLabel component="legend">Post Description</FormLabel>
                     <Editor
                       setPostDescription={setPostDescription}
-                      postDescription={postDescription}
+                      postId={router.query.id}
                     />
                   </Grid>
                   <Grid item xs={12}>

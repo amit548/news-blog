@@ -73,11 +73,11 @@ const NewsSlug = () => {
     if (বেসরকারি_চাকরি.length > 0)
       setPostsAscategory({ 'বেসরকারি চাকরি': বেসরকারি_চাকরি });
 
-    const পরীক্ষার_সিলেবাস = loadedData.filter(
-      (post) => post.category === 'পরীক্ষার সিলেবাস'
+    const পরীক্ষার_প্রস্তুতি = loadedData.filter(
+      (post) => post.category === 'পরীক্ষার প্রস্তুতি'
     );
-    if (পরীক্ষার_সিলেবাস.length > 0)
-      setPostsAscategory({ 'পরীক্ষার সিলেবাস': পরীক্ষার_সিলেবাস });
+    if (পরীক্ষার_প্রস্তুতি.length > 0)
+      setPostsAscategory({ 'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি });
 
     const রেজাল্ট = loadedData.filter((post) => post.category === 'রেজাল্ট');
     if (রেজাল্ট.length > 0) setPostsAscategory({ রেজাল্ট: রেজাল্ট });
