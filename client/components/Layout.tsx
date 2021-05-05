@@ -147,10 +147,10 @@ const Layout = ({ children }) => {
 
   return (
     <Fragment>
-      <Container maxWidth="md">
-        <Box display="flex" m={1}>
-          <Grid container spacing={4}>
-            <Hidden smDown>
+      <Hidden smDown>
+        <Container maxWidth="md">
+          <Box display="flex" m={1}>
+            <Grid container spacing={4}>
               <Grid item md={4}>
                 <img
                   src="/main_header.jpg"
@@ -165,24 +165,24 @@ const Layout = ({ children }) => {
                   onClick={() => router.push('/')}
                 />
               </Grid>
-            </Hidden>
-            <Grid item xs={12} md={8}>
-              <img
-                src="/side_header.jpg"
-                style={{
-                  objectPosition: 'center',
-                  objectFit: 'cover',
-                  height: '100%',
-                  width: '100%',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                }}
-                onClick={() => router.push('/')}
-              />
+              <Grid item xs={12} md={8}>
+                <img
+                  src="/side_header.jpg"
+                  style={{
+                    objectPosition: 'center',
+                    objectFit: 'cover',
+                    height: '100%',
+                    width: '100%',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => router.push('/')}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </Container>
+          </Box>
+        </Container>
+      </Hidden>
 
       <Box
         display="flex"
@@ -201,9 +201,16 @@ const Layout = ({ children }) => {
                   <MenuIcon />
                 </IconButton>
                 <Link href="/">
-                  <Typography variant="h6" className={classes.title}>
-                    কর্মের খোঁজ
-                  </Typography>
+                  <img
+                    src="/side_header.jpg"
+                    style={{
+                      height: 'inherit',
+                      width: '250px',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => router.push('/')}
+                  />
                 </Link>
               </Hidden>
 
