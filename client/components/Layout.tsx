@@ -205,6 +205,7 @@ const Layout = ({ children }) => {
                     src="/side_header.jpg"
                     style={{
                       height: 'inherit',
+                      marginLeft: '16px',
                       width: '250px',
                       overflow: 'hidden',
                       cursor: 'pointer',
