@@ -386,14 +386,14 @@ const Layout = ({ children }) => {
                 <Box marginRight={1}>
                   <Link href="/about_us">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
-                      About US
+                      About Us
                     </MatLink>
                   </Link>
                 </Box>
                 <Box marginRight={1}>
-                  <Link href="/contact">
+                  <Link href="/contact_us">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
-                      Contact
+                      Contact Us
                     </MatLink>
                   </Link>
                 </Box>
