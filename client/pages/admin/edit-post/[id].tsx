@@ -167,12 +167,10 @@ const EditPost = () => {
                   <Grid item xs={12}>
                     <br />
                     <FormLabel component="legend">Post Description</FormLabel>
-                    {postDescription && (
-                      <Editor
-                        setPostDescription={setPostDescription}
-                        postDescription={postDescription}
-                      />
-                    )}
+                    <Editor
+                      setPostDescription={setPostDescription}
+                      postDescription={postDescription}
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField

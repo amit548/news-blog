@@ -6,7 +6,11 @@ const RichTextEditor = ({ setPostDescription, postDescription }) => {
     setPostDescription(e.target.getContent());
   };
 
-  const [initialValue] = useState(postDescription);
+  const [initialValue, setInitialValue] = useState(postDescription);
+
+  setTimeout(() => {
+    setInitialValue(postDescription);
+  }, 500);
 
   return (
     <>
