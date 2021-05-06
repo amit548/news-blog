@@ -77,7 +77,23 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(join(__dirname, '../client/out/news/[slug].html'));
   });
 
-  server.get('/', (_, res) => {
+  server.get('/about_us', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/about_us.html'));
+  });
+
+  server.get('/contact_us', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/contact_us.html'));
+  });
+
+  server.get('/dmca', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/dmca.html'));
+  });
+
+  server.get('/privacy_policy', (_, res) => {
+    res.sendFile(join(__dirname, '../client/out/privacy_policy.html'));
+  });
+
+  server.all('*', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/index.html'));
   });
 }
