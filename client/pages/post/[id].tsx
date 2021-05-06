@@ -149,7 +149,6 @@ const Post = () => {
               <ReactPlayer
                 url={post.videoUrl}
                 width="100%"
-                height="auto"
                 controls={true}
               />
             )}
