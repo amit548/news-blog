@@ -113,6 +113,7 @@ server.use(
       dbName: process.env.MONGO_DB || 'test-blog',
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
       useFindAndModify: false,
     });
     console.log('Database connected');

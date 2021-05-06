@@ -12,6 +12,7 @@ interface Post extends Document {
   creator: any;
   private: boolean;
   videoUrl: string;
+  trending: boolean;
 }
 
 const PostSchema = new Schema<Post>(
@@ -69,6 +70,10 @@ const PostSchema = new Schema<Post>(
       type: Boolean,
       required: true,
       default: true,
+    },
+    trending: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

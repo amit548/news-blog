@@ -9,7 +9,14 @@ import { User, UserModel } from '../models/user';
 import { deleteFile, makeId } from '../utils/util';
 
 const createPost = async (req: Request, res: Response, next: NextFunction) => {
-  let { title, description, category, private: isPrivate, videoUrl } = req.body;
+  let {
+    title,
+    description,
+    category,
+    private: isPrivate,
+    videoUrl,
+    trending,
+  } = req.body;
 
   const user: User = res.locals.user;
 
@@ -28,6 +35,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
       throw createError(403, { body: errors });
 
     if (user.role === 'user') isPrivate = true;
+    if (user.role === 'user') trending = false;
 
     const newPost: any = {
       title,
@@ -36,6 +44,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
       creator: user.id,
       private: isPrivate,
       videoUrl,
+      trending,
     };
 
     if (req.files) {
@@ -240,6 +249,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     category,
     private: isPrivate,
     videoUrl,
+    trending,
   } = req.body;
 
   try {
@@ -266,7 +276,10 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     if (title) post!.title = title;
     if (description) post!.description = description;
     if (category) post!.category = category;
-    if (isPrivate) post!.private = isPrivate;
+    if (user.role === 'admin') {
+      if (isPrivate) post!.private = isPrivate;
+      if (trending) post!.trending = trending;
+    }
     if (videoUrl || videoUrl === '') post!.videoUrl = videoUrl;
     if (req.files) {
       if ((req.files as any).thumbnailImage) {
@@ -451,11 +464,7 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getVideoList = async (
-  _: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const getVideoList = async (_: Request, res: Response, next: NextFunction) => {
   try {
     const posts = await PostModel.find({
       private: false,
@@ -479,6 +488,57 @@ const getVideoList = async (
   }
 };
 
+const getTrendingPosts = async (
+  _: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await PostModel.find({
+      private: false,
+      trending: true,
+    })
+      .sort({ createdAt: -1 })
+      .limit(6)
+      .exec();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAdminTrendingPosts = async (
+  _: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user: User = res.locals.user;
+
+  try {
+    let errors: any = {};
+
+    if (!user) errors.user = 'You are not logged in';
+    if (Object.keys(errors).length > 0)
+      throw createError(401, { body: errors });
+
+    if (user.role !== 'admin') errors.user = 'You are not logged in';
+    if (Object.keys(errors).length > 0)
+      throw createError(401, { body: errors });
+
+    const posts = await PostModel.find({
+      trending: true,
+    })
+      .sort({ createdAt: -1 })
+      .limit(20)
+      .exec();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   createPost,
   getPost,
@@ -489,4 +549,6 @@ export {
   getPostsByCategory,
   deleteImageFormPost,
   getVideoList,
+  getTrendingPosts,
+  getAdminTrendingPosts,
 };

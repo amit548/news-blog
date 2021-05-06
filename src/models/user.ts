@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt';
-import { Document, model, ObjectId, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
 interface User extends Document {
   firstName: string;

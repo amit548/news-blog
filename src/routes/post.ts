@@ -9,6 +9,8 @@ import {
   getPosts,
   getPostsByCategory,
   getPostsForAdmin,
+  getTrendingPosts,
+  getAdminTrendingPosts,
   getVideoList,
   updatePost,
 } from '../controllers/post';
@@ -40,6 +42,10 @@ router.get('/', getPosts);
 router.get('/video', getVideoList);
 
 router.get('/news', getPostsByCategory);
+
+router.get('/trending_news', getTrendingPosts);
+
+router.get('/admin_trending_news', auth, getAdminTrendingPosts);
 
 router.get('/admin', auth, getPostsForAdmin);
 
