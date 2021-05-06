@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Head from 'next/head';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -91,7 +92,7 @@ const NewsSlug = () => {
     const নোটিশ = loadedData.filter((post) => post.category === 'নোটিশ');
     if (নোটিশ.length > 0) setPostsAscategory({ নোটিশ: নোটিশ });
   }, [loadedData]);
-  //পার্ট টাইম জব
+
   return (
     <Grid container spacing={1}>
       {loading && (
@@ -113,11 +114,22 @@ const NewsSlug = () => {
           {!loading && Object.keys(postsAscategory).length > 0 ? (
             <>
               {Object.keys(postsAscategory).map((categoryPostKey, i) => (
-                <News
-                  key={i}
-                  chipName={categoryPostKey}
-                  posts={postsAscategory[categoryPostKey]}
-                />
+                <>
+                  <Head>
+                    <title>{categoryPostKey}</title>
+                    <meta name="robots" content="index, follow" />
+                    <meta
+                      name="description"
+                      content="যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন"
+                    />
+                    <meta name="robots" content="index, follow" />
+                  </Head>
+                  <News
+                    key={i}
+                    chipName={categoryPostKey}
+                    posts={postsAscategory[categoryPostKey]}
+                  />
+                </>
               ))}
               {pageCount > 1 && (
                 <Grid

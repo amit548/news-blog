@@ -23,23 +23,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
     [theme.breakpoints.down('xs')]: {
       height: 192,
+      width: '100%',
     },
     [theme.breakpoints.up('xs')]: {
       height: 300,
+      width: '100%',
     },
     [theme.breakpoints.up('sm')]: {
       height: 350,
+      width: '100%',
     },
     [theme.breakpoints.up('md')]: {
       height: 405,
+      width: '100%',
     },
     [theme.breakpoints.up('lg')]: {
       height: 519,
+      width: '100%',
     },
   },
   imageBlock: {
     overflow: 'hidden',
     objectFit: 'cover',
+    minWidth: '100%',
+    minHeight: '100%',
   },
 }));
 
@@ -51,6 +58,7 @@ const Post = () => {
   const [error, setError] = useState<any>({});
   const [images, setImages] = useState([]);
   const [videoList, setVideoList] = useState([]);
+  const [metaDescription, setMetaDescription] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -77,6 +85,14 @@ const Post = () => {
   }, []);
 
   useEffect(() => {
+    if (post && post.description) {
+      let description = post.description.replace(/<[^>]*>?/gm, '');
+      if (description.length > 160) description = description.substring(0, 160);
+      setMetaDescription(description);
+    }
+  }, [post]);
+
+  useEffect(() => {
     setImages(() => {
       const dt = [];
       if (post) {
@@ -95,6 +111,8 @@ const Post = () => {
       <Fragment>
         <Head>
           <title>{post.title}</title>
+          <meta name="description" content={metaDescription} />
+          <meta name="robots" content="index, follow" />
         </Head>
         <Grid container spacing={1}>
           {loading && (
@@ -128,7 +146,12 @@ const Post = () => {
             </Carousel>
             <Typography component="div">{parser(post.description)}</Typography>
             {post.videoUrl && (
-              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
+              <ReactPlayer
+                url={post.videoUrl}
+                width="100%"
+                height="auto"
+                controls={true}
+              />
             )}
           </Grid>
           <Grid item xs={12} md={3}>

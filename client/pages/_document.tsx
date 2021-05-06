@@ -11,10 +11,6 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="apple-touch-icon" href="/vercel.svg" />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css"
-          />
         </Head>
         <body>
           <Main />

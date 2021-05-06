@@ -19,14 +19,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import MatLink from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
-import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
-import PeopleAltIcon from '@material-ui/icons/PeopleAltOutlined';
-import WorkOutlineOutlinedIcon from '@material-ui/icons/WorkOutlineOutlined';
-import EventNoteOutlinedIcon from '@material-ui/icons/EventNoteOutlined';
-import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
-import WorkOffOutlinedIcon from '@material-ui/icons/WorkOffOutlined';
-import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
-import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import WorkOutlineIcon from '@material-ui/icons/WorkRounded';
+import WorkOffIcon from '@material-ui/icons/WorkOffRounded';
+import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import NoteIcon from '@material-ui/icons/Note';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import ApartmentIcon from '@material-ui/icons/Apartment';
 import blue from '@material-ui/core/colors/blue';
 import cyan from '@material-ui/core/colors/cyan';
 import gray from '@material-ui/core/colors/grey';
@@ -41,8 +42,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
-    marginLeft: theme.spacing(1),
-    cursor: 'pointer',
   },
   drawer: {
     width: drawerWidth,
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     minHeight: '100%',
   },
   boxContainer: {
-    minHeight: 'calc(100vh - 245px)',
+    minHeight: 'calc(100vh - 150px)',
   },
   footer: {
     padding: theme.spacing(2),
@@ -89,12 +88,12 @@ const Layout = ({ children }) => {
       {
         path: '/admin/create-post',
         title: 'Create Posts',
-        icon: <AddPhotoAlternateOutlinedIcon color="secondary" />,
+        icon: <AddPhotoAlternateIcon color="secondary" />,
       },
       {
         path: '/admin/posts',
         title: 'Manage Posts',
-        icon: <PhotoAlbumOutlinedIcon color="secondary" />,
+        icon: <PhotoAlbumIcon color="secondary" />,
       },
     ];
 
@@ -116,27 +115,27 @@ const Layout = ({ children }) => {
       {
         path: '/news/সরকারি চাকরি',
         title: 'সরকারি চাকরি',
-        icon: <WorkOutlineOutlinedIcon color="secondary" />,
+        icon: <WorkOutlineIcon color="secondary" />,
       },
       {
         path: '/news/বেসরকারি চাকরি',
         title: 'বেসরকারি চাকরি',
-        icon: <WorkOffOutlinedIcon color="secondary" />,
+        icon: <WorkOffIcon color="secondary" />,
       },
       {
         path: '/news/পার্ট টাইম জব',
         title: 'পার্ট টাইম জব',
-        icon: <ReceiptOutlinedIcon color="secondary" />,
+        icon: <ApartmentIcon color="secondary" />,
       },
       {
         path: '/news/পরীক্ষার প্রস্তুতি',
         title: 'পরীক্ষার প্রস্তুতি',
-        icon: <ReceiptOutlinedIcon color="secondary" />,
+        icon: <MenuBookIcon color="secondary" />,
       },
       {
         path: '/news/নোটিশ',
         title: 'নোটিশ',
-        icon: <EventNoteOutlinedIcon color="secondary" />,
+        icon: <NoteIcon color="secondary" />,
       },
     ];
   }
@@ -200,19 +199,21 @@ const Layout = ({ children }) => {
                 <IconButton color="inherit" onClick={() => onDrawerOpen()}>
                   <MenuIcon />
                 </IconButton>
-                <Link href="/">
-                  <img
-                    src="/side_header.jpg"
-                    style={{
-                      height: 'inherit',
-                      marginLeft: '16px',
-                      width: '250px',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => router.push('/')}
-                  />
-                </Link>
+                <div className={classes.title}>
+                  <Link href="/">
+                    <img
+                      src="/side_header.jpg"
+                      style={{
+                        height: 'inherit',
+                        marginLeft: '16px',
+                        width: '250px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => router.push('/')}
+                    />
+                  </Link>
+                </div>
               </Hidden>
 
               {user ? (

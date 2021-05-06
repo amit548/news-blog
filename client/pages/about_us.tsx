@@ -1,9 +1,20 @@
+import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const AboutUs = () => {
   return (
     <div>
+      <Head>
+        <title>
+          About Us | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন
+        </title>
+        <meta
+          name="description"
+          content="যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন"
+        />
+        <meta name="robots" content="index, follow" />
+      </Head>
       <Typography variant="h5" gutterBottom>
         About Us
       </Typography>

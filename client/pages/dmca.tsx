@@ -1,9 +1,20 @@
+import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const DMCA = () => {
   return (
     <div>
+      <Head>
+        <title>
+          DMCA | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন
+        </title>
+        <meta
+          name="description"
+          content="If we Have added some content that belong to you or your organization by mistake, We are sorry for that. We apologize for that and assure you that this wont be repeated in future. If you are rightful owner of the"
+        />
+        <meta name="robots" content="index, follow" />
+      </Head>
       <Typography variant="h5" gutterBottom>
         DMCA
       </Typography>

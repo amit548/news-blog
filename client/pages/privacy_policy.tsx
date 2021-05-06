@@ -1,9 +1,21 @@
+import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const PrivacyPolicy = () => {
   return (
     <div>
+      <Head>
+        <title>
+          Privacy Policy | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে
+          থাকুন
+        </title>
+        <meta
+          name="description"
+          content="At kormer khoj, accessible from www.kormerkhoj.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by kormer khoj and how we use it."
+        />
+        <meta name="robots" content="index, follow" />
+      </Head>
       <Typography variant="h5" gutterBottom>
         Privacy Policy for kormer khoj
       </Typography>
