@@ -124,15 +124,15 @@ const Layout = ({ children }) => {
         icon: <WorkOffOutlinedIcon color="secondary" />,
       },
       {
+        path: '/news/পার্ট টাইম জব',
+        title: 'পার্ট টাইম জব',
+        icon: <ReceiptOutlinedIcon color="secondary" />,
+      },
+      {
         path: '/news/পরীক্ষার প্রস্তুতি',
         title: 'পরীক্ষার প্রস্তুতি',
         icon: <ReceiptOutlinedIcon color="secondary" />,
       },
-      // {
-      //   path: '/news/রেজাল্ট',
-      //   title: 'রেজাল্ট',
-      //   icon: <SubtitlesOutlinedIcon color="secondary" />,
-      // },
       {
         path: '/news/নোটিশ',
         title: 'নোটিশ',
@@ -263,6 +263,10 @@ const Layout = ({ children }) => {
 
                         <Link href="/news/বেসরকারি চাকরি">
                           <Button color="inherit">বেসরকারি চাকরি</Button>
+                        </Link>
+
+                        <Link href="/news/পার্ট টাইম জব">
+                          <Button color="inherit">পার্ট টাইম জব</Button>
                         </Link>
 
                         <Link href="/news/পরীক্ষার প্রস্তুতি">

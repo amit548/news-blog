@@ -27,15 +27,17 @@ const PostContextProvider = ({ children }) => {
           '/api/post/news?category=বেসরকারি চাকরি'
         );
         const result3 = await axios.get(
+          '/api/post/news?category=পার্ট টাইম জব'
+        );
+        const result4 = await axios.get(
           '/api/post/news?category=পরীক্ষার প্রস্তুতি'
         );
-        // const result4 = await axios.get('/api/post/news?category=রেজাল্ট');
         const result5 = await axios.get('/api/post/news?category=নোটিশ');
         setPosts([
           ...result1.data.posts,
           ...result2.data.posts,
           ...result3.data.posts,
-          // ...result4.data.posts,
+          ...result4.data.posts,
           ...result5.data.posts,
         ]);
         setIsPostLoading(false);
@@ -67,6 +69,15 @@ const PostContextProvider = ({ children }) => {
         'বেসরকারি চাকরি': বেসরকারি_চাকরি,
       }));
 
+    const পার্ট_টাইম_জব = posts.filter(
+      (post) => post.category === 'পার্ট টাইম জব'
+    );
+    if (পার্ট_টাইম_জব.length > 0)
+      setPostsAscategory((prevPostsAsCategory: any) => ({
+        ...prevPostsAsCategory,
+        'পার্ট টাইম জব': পার্ট_টাইম_জব,
+      }));
+
     const পরীক্ষার_প্রস্তুতি = posts.filter(
       (post) => post.category === 'পরীক্ষার প্রস্তুতি'
     );
@@ -75,13 +86,6 @@ const PostContextProvider = ({ children }) => {
         ...prevPostsAsCategory,
         'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি,
       }));
-
-    // const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
-    // if (রেজাল্ট.length > 0)
-    //   setPostsAscategory((prevPostsAsCategory: any) => ({
-    //     ...prevPostsAsCategory,
-    //     রেজাল্ট: রেজাল্ট,
-    //   }));
 
     const নোটিশ = posts.filter((post) => post.category === 'নোটিশ');
     if (নোটিশ.length > 0)

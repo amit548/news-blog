@@ -73,6 +73,12 @@ const NewsSlug = () => {
     if (বেসরকারি_চাকরি.length > 0)
       setPostsAscategory({ 'বেসরকারি চাকরি': বেসরকারি_চাকরি });
 
+    const পার্ট_টাইম_জব = loadedData.filter(
+      (post) => post.category === 'পার্ট টাইম জব'
+    );
+    if (পার্ট_টাইম_জব.length > 0)
+      setPostsAscategory({ 'পার্ট টাইম জব': পার্ট_টাইম_জব });
+
     const পরীক্ষার_প্রস্তুতি = loadedData.filter(
       (post) => post.category === 'পরীক্ষার প্রস্তুতি'
     );
@@ -85,7 +91,7 @@ const NewsSlug = () => {
     const নোটিশ = loadedData.filter((post) => post.category === 'নোটিশ');
     if (নোটিশ.length > 0) setPostsAscategory({ নোটিশ: নোটিশ });
   }, [loadedData]);
-
+  //পার্ট টাইম জব
   return (
     <Grid container spacing={1}>
       {loading && (
