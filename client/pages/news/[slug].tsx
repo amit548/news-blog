@@ -31,7 +31,7 @@ const NewsSlug = () => {
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  const postsPerPage = 30;
+  const postsPerPage = 20;
 
   useEffect(() => {
     (async () => {
