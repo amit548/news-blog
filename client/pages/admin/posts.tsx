@@ -83,7 +83,7 @@ const Posts = () => {
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  const postsPerPage = 30;
+  const postsPerPage = 15;
 
   const handlePostDelete = async (id: string) => {
     const areYouOk = confirm('Do you really want to delete this post?');
