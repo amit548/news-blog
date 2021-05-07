@@ -1,5 +1,6 @@
 import { Fragment, useContext } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -52,6 +53,7 @@ const Home = () => {
     trendingPost,
   } = useContext(PostContext);
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <Fragment>
@@ -77,7 +79,13 @@ const Home = () => {
             >
               {trendingPost &&
                 trendingPost.map((post) => (
-                  <div className={classes.imageContainer} key={post._id}>
+                  <div
+                    className={classes.imageContainer}
+                    key={post._id}
+                    onClick={() => {
+                      router.push(`/post/${post._id}`);
+                    }}
+                  >
                     <img
                       className={classes.imageBlock}
                       src={`/public/images/${post.thumbnailImage}`}
