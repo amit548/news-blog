@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: 450,
       width: '100%',
     },
+    cursor: 'pointer',
   },
   imageBlock: {
     overflow: 'hidden',
