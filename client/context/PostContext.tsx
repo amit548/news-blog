@@ -2,8 +2,10 @@ import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 
 export const PostContext = createContext({
+  isTrendingPostLoading: false,
   isPostLoading: false,
   isVideoLoading: false,
+  trendingPost: [],
   posts: [],
   postsAscategory: {},
   videos: [],
@@ -11,12 +13,30 @@ export const PostContext = createContext({
 });
 
 const PostContextProvider = ({ children }) => {
+  const [isTrendingPostLoading, setIsTrendingPostLoading] = useState(true);
+  const [trendingPost, setTrendingPost] = useState([]);
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
   const [postsAscategory, setPostsAscategory] = useState<any>({});
   const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchTrendingPosts = async () => {
+      setIsTrendingPostLoading(true);
+      try {
+        const res = await axios.get('/api/post/trending_news');
+        setTrendingPost(res.data);
+        setIsTrendingPostLoading(false);
+      } catch (error) {
+        if (error.response) setError(error.response.data.body);
+        setIsTrendingPostLoading(false);
+      }
+    };
+
+    fetchTrendingPosts();
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -114,8 +134,10 @@ const PostContextProvider = ({ children }) => {
   return (
     <PostContext.Provider
       value={{
+        isTrendingPostLoading,
         isPostLoading,
         isVideoLoading,
+        trendingPost,
         posts,
         postsAscategory,
         videos,

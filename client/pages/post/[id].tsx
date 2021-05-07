@@ -12,7 +12,6 @@ import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import SideBar from '../../components/SideBar';
 

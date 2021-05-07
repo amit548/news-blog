@@ -489,48 +489,21 @@ const getVideoList = async (_: Request, res: Response, next: NextFunction) => {
 };
 
 const getTrendingPosts = async (
-  _: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const currentPage = parseInt((req.query as any).page) || 1;
+  const postsPerPage = parseInt((req.query as any).limit) || 10;
+
   try {
     const posts = await PostModel.find({
       private: false,
       trending: true,
     })
+      .skip((currentPage - 1) * postsPerPage)
+      .limit(postsPerPage)
       .sort({ createdAt: -1 })
-      .limit(6)
-      .exec();
-
-    res.status(200).json(posts);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getAdminTrendingPosts = async (
-  _: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const user: User = res.locals.user;
-
-  try {
-    let errors: any = {};
-
-    if (!user) errors.user = 'You are not logged in';
-    if (Object.keys(errors).length > 0)
-      throw createError(401, { body: errors });
-
-    if (user.role !== 'admin') errors.user = 'You are not logged in';
-    if (Object.keys(errors).length > 0)
-      throw createError(401, { body: errors });
-
-    const posts = await PostModel.find({
-      trending: true,
-    })
-      .sort({ createdAt: -1 })
-      .limit(20)
       .exec();
 
     res.status(200).json(posts);
@@ -550,5 +523,4 @@ export {
   deleteImageFormPost,
   getVideoList,
   getTrendingPosts,
-  getAdminTrendingPosts,
 };

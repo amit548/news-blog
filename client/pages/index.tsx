@@ -4,13 +4,54 @@ import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { Carousel } from 'react-responsive-carousel';
+import { makeStyles, Theme } from '@material-ui/core';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
 import { PostContext } from '../context/PostContext';
 
+const useStyles = makeStyles((theme: Theme) => ({
+  imageContainer: {
+    [theme.breakpoints.down('xs')]: {
+      height: 250,
+      width: '100%',
+    },
+    [theme.breakpoints.up('xs')]: {
+      height: 300,
+      width: '100%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: 350,
+      width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 400,
+      width: '100%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: 450,
+      width: '100%',
+    },
+  },
+  imageBlock: {
+    overflow: 'hidden',
+    minWidth: '100%',
+    minHeight: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center bottom',
+  },
+}));
+
 const Home = () => {
-  const { isPostLoading, postsAscategory, videos } = useContext(PostContext);
+  const {
+    isPostLoading,
+    postsAscategory,
+    videos,
+    isTrendingPostLoading,
+    trendingPost,
+  } = useContext(PostContext);
+  const classes = useStyles();
 
   return (
     <Fragment>
@@ -26,6 +67,28 @@ const Home = () => {
       </Head>
 
       <Grid container spacing={1}>
+        {!isTrendingPostLoading && (
+          <Grid item xs={12}>
+            <Carousel
+              infiniteLoop={true}
+              interval={5000}
+              autoPlay={true}
+              showThumbs={false}
+            >
+              {trendingPost &&
+                trendingPost.map((post) => (
+                  <div className={classes.imageContainer} key={post._id}>
+                    <img
+                      className={classes.imageBlock}
+                      src={`/public/images/${post.image}`}
+                    />
+                    <p className="legend">{post.title}</p>
+                  </div>
+                ))}
+            </Carousel>
+          </Grid>
+        )}
+
         {isPostLoading ? (
           <Grid item xs={12}>
             <Box display="flex" justifyContent="center">
