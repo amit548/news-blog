@@ -80,7 +80,7 @@ const Home = () => {
                   <div className={classes.imageContainer} key={post._id}>
                     <img
                       className={classes.imageBlock}
-                      src={`/public/images/${post.image}`}
+                      src={`/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>
