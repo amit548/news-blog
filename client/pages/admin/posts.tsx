@@ -25,21 +25,6 @@ import blue from '@material-ui/core/colors/blue';
 import Redirect from '../../components/Redirect';
 import { AuthContext } from '../../context/AuthContext';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
     marginBottom: theme.spacing(1),
@@ -69,8 +54,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const StyledTableCell = withStyles((theme: Theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
     fontWeight: 'bold',
   },
   body: {
@@ -92,14 +77,11 @@ const Posts = () => {
 
   const { user, isLoading } = useContext(AuthContext);
 
-  const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>({});
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
-  const [ensureDelete, setEnsureDelete] = useState({ status: false, id: '' });
 
   const postsPerPage = 30;
 
