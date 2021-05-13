@@ -14,6 +14,10 @@ const ContactUs = () => {
           name="description"
           content="If you have any query regrading Site, Advertisement and any other issue, please feel free to contact at kormerkhoj@gmail.com"
         />
+        <meta
+          name="keywords"
+          content="সরকারি চাকরি, বেসরকারি চাকরি, পার্ট টাইম জব, পরীক্ষার প্রস্তুতি, নোটিশ"
+        />
         <meta name="robots" content="index, follow" />
       </Head>
       <Typography variant="h5" gutterBottom>

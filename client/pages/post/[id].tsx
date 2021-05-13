@@ -111,6 +111,10 @@ const Post = () => {
         <Head>
           <title>{post.title}</title>
           <meta name="description" content={metaDescription} />
+          <meta
+            name="keywords"
+            content={metaDescription.split(' ').join(', ')}
+          />
           <meta name="robots" content="index, follow" />
         </Head>
         <Grid container spacing={1}>
@@ -145,11 +149,7 @@ const Post = () => {
             </Carousel>
             <Typography component="div">{parser(post.description)}</Typography>
             {post.videoUrl && (
-              <ReactPlayer
-                url={post.videoUrl}
-                width="100%"
-                controls={true}
-              />
+              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
             )}
           </Grid>
           <Grid item xs={12} md={3}>

@@ -14,6 +14,10 @@ const PrivacyPolicy = () => {
           name="description"
           content="At kormer khoj, accessible from www.kormerkhoj.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by kormer khoj and how we use it."
         />
+        <meta
+          name="keywords"
+          content="সরকারি চাকরি, বেসরকারি চাকরি, পার্ট টাইম জব, পরীক্ষার প্রস্তুতি, নোটিশ"
+        />
         <meta name="robots" content="index, follow" />
       </Head>
       <Typography variant="h5" gutterBottom>

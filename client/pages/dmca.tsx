@@ -13,6 +13,10 @@ const DMCA = () => {
           name="description"
           content="If we Have added some content that belong to you or your organization by mistake, We are sorry for that. We apologize for that and assure you that this wont be repeated in future. If you are rightful owner of the"
         />
+        <meta
+          name="keywords"
+          content="সরকারি চাকরি, বেসরকারি চাকরি, পার্ট টাইম জব, পরীক্ষার প্রস্তুতি, নোটিশ"
+        />
         <meta name="robots" content="index, follow" />
       </Head>
       <Typography variant="h5" gutterBottom>
