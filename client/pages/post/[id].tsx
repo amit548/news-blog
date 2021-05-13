@@ -85,7 +85,10 @@ const Post = () => {
 
   useEffect(() => {
     if (post && post.description) {
-      let description = post.description.replace(/<[^>]*>?/gm, '');
+      let description = post.description
+        .replace(/<[^>]*>?/gm, '')
+        .replaceAll('&amp;nbsp;', '')
+        .trim();
       if (description.length > 160) description = description.substring(0, 160);
       setMetaDescription(description);
     }
