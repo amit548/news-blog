@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import Head from 'next/head';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -110,6 +111,16 @@ const Text = () => {
   return (
     post && (
       <Fragment>
+        <Head>
+          <title>{post.title}</title>
+          <meta name="description" content={metaDescription} />
+          <meta
+            name="keywords"
+            content={metaDescription.split(' ').join(', ')}
+          />
+          <meta name="robots" content="index, follow" />
+        </Head>
+
         <Grid item xs={12} md={9}>
           <Typography variant="h4">{post.title}</Typography>
           <Typography variant="caption" color="textSecondary" gutterBottom>
