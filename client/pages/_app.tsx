@@ -22,7 +22,9 @@ const App = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
-    TagManager.initialize({ gtmId: 'G-MT2EDLVTRR', page: '/' });
+    return () => {
+      TagManager.initialize({ gtmId: 'G-MT2EDLVTRR', page: '/' });
+    };
   }, []);
 
   return (
