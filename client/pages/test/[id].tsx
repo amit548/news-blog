@@ -90,9 +90,9 @@ const Text = () => {
         description = post.description
           .replace(/<[^>]*>?/gm, '')
           .trim()
-          .replaceAll('&amp;nbsp;', '')
+          .replace(/&amp;nbsp/gi, '')
           .trim()
-          .replaceAll('&nbsp;', '')
+          .replace(/&nbsp;/gi, '')
           .trim();
 
         setMetaDescription(description);
