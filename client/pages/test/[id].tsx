@@ -94,9 +94,7 @@ const Text = () => {
           .trim()
       : '';
 
-    const descriptionLength = description.length;
-    if (descriptionLength > 160) description = description.substring(0, 160);
-    setMetaDescription(description);
+    setMetaDescription(description.substring(0, 160));
   }, [post]);
 
   useEffect(() => {
