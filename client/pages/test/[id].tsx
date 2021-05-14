@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
