@@ -1,6 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-// import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -12,8 +11,6 @@ import UserContextProvider from '../context/UserContext';
 import theme from '../src/theme';
 
 const App = ({ Component, pageProps }) => {
-  // const router = useRouter();
-
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
