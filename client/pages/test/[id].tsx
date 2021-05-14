@@ -3,8 +3,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Head from 'next/head';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
@@ -121,40 +123,50 @@ const Text = () => {
           <meta name="robots" content="index, follow" />
         </Head>
 
-        <Grid item xs={12} md={9}>
-          <Typography variant="h4">{post.title}</Typography>
-          <Typography variant="caption" color="textSecondary" gutterBottom>
-            <Moment fromNow>{post.createdAt}</Moment>
-          </Typography>
-          <Carousel showThumbs={false}>
-            {images.map((image) => (
-              <div key={image} className={classes.imageContainer}>
-                <img
-                  className={classes.imageBlock}
-                  src={`/public/images/${image}`}
-                />
-              </div>
-            ))}
-          </Carousel>
-          <Typography component="div">{parser(post.description)}</Typography>
-          {post.videoUrl && (
-            <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
-          )}
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Grid container spacing={1}>
+        <Grid container spacing={1}>
+          {loading && (
             <Grid item xs={12}>
-              <Typography variant="h5">Useful videos</Typography>
+              <Box display="flex" justifyContent="center">
+                <CircularProgress />
+              </Box>
             </Grid>
-            {videoList.length > 0 ? (
-              videoList.map((video) => (
-                <SideBar video={video} key={video._id} />
-              ))
-            ) : (
-              <Grid item xs={12}>
-                <Typography>No videos found</Typography>
-              </Grid>
+          )}
+
+          <Grid item xs={12} md={9}>
+            <Typography variant="h4">{post.title}</Typography>
+            <Typography variant="caption" color="textSecondary" gutterBottom>
+              <Moment fromNow>{post.createdAt}</Moment>
+            </Typography>
+            <Carousel showThumbs={false}>
+              {images.map((image) => (
+                <div key={image} className={classes.imageContainer}>
+                  <img
+                    className={classes.imageBlock}
+                    src={`/public/images/${image}`}
+                  />
+                </div>
+              ))}
+            </Carousel>
+            <Typography component="div">{parser(post.description)}</Typography>
+            {post.videoUrl && (
+              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
             )}
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Typography variant="h5">Useful videos</Typography>
+              </Grid>
+              {videoList.length > 0 ? (
+                videoList.map((video) => (
+                  <SideBar video={video} key={video._id} />
+                ))
+              ) : (
+                <Grid item xs={12}>
+                  <Typography>No videos found</Typography>
+                </Grid>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Fragment>
