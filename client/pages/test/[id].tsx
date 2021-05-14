@@ -84,17 +84,20 @@ const Text = () => {
   }, []);
 
   useEffect(() => {
-    let description: string = post.description
-      ? post.description
+    let description = '';
+    if (post) {
+      if (post.description) {
+        description = post.description
           .replace(/<[^>]*>?/gm, '')
           .trim()
           .replaceAll('&amp;nbsp;', '')
           .trim()
           .replaceAll('&nbsp;', '')
-          .trim()
-      : '';
+          .trim();
 
-    setMetaDescription(description.substring(0, 160));
+        setMetaDescription(description.substring(0, 160));
+      }
+    }
   }, [post]);
 
   useEffect(() => {
