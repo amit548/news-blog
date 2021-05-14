@@ -88,9 +88,9 @@ const Post = () => {
       let description = post.description
         .replace(/<[^>]*>?/gm, '')
         .trim()
-        .replaceAll('&amp;nbsp;', '')
+        .replace(/&amp;nbsp/gi, '')
         .trim()
-        .replaceAll('&nbsp;', '')
+        .replace(/&nbsp;/gi, '')
         .trim();
       if (description.length > 160) description = description.substring(0, 160);
       setMetaDescription(description);
