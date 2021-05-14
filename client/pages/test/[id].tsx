@@ -111,57 +111,54 @@ const Text = () => {
     });
   }, [post]);
 
-  return (
-    post && (
-      <Fragment>
-        <Head>
-          <title>{post.title}</title>
-          <meta name="description" content={metaDescription} />
-          <meta
-            name="keywords"
-            content={metaDescription.split(' ').join(', ')}
-          />
-          <meta name="robots" content="index, follow" />
-        </Head>
+  return post ? (
+    <Fragment>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metaDescription.split(' ').join(', ')} />
+        <meta name="robots" content="index, follow" />
+      </Head>
 
-        <Grid item xs={12} md={9}>
-          <Typography variant="h4">{post.title}</Typography>
-          <Typography variant="caption" color="textSecondary" gutterBottom>
-            <Moment fromNow>{post.createdAt}</Moment>
-          </Typography>
-          <Carousel showThumbs={false}>
-            {images.map((image) => (
-              <div key={image} className={classes.imageContainer}>
-                <img
-                  className={classes.imageBlock}
-                  src={`/public/images/${image}`}
-                />
-              </div>
-            ))}
-          </Carousel>
-          <Typography component="div">{parser(post.description)}</Typography>
-          {post.videoUrl && (
-            <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
+      <Grid item xs={12} md={9}>
+        <Typography variant="h4">{post.title}</Typography>
+        <Typography variant="caption" color="textSecondary" gutterBottom>
+          <Moment fromNow>{post.createdAt}</Moment>
+        </Typography>
+        <Carousel showThumbs={false}>
+          {images.map((image) => (
+            <div key={image} className={classes.imageContainer}>
+              <img
+                className={classes.imageBlock}
+                src={`/public/images/${image}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+        <Typography component="div">{parser(post.description)}</Typography>
+        {post.videoUrl && (
+          <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
+        )}
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="h5">Useful videos</Typography>
+          </Grid>
+          {videoList.length > 0 ? (
+            videoList.map((video) => <SideBar video={video} key={video._id} />)
+          ) : (
+            <Grid item xs={12}>
+              <Typography>No videos found</Typography>
+            </Grid>
           )}
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <Typography variant="h5">Useful videos</Typography>
-            </Grid>
-            {videoList.length > 0 ? (
-              videoList.map((video) => (
-                <SideBar video={video} key={video._id} />
-              ))
-            ) : (
-              <Grid item xs={12}>
-                <Typography>No videos found</Typography>
-              </Grid>
-            )}
-          </Grid>
-        </Grid>
-      </Fragment>
-    )
+      </Grid>
+    </Fragment>
+  ) : (
+    <div>
+      <h1>Loading...</h1>
+    </div>
   );
 };
 
