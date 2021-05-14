@@ -132,6 +132,12 @@ const Text = () => {
             </Grid>
           )}
 
+          {Object.keys(error).map((err) => (
+            <Alert severity="error" key={err} className={classes.alert}>
+              {error[err]}
+            </Alert>
+          ))}
+
           <Grid item xs={12} md={9}>
             <Typography variant="h4">{post.title}</Typography>
             <Typography variant="caption" color="textSecondary" gutterBottom>
