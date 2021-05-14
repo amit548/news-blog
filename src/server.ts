@@ -77,10 +77,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(join(__dirname, '../client/out/news/[slug].html'));
   });
 
-  server.get('/test/:id', (_, res) => {
-    res.sendFile(join(__dirname, '../client/out/test/[id].html'));
-  });
-
   server.get('/about_us', (_, res) => {
     res.sendFile(join(__dirname, '../client/out/about_us.html'));
   });
