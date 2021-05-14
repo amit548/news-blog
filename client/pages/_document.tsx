@@ -41,7 +41,9 @@ export default class MyDocument extends Document {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
           
-            gtag('config', 'G-MT2EDLVTRR');
+            gtag('config', 'G-MT2EDLVTRR', {
+              page_path: window.location.pathname,
+            });
             `,
             }}
           />
