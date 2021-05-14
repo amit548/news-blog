@@ -124,56 +124,40 @@ const Text = () => {
           <meta name="robots" content="index, follow" />
         </Head>
 
-        <Grid container spacing={1}>
-          {loading && (
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <CircularProgress />
-              </Box>
-            </Grid>
+        <Grid item xs={12} md={9}>
+          <Typography variant="h4">{post.title}</Typography>
+          <Typography variant="caption" color="textSecondary" gutterBottom>
+            <Moment fromNow>{post.createdAt}</Moment>
+          </Typography>
+          <Carousel showThumbs={false}>
+            {images.map((image) => (
+              <div key={image} className={classes.imageContainer}>
+                <img
+                  className={classes.imageBlock}
+                  src={`/public/images/${image}`}
+                />
+              </div>
+            ))}
+          </Carousel>
+          <Typography component="div">{parser(post.description)}</Typography>
+          {post.videoUrl && (
+            <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
           )}
-
-          {Object.keys(error).map((err) => (
-            <Alert severity="error" key={err} className={classes.alert}>
-              {error[err]}
-            </Alert>
-          ))}
-
-          <Grid item xs={12} md={9}>
-            <Typography variant="h4">{post.title}</Typography>
-            <Typography variant="caption" color="textSecondary" gutterBottom>
-              <Moment fromNow>{post.createdAt}</Moment>
-            </Typography>
-            <Carousel showThumbs={false}>
-              {images.map((image) => (
-                <div key={image} className={classes.imageContainer}>
-                  <img
-                    className={classes.imageBlock}
-                    src={`/public/images/${image}`}
-                  />
-                </div>
-              ))}
-            </Carousel>
-            <Typography component="div">{parser(post.description)}</Typography>
-            {post.videoUrl && (
-              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
-            )}
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <Typography variant="h5">Useful videos</Typography>
-              </Grid>
-              {videoList.length > 0 ? (
-                videoList.map((video) => (
-                  <SideBar video={video} key={video._id} />
-                ))
-              ) : (
-                <Grid item xs={12}>
-                  <Typography>No videos found</Typography>
-                </Grid>
-              )}
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Typography variant="h5">Useful videos</Typography>
             </Grid>
+            {videoList.length > 0 ? (
+              videoList.map((video) => (
+                <SideBar video={video} key={video._id} />
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Typography>No videos found</Typography>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Fragment>
