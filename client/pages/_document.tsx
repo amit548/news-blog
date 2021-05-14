@@ -47,11 +47,11 @@ export default class MyDocument extends Document {
             `,
             }}
           /> */}
-          <script
+          {/* <script
             data-ad-client="ca-pub-2560487482582031"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          />
+          /> */}
         </Head>
         <body>
           <Main />
