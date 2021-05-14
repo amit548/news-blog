@@ -83,19 +83,21 @@ const Text = () => {
     })();
   }, []);
 
-//   useEffect(() => {
-//     if (post && post.description) {
-//       let description = post.description
-//         .replace(/<[^>]*>?/gm, '')
-//         .trim()
-//         .replaceAll('&amp;nbsp;', '')
-//         .trim()
-//         .replaceAll('&nbsp;', '')
-//         .trim();
-//       if (description.length > 160) description = description.substring(0, 160);
-//       setMetaDescription(description);
-//     }
-//   }, [post]);
+  useEffect(() => {
+    if (post && post.description) {
+      let description = post.description
+        .replace(/<[^>]*>?/gm, '')
+        .trim()
+        .replaceAll('&amp;nbsp;', '')
+        .trim()
+        .replaceAll('&nbsp;', '')
+        .trim();
+      if (description)
+        if (description.length > 160)
+          description = description.substring(0, 160);
+      setMetaDescription(description);
+    }
+  }, [post]);
 
   useEffect(() => {
     setImages(() => {
