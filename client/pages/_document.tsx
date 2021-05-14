@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-          <script
+          {/* <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"
           />
@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
             gtag('config', 'G-MT2EDLVTRR');
             `,
             }}
-          />
+          /> */}
           <script
             data-ad-client="ca-pub-2560487482582031"
             async
