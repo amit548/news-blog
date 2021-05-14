@@ -95,7 +95,7 @@ const Text = () => {
           .replaceAll('&nbsp;', '')
           .trim();
 
-        setMetaDescription(description.substring(0, 160));
+        setMetaDescription(description);
       }
     }
   }, [post]);
