@@ -1,7 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
-import TagManager from 'react-gtm-module';
+// import TagManager from 'react-gtm-module';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import Layout from '../components/Layout';
@@ -18,11 +18,11 @@ const App = ({ Component, pageProps }) => {
     }
   }, []);
 
-  useEffect(() => {
-    return () => {
-      TagManager.initialize({ gtmId: 'G-MT2EDLVTRR', page: '/' });
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     TagManager.initialize({ gtmId: 'G-MT2EDLVTRR', page: '/' });
+  //   };
+  // }, []);
 
   return (
     <ThemeProvider theme={theme}>
