@@ -138,7 +138,6 @@ const NewsSlug = () => {
             {!loading && Object.keys(postsAscategory).length > 0 ? (
               <>
                 {Object.keys(postsAscategory).map((categoryPostKey, i) => {
-                  setCategoryPostKey(categoryPostKey);
                   return (
                     <News
                       key={i}
