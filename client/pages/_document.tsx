@@ -30,6 +30,11 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
+          <meta property="og:site_name" content="Kormer Khoj" />
+          <meta property="og:type" content="website" />
+          <meta property="twitter:card" content="summary" />
+          <meta property="og:image" content="/apple-touch-icon.png" />
+          <meta property="twitter:image" content="/apple-touch-icon.png" />
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"

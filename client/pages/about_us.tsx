@@ -3,15 +3,28 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const AboutUs = () => {
+  const title =
+    'About Us | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+  const description =
+    'যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+
   return (
     <div>
       <Head>
-        <title>
-          About Us | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন
-        </title>
+        <title>{title}</title>
         <meta
           name="description"
-          content="যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="twitter:title" content={title} />
+        <meta
+          property="twitter:description"
+          content={description.substring(0, 159).concat('...')}
         />
         <meta
           name="keywords"

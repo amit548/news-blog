@@ -3,16 +3,28 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const ContactUs = () => {
+  const title =
+    'Contact Us | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+  const description =
+    'If you have any query regrading Site, Advertisement and any other issue, please feel free to contact at kormerkhoj@gmail.com';
+
   return (
     <div>
       <Head>
-        <title>
-          Contact Us | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে
-          থাকুন
-        </title>
+        <title>{title}</title>
         <meta
           name="description"
-          content="If you have any query regrading Site, Advertisement and any other issue, please feel free to contact at kormerkhoj@gmail.com"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="twitter:title" content={title} />
+        <meta
+          property="twitter:description"
+          content={description.substring(0, 159).concat('...')}
         />
         <meta
           name="keywords"

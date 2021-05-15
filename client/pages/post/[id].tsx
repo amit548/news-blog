@@ -92,7 +92,7 @@ const Post = () => {
         .trim()
         .replace(/&nbsp;/gi, '')
         .trim();
-      if (description.length > 160) description = description.substring(0, 160);
+      description = description.substring(0, 159).concat('...');
       setMetaDescription(description);
     }
   }, [post]);
@@ -117,12 +117,25 @@ const Post = () => {
         <Head>
           <title>{post.title}</title>
           <meta name="description" content={metaDescription} />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={metaDescription} />
+          <meta property="twitter:title" content={post.title} />
+          <meta property="twitter:description" content={metaDescription} />
+          <meta
+            property="og:image"
+            content={`/public/images/${post.thumbnailImage}`}
+          />
+          <meta
+            property="twitter:image"
+            content={`/public/images/${post.thumbnailImage}`}
+          />
           <meta
             name="keywords"
             content={metaDescription.split(' ').join(', ')}
           />
           <meta name="robots" content="index, follow" />
         </Head>
+
         <Grid container spacing={1}>
           {loading && (
             <Grid item xs={12}>
@@ -158,6 +171,7 @@ const Post = () => {
               <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
             )}
           </Grid>
+
           <Grid item xs={12} md={3}>
             <Grid container spacing={1}>
               <Grid item xs={12}>

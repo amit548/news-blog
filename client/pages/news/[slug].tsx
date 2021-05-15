@@ -23,6 +23,9 @@ const NewsSlug = () => {
   const router = useRouter();
   const classes = useStyles();
 
+  const description =
+    'যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+
   const [loading, setLoading] = useState(true);
   const [loadedData, setLoadedData] = useState([]);
   const [postsAscategory, setPostsAscategory] = useState<any>({});
@@ -117,10 +120,19 @@ const NewsSlug = () => {
                 <>
                   <Head>
                     <title>{categoryPostKey}</title>
-                    <meta name="robots" content="index, follow" />
                     <meta
                       name="description"
-                      content="যদি আপনি একজন চাকরি ও কাজের সমন্ধী হয়ে থাকেন তাহলে একদম সঠিক Website-এ এসেছেন, www.kormerkhoj.com আমাদের লক্ষ্য আপনাকে সঠিক তথ্য দেওয়া, প্রতারণার হাত থেকে সাবধান করা আর আপনাদের লক্ষ্য পূরণ করা | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন"
+                      content={description.substring(0, 159).concat('...')}
+                    />
+                    <meta property="og:title" content={categoryPostKey} />
+                    <meta
+                      property="og:description"
+                      content={description.substring(0, 159).concat('...')}
+                    />
+                    <meta property="twitter:title" content={categoryPostKey} />
+                    <meta
+                      property="twitter:description"
+                      content={description.substring(0, 159).concat('...')}
                     />
                     <meta name="keywords" content={categoryPostKey} />
                     <meta name="robots" content="index, follow" />

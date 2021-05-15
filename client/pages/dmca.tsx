@@ -3,15 +3,28 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const DMCA = () => {
+  const title =
+    'DMCA | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+  const description =
+    'If we Have added some content that belong to you or your organization by mistake, We are sorry for that. We apologize for that and assure you that this wont be repeated in future. If you are rightful owner of the';
+
   return (
     <div>
       <Head>
-        <title>
-          DMCA | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন
-        </title>
+        <title>{title}</title>
         <meta
           name="description"
-          content="If we Have added some content that belong to you or your organization by mistake, We are sorry for that. We apologize for that and assure you that this wont be repeated in future. If you are rightful owner of the"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="twitter:title" content={title} />
+        <meta
+          property="twitter:description"
+          content={description.substring(0, 159).concat('...')}
         />
         <meta
           name="keywords"

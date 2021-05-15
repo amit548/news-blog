@@ -3,16 +3,28 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 const PrivacyPolicy = () => {
+  const title =
+    'Privacy Policy | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
+  const description =
+    'At kormer khoj, accessible from www.kormerkhoj.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by kormer khoj and how we use it.';
+
   return (
     <div>
       <Head>
-        <title>
-          Privacy Policy | কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে
-          থাকুন
-        </title>
+        <title>{title}</title>
         <meta
           name="description"
-          content="At kormer khoj, accessible from www.kormerkhoj.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by kormer khoj and how we use it."
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={description.substring(0, 159).concat('...')}
+        />
+        <meta property="twitter:title" content={title} />
+        <meta
+          property="twitter:description"
+          content={description.substring(0, 159).concat('...')}
         />
         <meta
           name="keywords"
