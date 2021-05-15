@@ -99,25 +99,6 @@ const NewsSlug = () => {
 
   return (
     <>
-      <Head>
-        <title>{categoryPostKey}</title>
-        <meta
-          name="description"
-          content={description.substring(0, 159).concat('...')}
-        />
-        <meta property="og:title" content={categoryPostKey} />
-        <meta
-          property="og:description"
-          content={description.substring(0, 159).concat('...')}
-        />
-        <meta property="twitter:title" content={categoryPostKey} />
-        <meta
-          property="twitter:description"
-          content={description.substring(0, 159).concat('...')}
-        />
-        <meta name="keywords" content={categoryPostKey} />
-        <meta name="robots" content="index, follow" />
-      </Head>
       <Grid container spacing={1}>
         {loading && (
           <Grid item xs={12}>
@@ -139,11 +120,35 @@ const NewsSlug = () => {
               <>
                 {Object.keys(postsAscategory).map((categoryPostKey, i) => {
                   return (
-                    <News
-                      key={i}
-                      chipName={categoryPostKey}
-                      posts={postsAscategory[categoryPostKey]}
-                    />
+                    <>
+                      <Head>
+                        <title>{categoryPostKey}</title>
+                        <meta
+                          name="description"
+                          content={description.substring(0, 159).concat('...')}
+                        />
+                        <meta property="og:title" content={categoryPostKey} />
+                        <meta
+                          property="og:description"
+                          content={description.substring(0, 159).concat('...')}
+                        />
+                        <meta
+                          property="twitter:title"
+                          content={categoryPostKey}
+                        />
+                        <meta
+                          property="twitter:description"
+                          content={description.substring(0, 159).concat('...')}
+                        />
+                        <meta name="keywords" content={categoryPostKey} />
+                        <meta name="robots" content="index, follow" />
+                      </Head>
+                      <News
+                        key={i}
+                        chipName={categoryPostKey}
+                        posts={postsAscategory[categoryPostKey]}
+                      />
+                    </>
                   );
                 })}
                 {pageCount > 1 && (
