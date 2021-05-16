@@ -133,7 +133,7 @@ const Home = () => {
                   >
                     <img
                       className={classes.imageBlock}
-                      src={`http://localhost:4000/public/images/${post.thumbnailImage}`}
+                      src={`/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>
