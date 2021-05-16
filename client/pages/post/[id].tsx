@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import { Carousel } from 'react-responsive-carousel';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
 
@@ -58,7 +58,6 @@ const Post = () => {
   const [images, setImages] = useState([]);
   const [videoList, setVideoList] = useState([]);
   const [metaDescription, setMetaDescription] = useState('');
-
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -73,7 +72,6 @@ const Post = () => {
       }
     })();
   }, [router.query.id]);
-
   useEffect(() => {
     (async () => {
       try {
@@ -82,7 +80,6 @@ const Post = () => {
       } catch (error) {}
     })();
   }, []);
-
   useEffect(() => {
     if (post && post.description) {
       let description = post.description
@@ -96,7 +93,6 @@ const Post = () => {
       setMetaDescription(description);
     }
   }, [post]);
-
   useEffect(() => {
     setImages(() => {
       const dt = [];
@@ -110,7 +106,6 @@ const Post = () => {
       return dt;
     });
   }, [post]);
-
   return (
     post && (
       <Fragment>
@@ -135,7 +130,6 @@ const Post = () => {
           />
           <meta name="robots" content="index, follow" />
         </Head>
-
         <Grid container spacing={1}>
           {loading && (
             <Grid item xs={12}>
@@ -144,13 +138,11 @@ const Post = () => {
               </Box>
             </Grid>
           )}
-
           {Object.keys(error).map((err) => (
             <Alert severity="error" key={err} className={classes.alert}>
               {error[err]}
             </Alert>
           ))}
-
           <Grid item xs={12} md={9}>
             <Typography variant="h4">{post.title}</Typography>
             <Typography variant="caption" color="textSecondary" gutterBottom>
@@ -161,7 +153,7 @@ const Post = () => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`/public/images/${image}`}
+                    src={`http://localhost:4000/public/images/${image}`}
                   />
                 </div>
               ))}
@@ -171,7 +163,6 @@ const Post = () => {
               <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
             )}
           </Grid>
-
           <Grid item xs={12} md={3}>
             <Grid container spacing={1}>
               <Grid item xs={12}>

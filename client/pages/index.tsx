@@ -11,6 +11,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import News from '../components/News';
 import SideBar from '../components/SideBar';
 import { PostContext } from '../context/PostContext';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -44,6 +45,42 @@ const useStyles = makeStyles((theme: Theme) => ({
     objectPosition: 'center bottom',
   },
 }));
+
+// export const getStaticProps = async () => {
+//   const { data: trendingPost } = await axios.get('/api/post/trending_news');
+//   const result1 = await axios.get('/api/post/news?category=সরকারি চাকরি');
+//   const result2 = await axios.get('/api/post/news?category=বেসরকারি চাকরি');
+//   const result3 = await axios.get('/api/post/news?category=পার্ট টাইম জব');
+//   const result4 = await axios.get('/api/post/news?category=পরীক্ষার প্রস্তুতি');
+//   const result5 = await axios.get('/api/post/news?category=নোটিশ');
+
+//   let posts = [];
+//   let postsAscategory = {};
+
+//   posts = [
+//     ...result1.data.posts,
+//     ...result2.data.posts,
+//     ...result3.data.posts,
+//     ...result4.data.posts,
+//     ...result5.data.posts,
+//   ];
+
+//   const সরকারি_চাকরি = posts.filter(
+//     (post) => post.category === 'সরকারি চাকরি'
+//   );
+//   if (সরকারি_চাকরি.length > 0)
+//   postsAscategory((prevPostsAsCategory: any) => ({
+//       ...prevPostsAsCategory,
+//       'সরকারি চাকরি': সরকারি_চাকরি,
+//     }));
+
+//   return {
+//     props: {
+//       trendingPost,
+//       posts,
+//     },
+//   };
+// };
 
 const Home = () => {
   const {
@@ -96,7 +133,7 @@ const Home = () => {
                   >
                     <img
                       className={classes.imageBlock}
-                      src={`/public/images/${post.thumbnailImage}`}
+                      src={`http://localhost:4000/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>
