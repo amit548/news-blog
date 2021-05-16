@@ -153,7 +153,7 @@ const Post = () => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`http://localhost:4000/public/images/${image}`}
+                    src={`/public/images/${image}`}
                   />
                 </div>
               ))}

@@ -9,9 +9,9 @@ import PostContextProvider from '../context/PostContext';
 import UserContextProvider from '../context/UserContext';
 import theme from '../src/theme';
 
-import axios from 'axios';
+// import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+// axios.defaults.baseURL = 'http://localhost:4000';
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
