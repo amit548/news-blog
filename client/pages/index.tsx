@@ -172,7 +172,7 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
                   >
                     <img
                       className={classes.imageBlock}
-                      src={`http://localhost:4000/public/images/${post.thumbnailImage}`}
+                      src={`process.env.NEXT_PUBLIC_SERVER_BASE_URL/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>

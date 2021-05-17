@@ -9,7 +9,7 @@ import AuthContextProvider from '../context/AuthContext';
 import UserContextProvider from '../context/UserContext';
 import theme from '../src/theme';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
