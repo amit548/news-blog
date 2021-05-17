@@ -33,11 +33,6 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Kormer Khoj" />
           <meta property="og:type" content="website" />
           <meta property="twitter:card" content="summary" />
-          <meta property="og:image" content="/android-chrome-512x512.png" />
-          <meta
-            property="twitter:image"
-            content="/android-chrome-512x512.png"
-          />
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"

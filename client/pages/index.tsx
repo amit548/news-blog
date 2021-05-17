@@ -145,6 +145,8 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
         <meta property="og:description" content={description} />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
+        <meta property="og:image" content="/android-chrome-512x512.png" />
+        <meta property="twitter:image" content="/android-chrome-512x512.png" />
         <meta
           name="keywords"
           content="সরকারি চাকরি, বেসরকারি চাকরি, পার্ট টাইম জব, পরীক্ষার প্রস্তুতি, নোটিশ"

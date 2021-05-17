@@ -123,6 +123,14 @@ const ExentSlugPage = ({ postsAscategory, videos, pageCount, page }) => {
                         property="twitter:description"
                         content={description.substring(0, 159).concat('...')}
                       />
+                      <meta
+                        property="og:image"
+                        content="/android-chrome-512x512.png"
+                      />
+                      <meta
+                        property="twitter:image"
+                        content="/android-chrome-512x512.png"
+                      />
                       <meta name="keywords" content={categoryPostKey} />
                       <meta name="robots" content="index, follow" />
                     </Head>
