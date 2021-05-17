@@ -147,7 +147,7 @@ const Post = ({ post, images, videos, error }) => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`http://localhost:4000/public/images/${image}`}
+                    src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${image}`}
                   />
                 </div>
               ))}
