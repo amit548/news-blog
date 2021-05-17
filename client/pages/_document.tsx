@@ -35,6 +35,10 @@ export default class MyDocument extends Document {
           <meta property="twitter:card" content="summary" />
           <meta property="og:image" content="/apple-touch-icon.png" />
           <meta property="twitter:image" content="/apple-touch-icon.png" />
+          <meta
+            http-equiv="Content-Security-Policy"
+            content="upgrade-insecure-requests"
+          />
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"
