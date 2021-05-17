@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Box from '@material-ui/core/Box';
@@ -7,11 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Carousel } from 'react-responsive-carousel';
 import { makeStyles, Theme } from '@material-ui/core';
+import axios from 'axios';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-import { PostContext } from '../context/PostContext';
-import axios from 'axios';
+import { GetServerSideProps } from 'next';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -46,50 +46,89 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// export const getStaticProps = async () => {
-//   const { data: trendingPost } = await axios.get('/api/post/trending_news');
-//   const result1 = await axios.get('/api/post/news?category=সরকারি চাকরি');
-//   const result2 = await axios.get('/api/post/news?category=বেসরকারি চাকরি');
-//   const result3 = await axios.get('/api/post/news?category=পার্ট টাইম জব');
-//   const result4 = await axios.get('/api/post/news?category=পরীক্ষার প্রস্তুতি');
-//   const result5 = await axios.get('/api/post/news?category=নোটিশ');
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data: trendingPost } = await axios.get(
+    encodeURI('/api/post/trending_news')
+  );
+  const result1 = await axios.get(
+    encodeURI('/api/post/news?category=সরকারি চাকরি')
+  );
+  const result2 = await axios.get(
+    encodeURI('/api/post/news?category=বেসরকারি চাকরি')
+  );
+  const result3 = await axios.get(
+    encodeURI('/api/post/news?category=পার্ট টাইম জব')
+  );
+  const result4 = await axios.get(
+    encodeURI('/api/post/news?category=পরীক্ষার প্রস্তুতি')
+  );
+  const result5 = await axios.get(encodeURI('/api/post/news?category=নোটিশ'));
 
-//   let posts = [];
-//   let postsAscategory = {};
+  let posts = [];
+  let postsAscategory = {};
 
-//   posts = [
-//     ...result1.data.posts,
-//     ...result2.data.posts,
-//     ...result3.data.posts,
-//     ...result4.data.posts,
-//     ...result5.data.posts,
-//   ];
+  posts = [
+    ...result1.data.posts,
+    ...result2.data.posts,
+    ...result3.data.posts,
+    ...result4.data.posts,
+    ...result5.data.posts,
+  ];
 
-//   const সরকারি_চাকরি = posts.filter(
-//     (post) => post.category === 'সরকারি চাকরি'
-//   );
-//   if (সরকারি_চাকরি.length > 0)
-//   postsAscategory((prevPostsAsCategory: any) => ({
-//       ...prevPostsAsCategory,
-//       'সরকারি চাকরি': সরকারি_চাকরি,
-//     }));
+  const সরকারি_চাকরি = posts.filter((post) => post.category === 'সরকারি চাকরি');
+  if (সরকারি_চাকরি.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      'সরকারি চাকরি': সরকারি_চাকরি,
+    };
 
-//   return {
-//     props: {
-//       trendingPost,
-//       posts,
-//     },
-//   };
-// };
+  const বেসরকারি_চাকরি = posts.filter(
+    (post) => post.category === 'বেসরকারি চাকরি'
+  );
+  if (বেসরকারি_চাকরি.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      'বেসরকারি চাকরি': বেসরকারি_চাকরি,
+    };
 
-const Home = () => {
-  const {
-    isPostLoading,
-    postsAscategory,
-    videos,
-    isTrendingPostLoading,
-    trendingPost,
-  } = useContext(PostContext);
+  const পার্ট_টাইম_জব = posts.filter(
+    (post) => post.category === 'পার্ট টাইম জব'
+  );
+  if (পার্ট_টাইম_জব.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      'পার্ট টাইম জব': পার্ট_টাইম_জব,
+    };
+
+  const পরীক্ষার_প্রস্তুতি = posts.filter(
+    (post) => post.category === 'পরীক্ষার প্রস্তুতি'
+  );
+  if (পরীক্ষার_প্রস্তুতি.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি,
+    };
+
+  const নোটিশ = posts.filter((post) => post.category === 'নোটিশ');
+  if (নোটিশ.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      নোটিশ: নোটিশ,
+    };
+
+  const { data: videos } = await axios.get(encodeURI('/api/post/video'));
+
+  return {
+    props: {
+      trendingPost,
+      posts,
+      postsAscategory,
+      videos,
+    },
+  };
+};
+
+const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
   const classes = useStyles();
   const router = useRouter();
 
@@ -114,7 +153,7 @@ const Home = () => {
       </Head>
 
       <Grid container spacing={1}>
-        {!isTrendingPostLoading && (
+        {trendingPost.length > 0 && (
           <Grid item xs={12}>
             <Carousel
               infiniteLoop={true}
@@ -133,7 +172,7 @@ const Home = () => {
                   >
                     <img
                       className={classes.imageBlock}
-                      src={`/public/images/${post.thumbnailImage}`}
+                      src={`http://localhost:4000/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>
@@ -142,7 +181,7 @@ const Home = () => {
           </Grid>
         )}
 
-        {isPostLoading ? (
+        {posts.length < 0 ? (
           <Grid item xs={12}>
             <Box display="flex" justifyContent="center">
               <CircularProgress />

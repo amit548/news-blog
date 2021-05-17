@@ -1,19 +1,18 @@
-import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Head from 'next/head';
 import axios from 'axios';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Alert from '@material-ui/lab/Alert';
 import { Carousel } from 'react-responsive-carousel';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
+import { GetServerSideProps } from 'next';
 
 import SideBar from '../../components/SideBar';
+import { Box, Button } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -49,73 +48,82 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Post = () => {
-  const router = useRouter();
-  const classes = useStyles();
-  const [loading, setLoading] = useState(true);
-  const [post, setPost] = useState(null);
-  const [error, setError] = useState<any>({});
-  const [images, setImages] = useState([]);
-  const [videoList, setVideoList] = useState([]);
-  const [metaDescription, setMetaDescription] = useState('');
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const result = await axios.get(`/api/post/${router.query.id}`);
-        setPost(result.data);
-        setError({});
-        setLoading(false);
-      } catch (error) {
-        if (error.response) setError({ ...error.response.data.body });
-        setLoading(false);
-      }
-    })();
-  }, [router.query.id]);
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await axios.get('/api/post/video');
-        setVideoList(result.data);
-      } catch (error) {}
-    })();
-  }, []);
-  useEffect(() => {
-    if (post && post.description) {
-      let description = post.description
-        .replace(/<[^>]*>?/gm, '')
-        .trim()
-        .replace(/&amp;nbsp/gi, '')
-        .trim()
-        .replace(/&nbsp;/gi, '')
-        .trim();
-      description = description.substring(0, 159).concat('...');
-      setMetaDescription(description);
+export const getServerSideProps: GetServerSideProps = async ({
+  params: { id },
+}) => {
+  try {
+    const { data: post } = await axios.get(`/api/post/${id}`);
+    const { data: videos } = await axios.get('/api/post/video');
+
+    const images = [];
+    if (post) {
+      if (post.thumbnailImage) images.push(post.thumbnailImage);
+      if (post.image1) images.push(post.image1);
+      if (post.image2) images.push(post.image2);
+      if (post.image3) images.push(post.image3);
+      if (post.image4) images.push(post.image4);
     }
-  }, [post]);
-  useEffect(() => {
-    setImages(() => {
-      const dt = [];
-      if (post) {
-        if (post.thumbnailImage) dt.push(post.thumbnailImage);
-        if (post.image1) dt.push(post.image1);
-        if (post.image2) dt.push(post.image2);
-        if (post.image3) dt.push(post.image3);
-        if (post.image4) dt.push(post.image4);
-      }
-      return dt;
-    });
-  }, [post]);
+
+    return {
+      props: {
+        post,
+        images,
+        videos,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        error: 'Sorry, Request post not found',
+      },
+    };
+  }
+};
+
+const Post = ({ post, images, videos, error }) => {
+  const classes = useStyles();
+  const router = useRouter();
+
+  if (error)
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        style={{ height: '100%' }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h1>{error}</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => router.back()}
+        >
+          Go Back
+        </Button>
+      </Box>
+    );
+
+  const description = post.description
+    .replace(/<[^>]*>?/gm, '')
+    .trim()
+    .replace(/&amp;nbsp/gi, '')
+    .trim()
+    .replace(/&nbsp;/gi, '')
+    .trim()
+    .substring(0, 159)
+    .concat('...');
+
   return (
     post && (
       <Fragment>
         <Head>
           <title>{post.title}</title>
-          <meta name="description" content={metaDescription} />
+          <meta name="description" content={description} />
           <meta property="og:title" content={post.title} />
-          <meta property="og:description" content={metaDescription} />
+          <meta property="og:description" content={description} />
           <meta property="twitter:title" content={post.title} />
-          <meta property="twitter:description" content={metaDescription} />
+          <meta property="twitter:description" content={description} />
           <meta
             property="og:image"
             content={`/public/images/${post.thumbnailImage}`}
@@ -124,25 +132,11 @@ const Post = () => {
             property="twitter:image"
             content={`/public/images/${post.thumbnailImage}`}
           />
-          <meta
-            name="keywords"
-            content={metaDescription.split(' ').join(', ')}
-          />
+          <meta name="keywords" content={description.split(' ').join(', ')} />
           <meta name="robots" content="index, follow" />
         </Head>
+
         <Grid container spacing={1}>
-          {loading && (
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <CircularProgress />
-              </Box>
-            </Grid>
-          )}
-          {Object.keys(error).map((err) => (
-            <Alert severity="error" key={err} className={classes.alert}>
-              {error[err]}
-            </Alert>
-          ))}
           <Grid item xs={12} md={9}>
             <Typography variant="h4">{post.title}</Typography>
             <Typography variant="caption" color="textSecondary" gutterBottom>
@@ -153,7 +147,7 @@ const Post = () => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`/public/images/${image}`}
+                    src={`http://localhost:4000/public/images/${image}`}
                   />
                 </div>
               ))}
@@ -168,10 +162,8 @@ const Post = () => {
               <Grid item xs={12}>
                 <Typography variant="h5">Useful videos</Typography>
               </Grid>
-              {videoList.length > 0 ? (
-                videoList.map((video) => (
-                  <SideBar video={video} key={video._id} />
-                ))
+              {videos.length > 0 ? (
+                videos.map((video) => <SideBar video={video} key={video._id} />)
               ) : (
                 <Grid item xs={12}>
                   <Typography>No videos found</Typography>

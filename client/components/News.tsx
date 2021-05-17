@@ -15,7 +15,7 @@ const News = ({ chipName, posts }) => {
           color="primary"
           label={chipName}
           onClick={() => {
-            router.push(`/news/${chipName}`);
+            router.push(`/news/${chipName}/1`);
           }}
         />
       </Grid>

@@ -2,16 +2,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import axios from 'axios';
 
 import Layout from '../components/Layout';
 import AuthContextProvider from '../context/AuthContext';
-import PostContextProvider from '../context/PostContext';
 import UserContextProvider from '../context/UserContext';
 import theme from '../src/theme';
 
-// import axios from 'axios';
-
-// axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'http://localhost:4000';
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -26,11 +24,9 @@ const App = ({ Component, pageProps }) => {
       <CssBaseline />
       <AuthContextProvider>
         <UserContextProvider>
-          <PostContextProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </PostContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </UserContextProvider>
       </AuthContextProvider>
     </ThemeProvider>

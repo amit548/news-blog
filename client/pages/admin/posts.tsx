@@ -180,7 +180,7 @@ const Posts = () => {
                         width: '100%',
                         height: '100%',
                       }}
-                      src={`/public/images/${post.thumbnailImage}`}
+                      src={`http://localhost:4000/public/images/${post.thumbnailImage}`}
                       alt=""
                     />
                   </div>

@@ -49,6 +49,7 @@ const CreatePost = () => {
   const [postVideoUrl, setVideoUrl] = useState('');
   const [category, setCategory] = useState('');
   const [availableForPublic, setAvailableForPublic] = useState(false);
+  const [addToTrending, setAddToTrending] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
@@ -75,6 +76,7 @@ const CreatePost = () => {
       formData.append('thumbnailImage', thumbnail);
       formData.append('category', category);
       formData.append('private', (!availableForPublic).toString());
+      formData.append('trending', addToTrending.toString());
       formData.append('image1', image1);
       formData.append('image2', image2);
       formData.append('image3', image3);
@@ -185,7 +187,7 @@ const CreatePost = () => {
                 />
               </Grid>
               <Grid item xs={12} />
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <Box display="flex" justifyContent="center">
                   <FormControl
                     variant="filled"
@@ -206,7 +208,7 @@ const CreatePost = () => {
                   </FormControl>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <Box display="flex" justifyContent="center">
                   <FormControlLabel
                     disabled={user && user.role !== 'admin'}
@@ -219,6 +221,20 @@ const CreatePost = () => {
                       />
                     }
                     label="Available for Public"
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Box display="flex" justifyContent="center">
+                  <FormControlLabel
+                    disabled={user && user.role !== 'admin'}
+                    control={
+                      <Checkbox
+                        checked={addToTrending}
+                        onChange={(e) => setAddToTrending(e.target.checked)}
+                      />
+                    }
+                    label="Add to Trending"
                   />
                 </Box>
               </Grid>

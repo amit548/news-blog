@@ -113,27 +113,27 @@ const Layout = ({ children }) => {
   } else {
     drawerList = [
       {
-        path: '/news/সরকারি চাকরি',
+        path: '/news/সরকারি চাকরি/1',
         title: 'সরকারি চাকরি',
         icon: <WorkOutlineIcon color="secondary" />,
       },
       {
-        path: '/news/বেসরকারি চাকরি',
+        path: '/news/বেসরকারি চাকরি/1',
         title: 'বেসরকারি চাকরি',
         icon: <WorkOffIcon color="secondary" />,
       },
       {
-        path: '/news/পার্ট টাইম জব',
+        path: '/news/পার্ট টাইম জব/1',
         title: 'পার্ট টাইম জব',
         icon: <ApartmentIcon color="secondary" />,
       },
       {
-        path: '/news/পরীক্ষার প্রস্তুতি',
+        path: '/news/পরীক্ষার প্রস্তুতি/1',
         title: 'পরীক্ষার প্রস্তুতি',
         icon: <MenuBookIcon color="secondary" />,
       },
       {
-        path: '/news/নোটিশ',
+        path: '/news/নোটিশ/1',
         title: 'নোটিশ',
         icon: <NoteIcon color="secondary" />,
       },
@@ -258,27 +258,27 @@ const Layout = ({ children }) => {
                       justifyContent="space-between"
                     >
                       <Box>
-                        <Link href="/news/সরকারি চাকরি">
+                        <Link href="/news/সরকারি চাকরি/1">
                           <Button color="inherit">সরকারি চাকরি</Button>
                         </Link>
 
-                        <Link href="/news/বেসরকারি চাকরি">
+                        <Link href="/news/বেসরকারি চাকরি/1">
                           <Button color="inherit">বেসরকারি চাকরি</Button>
                         </Link>
 
-                        <Link href="/news/পার্ট টাইম জব">
+                        <Link href="/news/পার্ট টাইম জব/1">
                           <Button color="inherit">পার্ট টাইম জব</Button>
                         </Link>
 
-                        <Link href="/news/পরীক্ষার প্রস্তুতি">
+                        <Link href="/news/পরীক্ষার প্রস্তুতি/1">
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
                         </Link>
 
-                        <Link href="/news/রেজাল্ট">
+                        <Link href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>
                         </Link>
 
-                        <Link href="/news/নোটিশ">
+                        <Link href="/news/নোটিশ/1">
                           <Button color="inherit">নোটিশ</Button>
                         </Link>
                       </Box>

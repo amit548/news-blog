@@ -12,12 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import EditOutlined from '@material-ui/icons/EditOutlined';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
-
-import Redirect from '../../components/Redirect';
-import { AuthContext } from '../../context/AuthContext';
 import { FormEvent } from 'react';
 import axios from 'axios';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+
+import Redirect from '../../components/Redirect';
+import { AuthContext } from '../../context/AuthContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   progress: {
@@ -52,11 +52,9 @@ const Admin = () => {
 
     setLoading(true);
     try {
-      await axios.put(
-        `/api/user/list/${user._id}`,
-        registerData,
-        { withCredentials: true }
-      );
+      await axios.put(`/api/user/list/${user._id}`, registerData, {
+        withCredentials: true,
+      });
       setError({});
       setLoading(false);
       window.location.reload();
