@@ -180,7 +180,7 @@ const Posts = () => {
                         width: '100%',
                         height: '100%',
                       }}
-                      src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${post.thumbnailImage}`}
+                      src={`/images/${post.thumbnailImage}`}
                       alt=""
                     />
                   </div>
