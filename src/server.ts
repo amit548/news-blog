@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { config } from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import { connect } from 'mongoose';
@@ -27,8 +26,6 @@ server.use(cors({ credentials: true, origin: true }));
 server.use(cookieParser());
 server.use(expressFileupload());
 server.use(morgan('dev'));
-
-server.use('/public', express.static(join(__dirname, '../public')));
 
 server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
