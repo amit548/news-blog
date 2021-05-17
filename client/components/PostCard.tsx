@@ -35,7 +35,7 @@ const PostCard = ({ post }) => {
           }}
         >
           <CardMedia
-            image={`/images/${post.thumbnailImage}`}
+            image={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${post.thumbnailImage}`}
             title="News Paper"
             className={classes.media}
           />

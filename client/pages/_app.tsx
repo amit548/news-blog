@@ -1,8 +1,8 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useEffect } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import axios from 'axios';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import Layout from '../components/Layout';
 import AuthContextProvider from '../context/AuthContext';

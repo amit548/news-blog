@@ -33,11 +33,10 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Kormer Khoj" />
           <meta property="og:type" content="website" />
           <meta property="twitter:card" content="summary" />
-          <meta property="og:image" content="/apple-touch-icon.png" />
-          <meta property="twitter:image" content="/apple-touch-icon.png" />
+          <meta property="og:image" content="/android-chrome-512x512.png" />
           <meta
-            http-equiv="Content-Security-Policy"
-            content="upgrade-insecure-requests"
+            property="twitter:image"
+            content="/android-chrome-512x512.png"
           />
           <script
             async

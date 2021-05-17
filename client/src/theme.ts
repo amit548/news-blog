@@ -1,12 +1,11 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-// import amber from '@material-ui/core/colors/amber';
-// import orange from '@material-ui/core/colors/orange';
-import { pink, red } from '@material-ui/core/colors';
+import pink from '@material-ui/core/colors/pink';
+import red from '@material-ui/core/colors/red';
 
 const theme = createMuiTheme({
   palette: {
-    primary: red, //amber,
-    secondary: pink, //orange,
+    primary: red,
+    secondary: pink,
   },
   typography: {
     fontFamily: "'Quicksand', sans-serif",

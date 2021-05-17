@@ -8,10 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import { Carousel } from 'react-responsive-carousel';
 import { makeStyles, Theme } from '@material-ui/core';
 import axios from 'axios';
+import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-import { GetServerSideProps } from 'next';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -172,7 +172,7 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
                   >
                     <img
                       className={classes.imageBlock}
-                      src={`/images/${post.thumbnailImage}`}
+                      src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${post.thumbnailImage}`}
                     />
                     <p className="legend">{post.title}</p>
                   </div>
