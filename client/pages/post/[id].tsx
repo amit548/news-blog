@@ -126,11 +126,11 @@ const Post = ({ post, images, videos, error }) => {
           <meta property="twitter:description" content={description} />
           <meta
             property="og:image"
-            content={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${post.thumbnailImage}`}
+            content={`/images/${post.thumbnailImage}`}
           />
           <meta
             property="twitter:image"
-            content={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${post.thumbnailImage}`}
+            content={`/images/${post.thumbnailImage}`}
           />
           <meta name="keywords" content={description.split(' ').join(', ')} />
           <meta name="robots" content="index, follow" />
@@ -147,7 +147,7 @@ const Post = ({ post, images, videos, error }) => {
                 <div key={image} className={classes.imageContainer}>
                   <img
                     className={classes.imageBlock}
-                    src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/public/images/${image}`}
+                    src={`/images/${image}`}
                   />
                 </div>
               ))}
