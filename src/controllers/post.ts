@@ -57,7 +57,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
             makeId(8) + '-' + (req.files as any).thumbnailImage.name;
           newPost.thumbnailImage = fileName;
           (req.files as any).thumbnailImage.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.thumbnailImage = 'Only jpeg, jpg & png accepted';
@@ -78,7 +78,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image1.name;
           newPost.image1 = fileName;
           (req.files as any).image1.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image1 = 'Only jpeg, jpg & png accepted';
@@ -93,7 +93,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image2.name;
           newPost.image2 = fileName;
           (req.files as any).image2.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image2 = 'Only jpeg, jpg & png accepted';
@@ -108,7 +108,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image3.name;
           newPost.image3 = fileName;
           (req.files as any).image3.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image3 = 'Only jpeg, jpg & png accepted';
@@ -123,7 +123,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image4.name;
           newPost.image4 = fileName;
           (req.files as any).image4.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image4 = 'Only jpeg, jpg & png accepted';
@@ -292,7 +292,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
             makeId(8) + '-' + (req.files as any).thumbnailImage.name;
           post!.thumbnailImage = fileName;
           (req.files as any).thumbnailImage.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.thumbnailImage = 'Only jpeg, jpg & png accepted';
@@ -310,7 +310,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image1.name;
           post!.image1 = fileName;
           (req.files as any).image1.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image1 = 'Only jpeg, jpg & png accepted';
@@ -328,7 +328,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image2.name;
           post!.image2 = fileName;
           (req.files as any).image2.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image2 = 'Only jpeg, jpg & png accepted';
@@ -346,7 +346,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image3.name;
           post!.image3 = fileName;
           (req.files as any).image3.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image3 = 'Only jpeg, jpg & png accepted';
@@ -364,7 +364,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
           const fileName = makeId(8) + '-' + (req.files as any).image4.name;
           post!.image4 = fileName;
           (req.files as any).image4.mv(
-            join(__dirname, '../../client/public/images/' + fileName)
+            join(__dirname, '../../public/images/' + fileName)
           );
         } else {
           errors.image4 = 'Only jpeg, jpg & png accepted';
