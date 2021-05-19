@@ -3,8 +3,10 @@ import { validationResult } from 'express-validator';
 import createError from 'http-errors';
 import { isValidObjectId } from 'mongoose';
 import { join } from 'path';
+import push from 'web-push';
 
 import { PostModel } from '../models/post';
+import { SubscriptionModel } from '../models/subscription';
 import { User, UserModel } from '../models/user';
 import { deleteFile, makeId } from '../utils/util';
 
@@ -140,10 +142,46 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
     user.createdPosts.push(post.id);
     await user.save();
 
+    if (!post.private) {
+      try {
+        const publicKey =
+          'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
+        const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+
+        push.setVapidDetails(
+          'mailto:rakeshwbp@gmail.com',
+          publicKey,
+          privateKey
+        );
+
+        const notificationPayload = JSON.stringify({
+          title: post.title,
+          img: `http://kormerkhoj.com/api/public/images/${post.thumbnailImage}`,
+        });
+
+        (await SubscriptionModel.find().exec()).forEach(async (sub) => {
+          await push.sendNotification(sub, notificationPayload);
+        });
+      } catch (_) {}
+    }
+
     res.status(201).json(post);
   } catch (error) {
     next(error);
   }
+};
+
+const createSubscription = async (req: Request, res: Response) => {
+  const subscription = req.body;
+
+  try {
+    if (subscription) {
+      const newSubscription = new SubscriptionModel({ ...subscription });
+      await newSubscription.save();
+    }
+  } catch (error) {}
+
+  res.status(201).json({});
 };
 
 const getPosts = async (_: Request, res: Response, next: NextFunction) => {
@@ -523,4 +561,5 @@ export {
   deleteImageFormPost,
   getVideoList,
   getTrendingPosts,
+  createSubscription,
 };

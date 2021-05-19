@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 
 import {
   createPost,
+  createSubscription,
   deleteImageFormPost,
   deletePost,
   getPost,
@@ -16,6 +17,8 @@ import {
 import auth from '../middlewares/auth';
 
 const router = Router();
+
+router.post('/subscribe', createSubscription);
 
 router.post(
   '/',
