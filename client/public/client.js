@@ -26,11 +26,10 @@ if ('serviceWorker' in navigator) {
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(publicKey),
         });
-
-        const permission = await window.Notification.requestPermission();
-        if (permission !== 'granted') {
-          console.error('Permission not granted for Notification');
-        }
+      }
+      const permission = await window.Notification.requestPermission();
+      if (permission !== 'granted') {
+        console.error('Permission not granted for Notification');
       }
     } catch (_) {}
   });
