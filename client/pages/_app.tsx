@@ -35,7 +35,7 @@ const App = ({ Component, pageProps }) => {
               color={purple[500]}
               startPosition={0.3}
               stopDelayMs={200}
-              height={2}
+              height={3}
             />
             <Component {...pageProps} />
           </Layout>
