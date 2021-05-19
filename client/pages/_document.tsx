@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Kormer Khoj" />
           <meta property="og:type" content="website" />
           <meta property="twitter:card" content="summary" />
+          <script src="/client.js" />
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"
