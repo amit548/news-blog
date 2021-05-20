@@ -27,7 +27,7 @@ if ('serviceWorker' in navigator) {
           applicationServerKey: urlBase64ToUint8Array(publicKey),
         });
       }
-      const permission = await window.Notification.requestPermission();
+      const permission = await Notification.requestPermission();
       if (permission !== 'granted') {
         console.error('Permission not granted for Notification');
       }
