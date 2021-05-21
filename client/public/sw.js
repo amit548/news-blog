@@ -1,6 +1,7 @@
 self.addEventListener('push', (e) => {
   const data = e.data.json();
   self.registration.showNotification(data.title, {
+    icon: '/android-chrome-192x192.png',
     body: 'Notified by Kormer Khoj',
     image: data.img,
   });

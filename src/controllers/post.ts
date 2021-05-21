@@ -6,7 +6,7 @@ import { join } from 'path';
 import push from 'web-push';
 
 import { PostModel } from '../models/post';
-import { SubscriptionModel } from '../models/subscription';
+import { Subscription, SubscriptionModel } from '../models/subscription';
 import { User, UserModel } from '../models/user';
 import { deleteFile, makeId } from '../utils/util';
 
@@ -155,6 +155,7 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
         );
 
         const notificationPayload = JSON.stringify({
+          _id: post._id,
           title: post.title,
           img: `http://kormerkhoj.com/api/public/images/${post.thumbnailImage}`,
         });
@@ -172,12 +173,21 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const createSubscription = async (req: Request, res: Response) => {
-  const subscription = req.body;
+  const subscription: Subscription = req.body;
 
   try {
     if (subscription) {
-      const newSubscription = new SubscriptionModel({ ...subscription });
-      await newSubscription.save();
+      const oldSubs = await SubscriptionModel.findOne({
+        endpoint: subscription.endpoint,
+        keys: {
+          auth: subscription.keys.auth,
+          p256dh: subscription.keys.p256dh,
+        },
+      });
+      if (!oldSubs) {
+        const newSubscription = new SubscriptionModel({ ...subscription });
+        await newSubscription.save();
+      }
     }
   } catch (error) {}
 

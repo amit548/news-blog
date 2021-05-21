@@ -18,42 +18,6 @@ import auth from '../middlewares/auth';
 
 const router = Router();
 
-import push from 'web-push';
-
-router.post('/test', async (req, res) => {
-  try {
-    const publicKey =
-      'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
-    const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
-
-    push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
-
-    const notificationPayload = JSON.stringify({
-      title: 'lol',
-      img: `https://kormerkhoj.com/post/609ba9345a0ca0261d6717b5`,
-    });
-
-    const sub = {
-      endpoint:
-        'https://fcm.googleapis.com/fcm/send/fQAAhXkFTMI:APA91bF9I6hQAvo6jb7U0xQ_oS7VUo2D0KQIsoY9wd9zAEylWehCJ7lPhRoP0qw_QY_GMtf74rqHNPrV-65tBRV-InekfVDFGTO3iNQRxCEYoriMAuA7B1YXWXC-jFEmXNMrHi7MyuxR',
-      expirationTime: null,
-      keys: {
-        p256dh:
-          'BNb_qAkPhdMrnAaVD6i5eWUNIt7WmRL5k_mLsRj2hXh1pLxfbz9KT_TTSRjk9eIhuTRL_9yoxpfF4PKy5NuJ-rA',
-        auth: 'qZheGOzz76k2R-QD6fUg8Q',
-      },
-    };
-
-    await push.sendNotification(sub, notificationPayload);
-
-    res.status(201).json({});
-  } catch (error) {
-    res.json(error);
-  }
-
-  res.status(201).json({});
-});
-
 router.post('/subscribe', createSubscription);
 
 router.post(
