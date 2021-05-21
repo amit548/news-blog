@@ -425,6 +425,30 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
 
     const updatedPost = await post?.save();
 
+    if (!updatedPost?.private) {
+      try {
+        const publicKey =
+          'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
+        const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+
+        push.setVapidDetails(
+          'mailto:rakeshwbp@gmail.com',
+          publicKey,
+          privateKey
+        );
+
+        const notificationPayload = JSON.stringify({
+          _id: updatedPost?._id,
+          title: updatedPost?.title,
+          img: `http://kormerkhoj.com/api/public/images/${updatedPost?.thumbnailImage}`,
+        });
+
+        (await SubscriptionModel.find().exec()).forEach(async (sub) => {
+          await push.sendNotification(sub, notificationPayload);
+        });
+      } catch (_) {}
+    }
+
     res.status(200).json(updatedPost);
   } catch (error) {
     next(error);
