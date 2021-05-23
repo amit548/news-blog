@@ -14,6 +14,7 @@ import meRoutes from './routes/me';
 import postsRoutes from './routes/post';
 import HttpException from './exceptions/http-exception';
 import { UserModel } from './models/user';
+import { SubscriptionModel } from './models/subscription';
 
 config();
 
@@ -33,6 +34,10 @@ server.use('/api/public', express.static(join(__dirname, '../public')));
 server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
+
+server.get('/api/sub', async (req, res) => {
+  res.send(await SubscriptionModel.find().exec());
+});
 
 server.use((_, __, next) => next(createError(404)));
 
