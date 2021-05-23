@@ -35,51 +35,6 @@ server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
-server.get('/api/sub', async (req, res) => {
-  res.send(await SubscriptionModel.find().select('-_id').exec());
-});
-
-import push from 'web-push';
-
-const publicKey =
-  'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
-const privateKey = 'p0ChiOQ02FwqjckZGu_QopmurCw3g93QC9YtLQoqMEg';
-
-push.setVapidDetails('mailto:test@test.com', publicKey, privateKey);
-
-server.post('/api/sub', async (req, res) => {
-  const notificationPayload = JSON.stringify({
-    _id: '60aa2aa64fe552b36a406624',
-    title:
-      'ব্লক অফিস গ্রাম রোজগার সহায়ক পদে কর্মী নিয়োগ | Gram Rojgar Sahayak Recruitment 2021 | HS Pass',
-    img: `http://kormerkhoj.com/api/public/images/CXOvAvSt-20210523_160243_resize_68.jpg`,
-  });
-
-  try {
-    (await SubscriptionModel.find().select('-_id').exec()).forEach(
-      async (sub) => {
-        try {
-          await push.sendNotification(sub, notificationPayload);
-        } catch (err) {
-          console.log('Error #1', err);
-        }
-      }
-    );
-  } catch (err) {
-    console.log('Error #2', err);
-  }
-
-  res.status(201).json({});
-});
-
-server.delete('/api/sub', async (req, res) => {
-  const subs = await SubscriptionModel.find().exec();
-  subs.forEach(async (sub) => {
-    await SubscriptionModel.findByIdAndDelete(sub._id);
-  });
-  res.status(204).json({});
-});
-
 server.use((_, __, next) => next(createError(404)));
 
 server.use(
