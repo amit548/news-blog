@@ -39,6 +39,29 @@ server.get('/api/sub', async (req, res) => {
   res.send(await SubscriptionModel.find().exec());
 });
 
+import push from 'web-push';
+
+server.post('/api/sub', async (req, res) => {
+  const publicKey =
+    'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
+  const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+
+  push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
+
+  const notificationPayload = JSON.stringify({
+    _id: '60aa2aa64fe552b36a406624',
+    title:
+      'ব্লক অফিস গ্রাম রোজগার সহায়ক পদে কর্মী নিয়োগ | Gram Rojgar Sahayak Recruitment 2021 | HS Pass',
+    img: `http://kormerkhoj.com/api/public/images/CXOvAvSt-20210523_160243_resize_68.jpg`,
+  });
+
+  (await SubscriptionModel.find().exec()).forEach(async (sub) => {
+    await push.sendNotification(sub, notificationPayload);
+  });
+
+  res.status(201).json({});
+});
+
 server.use((_, __, next) => next(createError(404)));
 
 server.use(
