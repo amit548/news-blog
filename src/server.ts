@@ -43,8 +43,8 @@ import push from 'web-push';
 
 server.post('/api/sub', async (req, res) => {
   const publicKey =
-    'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
-  const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+    'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
+  const privateKey = 'p0ChiOQ02FwqjckZGu_QopmurCw3g93QC9YtLQoqMEg';
 
   push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
 
@@ -60,6 +60,14 @@ server.post('/api/sub', async (req, res) => {
   });
 
   res.status(201).json({});
+});
+
+server.delete('/api/sub', async (req, res) => {
+  const subs = await SubscriptionModel.find().exec();
+  subs.forEach(async (sub) => {
+    await SubscriptionModel.findByIdAndDelete(sub._id);
+  });
+  res.status(204).json({});
 });
 
 server.use((_, __, next) => next(createError(404)));

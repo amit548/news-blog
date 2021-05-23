@@ -179,17 +179,13 @@ const createSubscription = async (req: Request, res: Response) => {
     if (subscription) {
       const oldSubs = await SubscriptionModel.findOne({
         endpoint: subscription.endpoint,
-        keys: {
-          auth: subscription.keys.auth,
-          p256dh: subscription.keys.p256dh,
-        },
       });
       if (!oldSubs) {
         const newSubscription = new SubscriptionModel({ ...subscription });
         await newSubscription.save();
       }
     }
-  } catch (error) {}
+  } catch (_) {}
 
   res.status(201).json({});
 };

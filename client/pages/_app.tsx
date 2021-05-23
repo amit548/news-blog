@@ -27,7 +27,7 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const publicKey =
-      'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
+      'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
 
     function urlBase64ToUint8Array(base64String) {
       const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
