@@ -97,9 +97,9 @@ const Post = ({ post, images, videos, error }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => router.back()}
+          onClick={() => router.push('/')}
         >
-          Go Back
+          Go To Home
         </Button>
       </Box>
     );
