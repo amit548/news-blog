@@ -36,7 +36,7 @@ server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
 
 server.get('/api/sub', async (req, res) => {
-  res.send(await SubscriptionModel.find().exec());
+  res.send(await SubscriptionModel.find().select('-_id').exec());
 });
 
 import push from 'web-push';
@@ -45,7 +45,7 @@ const publicKey =
   'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
 const privateKey = 'p0ChiOQ02FwqjckZGu_QopmurCw3g93QC9YtLQoqMEg';
 
-push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
+push.setVapidDetails('mailto:test@test.com', publicKey, privateKey);
 
 server.post('/api/sub', async (req, res) => {
   const notificationPayload = JSON.stringify({
@@ -56,13 +56,15 @@ server.post('/api/sub', async (req, res) => {
   });
 
   try {
-    (await SubscriptionModel.find().exec()).forEach(async (sub) => {
-      try {
-        await push.sendNotification(sub, notificationPayload);
-      } catch (err) {
-        console.log('Error #1', err);
+    (await SubscriptionModel.find().select('-_id').exec()).forEach(
+      async (sub) => {
+        try {
+          await push.sendNotification(sub, notificationPayload);
+        } catch (err) {
+          console.log('Error #1', err);
+        }
       }
-    });
+    );
   } catch (err) {
     console.log('Error #2', err);
   }
