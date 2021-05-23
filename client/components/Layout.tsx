@@ -132,6 +132,11 @@ const Layout = ({ children }) => {
         title: 'পরীক্ষার প্রস্তুতি',
         icon: <MenuBookIcon color="secondary" />,
       },
+      // {
+      //   path: '/news/রেজাল্ট/1',
+      //   title: 'রেজাল্ট',
+      //   icon: <MenuBookIcon color="secondary" />,
+      // },
       {
         path: '/news/নোটিশ/1',
         title: 'নোটিশ',
@@ -274,9 +279,9 @@ const Layout = ({ children }) => {
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
                         </Link>
 
-                        <Link href="/news/রেজাল্ট/1">
+                        {/* <Link href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>
-                        </Link>
+                        </Link> */}
 
                         <Link href="/news/নোটিশ/1">
                           <Button color="inherit">নোটিশ</Button>

@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import createError from 'http-errors';
 import expressFileupload from 'express-fileupload';
 import compression from 'compression';
+import webPush from 'web-push';
 
 import userRoutes from './routes/user';
 import meRoutes from './routes/me';
@@ -34,6 +35,50 @@ server.use('/api/public', express.static(join(__dirname, '../public')));
 server.use('/api/user', userRoutes);
 server.use('/api/me', meRoutes);
 server.use('/api/post', postsRoutes);
+
+const publicVapidKey =
+  'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
+const privateVapidKey = '3KzvKasA2SoCxsp0iIG_o9B0Ozvl1XDwI63JRKNIWBM';
+
+webPush.setVapidDetails(
+  'mailto:rakeshwbp@gmail.com',
+  publicVapidKey,
+  privateVapidKey
+);
+
+server.post('/api/sub', async (req, res) => {
+  try {
+    const subs = await SubscriptionModel.find().select('-_id').exec();
+    subs.forEach((sub) => {
+      const payload = JSON.stringify({
+        title: 'Test #1',
+        img: 'skdfhdjkhcfd',
+        body: 'Hello',
+      });
+
+      webPush
+        .sendNotification(sub, payload)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    });
+    res.json('200');
+  } catch (error) {
+    res.status(400);
+  }
+});
+
+server.get('/api/sub', async (req, res) => {
+  const result = await SubscriptionModel.find().select('-_id').exec();
+  res.json(result);
+});
+
+server.delete('/api/sub', async (req, res) => {
+  const result = await SubscriptionModel.find().exec();
+  result.forEach(async (r) => {
+    await SubscriptionModel.findByIdAndDelete(r._id);
+  });
+  res.json('OK');
+});
 
 server.use((_, __, next) => next(createError(404)));
 

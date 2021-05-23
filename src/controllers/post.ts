@@ -145,8 +145,8 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
     if (!post.private) {
       try {
         const publicKey =
-          'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
-        const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+          'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
+        const privateKey = '3KzvKasA2SoCxsp0iIG_o9B0Ozvl1XDwI63JRKNIWBM';
 
         push.setVapidDetails(
           'mailto:rakeshwbp@gmail.com',
@@ -174,6 +174,8 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 
 const createSubscription = async (req: Request, res: Response) => {
   const subscription: Subscription = req.body;
+
+  console.log(subscription);
 
   try {
     if (subscription) {
@@ -424,8 +426,8 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     if (!updatedPost?.private) {
       try {
         const publicKey =
-          'BHbFY4Ta6Ju1J3AcjzSy6pbYSxInb9rogHSvXsQ3pGS4CJluYEC1sbkJhAdT3kZPx07mdQoLdDy3j5ZWgqN69kQ';
-        const privateKey = 'hKmfCJ3OrkhhwDBKJgfcDb2L0Wznv6dfOg_FPWHUAQc';
+          'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
+        const privateKey = '3KzvKasA2SoCxsp0iIG_o9B0Ozvl1XDwI63JRKNIWBM';
 
         push.setVapidDetails(
           'mailto:rakeshwbp@gmail.com',
