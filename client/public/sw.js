@@ -4,7 +4,7 @@ self.addEventListener('push', (e) => {
   self.registration.showNotification(data.title, {
     icon: '/android-chrome-192x192.png',
     body: 'Notified by Kormer Khoj',
-    image: 'https://kormerkhoj.com/api/public/images/' + data.img,
+    image: data.img,
     data: {
       _id: data._id,
     },
