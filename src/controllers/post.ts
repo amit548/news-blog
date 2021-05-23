@@ -175,8 +175,6 @@ const createPost = async (req: Request, res: Response, next: NextFunction) => {
 const createSubscription = async (req: Request, res: Response) => {
   const subscription: Subscription = req.body;
 
-  console.log(subscription);
-
   try {
     if (subscription) {
       const oldSubs = await SubscriptionModel.findOne({
