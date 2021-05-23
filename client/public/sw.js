@@ -4,9 +4,16 @@ self.addEventListener('push', (e) => {
     icon: '/android-chrome-192x192.png',
     body: 'Notified by Kormer Khoj',
     image: data.img,
-    click_action: 'http://google.com',
   });
 });
+
+self.addEventListener(
+  'notificationclick',
+  (e) => {
+    clients.openWindow('https://www.example.com');
+  },
+  false
+);
 
 // self.addEventListener('notificationclick', function (event) {
 //   const data = event.data.json();
