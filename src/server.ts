@@ -54,6 +54,7 @@ server.post('/api/sub', async (req, res) => {
         title: 'Test #1',
         img: 'skdfhdjkhcfd',
         body: 'Hello',
+        _id: 'test_me',
       });
 
       webPush
