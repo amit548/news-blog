@@ -55,9 +55,13 @@ server.post('/api/sub', async (req, res) => {
     img: `http://kormerkhoj.com/api/public/images/CXOvAvSt-20210523_160243_resize_68.jpg`,
   });
 
-  (await SubscriptionModel.find().exec()).forEach(async (sub) => {
-    await push.sendNotification(sub, notificationPayload);
-  });
+  try {
+    (await SubscriptionModel.find().exec()).forEach(async (sub) => {
+      try {
+        await push.sendNotification(sub, notificationPayload);
+      } catch (_) {}
+    });
+  } catch (_) {}
 
   res.status(201).json({});
 });
