@@ -18,7 +18,7 @@ const SubscriptionSchema = new Schema<Subscription>(
       auth: { type: String, required: true },
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 const SubscriptionModel = model<Subscription>(

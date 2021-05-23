@@ -57,7 +57,11 @@ const App = ({ Component, pageProps }) => {
             applicationServerKey: urlBase64ToUint8Array(publicKey),
           });
 
-          await axios.post('/api/post/subscribe', sub);
+          await axios.post('/api/post/subscribe', sub, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
           // }
           const permission = await Notification.requestPermission();
           if (permission !== 'granted') {

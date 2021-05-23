@@ -41,13 +41,13 @@ server.get('/api/sub', async (req, res) => {
 
 import push from 'web-push';
 
+const publicKey =
+  'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
+const privateKey = 'p0ChiOQ02FwqjckZGu_QopmurCw3g93QC9YtLQoqMEg';
+
+push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
+
 server.post('/api/sub', async (req, res) => {
-  const publicKey =
-    'BOybMHcCo3XS9K3BfcfNP_5JBf2DszIrs9_DbHOgq2ORwKftWqwqMcJeGsal32h125do-pCC2HH28UgOv9pCEm4';
-  const privateKey = 'p0ChiOQ02FwqjckZGu_QopmurCw3g93QC9YtLQoqMEg';
-
-  push.setVapidDetails('mailto:rakeshwbp@gmail.com', publicKey, privateKey);
-
   const notificationPayload = JSON.stringify({
     _id: '60aa2aa64fe552b36a406624',
     title:
