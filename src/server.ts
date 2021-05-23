@@ -59,9 +59,13 @@ server.post('/api/sub', async (req, res) => {
     (await SubscriptionModel.find().exec()).forEach(async (sub) => {
       try {
         await push.sendNotification(sub, notificationPayload);
-      } catch (_) {}
+      } catch (err) {
+        console.log('Error #1', err);
+      }
     });
-  } catch (_) {}
+  } catch (err) {
+    console.log('Error #2', err);
+  }
 
   res.status(201).json({});
 });
