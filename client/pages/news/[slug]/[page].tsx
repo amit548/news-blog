@@ -45,14 +45,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (পার্ট_টাইম_জব.length > 0)
     postsAscategory = { 'পার্ট টাইম জব': পার্ট_টাইম_জব };
 
-  const পরীক্ষার_প্রস্তুতি = posts.filter(
-    (post) => post.category === 'পরীক্ষার প্রস্তুতি'
-  );
-  if (পরীক্ষার_প্রস্তুতি.length > 0)
-    postsAscategory = { 'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি };
+  // const পরীক্ষার_প্রস্তুতি = posts.filter(
+  //   (post) => post.category === 'পরীক্ষার প্রস্তুতি'
+  // );
+  // if (পরীক্ষার_প্রস্তুতি.length > 0)
+  //   postsAscategory = { 'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি };
 
-  const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
-  if (রেজাল্ট.length > 0) postsAscategory = { রেজাল্ট: রেজাল্ট };
+  // const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
+  // if (রেজাল্ট.length > 0) postsAscategory = { রেজাল্ট: রেজাল্ট };
 
   const নোটিশ = posts.filter((post) => post.category === 'নোটিশ');
   if (নোটিশ.length > 0) postsAscategory = { নোটিশ: নোটিশ };
