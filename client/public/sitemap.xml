@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://kormerkhoj.com/sitemap/sitemap-common.xml.gz</loc>
+    <lastmod>2021-06-01T19:08:33.604Z</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://kormerkhoj.com/sitemap/sitemap-posts.xml.gz</loc>
+    <lastmod>2021-06-01T19:08:33.604Z</lastmod>
+  </sitemap>
+</sitemapindex>
