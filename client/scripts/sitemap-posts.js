@@ -25,6 +25,7 @@ const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
           <url>
             <loc>${`${YOUR_AWESOME_DOMAIN}/post/${id}`}</loc>
             <lastmod>${getDate}</lastmod>
+            <changefreq>weekly</changefreq>
           </url>`;
       })
       .join('')}
