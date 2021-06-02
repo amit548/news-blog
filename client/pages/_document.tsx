@@ -33,7 +33,10 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Kormer Khoj" />
           <meta property="og:type" content="website" />
           <meta property="twitter:card" content="summary" />
-          <meta name="google-site-verification" content="2g9NxcJvQ8VfzxucnYFyV5h1X_7vzk0Sb_TVvxG41C4" />
+          <meta
+            name="google-site-verification"
+            content="2g9NxcJvQ8VfzxucnYFyV5h1X_7vzk0Sb_TVvxG41C4"
+          />
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-MT2EDLVTRR"
@@ -48,11 +51,11 @@ export default class MyDocument extends Document {
             `,
             }}
           />
-          <script
+          {/* <script
             data-ad-client="ca-pub-3501803361714853"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          />
+          /> */}
         </Head>
         <body>
           <Main />
