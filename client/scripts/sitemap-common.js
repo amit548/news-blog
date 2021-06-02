@@ -1,7 +1,7 @@
 const sitemap = require('nextjs-sitemap-generator');
 
 sitemap({
-  baseUrl: 'https://example.com',
+  baseUrl: 'https://kormerkhoj.com',
   pagesDirectory: process.cwd() + '/.next/server/pages',
   targetDirectory: 'public/sitemap/',
   ignoredExtensions: ['js', 'map'],
