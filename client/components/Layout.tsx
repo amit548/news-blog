@@ -127,11 +127,11 @@ const Layout = ({ children }) => {
         title: 'পার্ট টাইম জব',
         icon: <ApartmentIcon color="secondary" />,
       },
-      // {
-      //   path: '/news/পরীক্ষার প্রস্তুতি/1',
-      //   title: 'পরীক্ষার প্রস্তুতি',
-      //   icon: <MenuBookIcon color="secondary" />,
-      // },
+      {
+        path: '/news/পরীক্ষার প্রস্তুতি/1',
+        title: 'পরীক্ষার প্রস্তুতি',
+        icon: <MenuBookIcon color="secondary" />,
+      },
       // {
       //   path: '/news/রেজাল্ট/1',
       //   title: 'রেজাল্ট',
@@ -275,9 +275,9 @@ const Layout = ({ children }) => {
                           <Button color="inherit">পার্ট টাইম জব</Button>
                         </Link>
 
-                        {/* <Link href="/news/পরীক্ষার প্রস্তুতি/1">
+                        <Link href="/news/পরীক্ষার প্রস্তুতি/1">
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
-                        </Link> */}
+                        </Link>
 
                         {/* <Link href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>

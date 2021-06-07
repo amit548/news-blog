@@ -59,9 +59,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const result3 = await axios.get(
     encodeURI('/api/post/news?category=পার্ট টাইম জব')
   );
-  // const result4 = await axios.get(
-  //   encodeURI('/api/post/news?category=পরীক্ষার প্রস্তুতি')
-  // );
+  const result4 = await axios.get(
+    encodeURI('/api/post/news?category=পরীক্ষার প্রস্তুতি')
+  );
   // const result5 = await axios.get(encodeURI('/api/post/news?category=রেজাল্ট'));
   const result6 = await axios.get(encodeURI('/api/post/news?category=নোটিশ'));
 
@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     ...result1.data.posts,
     ...result2.data.posts,
     ...result3.data.posts,
-    // ...result4.data.posts,
+    ...result4.data.posts,
     // ...result5.data.posts,
     ...result6.data.posts,
   ];
@@ -102,14 +102,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
       'পার্ট টাইম জব': পার্ট_টাইম_জব,
     };
 
-  // const পরীক্ষার_প্রস্তুতি = posts.filter(
-  //   (post) => post.category === 'পরীক্ষার প্রস্তুতি'
-  // );
-  // if (পরীক্ষার_প্রস্তুতি.length > 0)
-  //   postsAscategory = {
-  //     ...postsAscategory,
-  //     'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি,
-  //   };
+  const পরীক্ষার_প্রস্তুতি = posts.filter(
+    (post) => post.category === 'পরীক্ষার প্রস্তুতি'
+  );
+  if (পরীক্ষার_প্রস্তুতি.length > 0)
+    postsAscategory = {
+      ...postsAscategory,
+      'পরীক্ষার প্রস্তুতি': পরীক্ষার_প্রস্তুতি,
+    };
 
   // const রেজাল্ট = posts.filter((post) => post.category === 'রেজাল্ট');
   // if (রেজাল্ট.length > 0)

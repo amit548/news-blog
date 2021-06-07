@@ -47,22 +47,22 @@ const App = ({ Component, pageProps }) => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
-          // if (!navigator.serviceWorker.controller) {
-          const register = await navigator.serviceWorker.register('sw.js', {
-            scope: '/',
-          });
+          if (!navigator.serviceWorker.controller) {
+            const register = await navigator.serviceWorker.register('sw.js', {
+              scope: '/',
+            });
 
-          const sub = await register.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(publicKey),
-          });
+            const sub = await register.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(publicKey),
+            });
 
-          await axios.post('/api/post/subscribe', sub, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          // }
+            await axios.post('/api/post/subscribe', sub, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          }
           const permission = await Notification.requestPermission();
           if (permission !== 'granted') {
             console.error('Permission not granted for Notification');
