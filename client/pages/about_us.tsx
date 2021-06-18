@@ -32,7 +32,7 @@ const AboutUs = () => {
           name="keywords"
           content="সরকারি চাকরি, বেসরকারি চাকরি, পার্ট টাইম জব, পরীক্ষার প্রস্তুতি, নোটিশ"
         />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="noindex" />
       </Head>
       <Typography variant="h5" gutterBottom>
         About Us
