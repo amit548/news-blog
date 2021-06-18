@@ -132,7 +132,6 @@ const ExentSlugPage = ({ postsAscategory, videos, pageCount, page }) => {
                         content="/android-chrome-512x512.png"
                       />
                       <meta name="keywords" content={categoryPostKey} />
-                      <meta name="robots" content="noindex" />
                     </Head>
                     <News
                       key={i}
