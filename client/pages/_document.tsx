@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Kormer Khoj" />
           <meta property="og:type" content="website" />
           <meta property="twitter:card" content="summary" />
+          <meta name="robots" content="index,nofollow" />
           <meta
             name="google-site-verification"
             content="2g9NxcJvQ8VfzxucnYFyV5h1X_7vzk0Sb_TVvxG41C4"
