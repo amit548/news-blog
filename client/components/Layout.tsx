@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Fragment, useContext, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
@@ -213,7 +212,7 @@ const Layout = ({ children }) => {
                   <MenuIcon />
                 </IconButton>
                 <div className={classes.title}>
-                  <Link href="/">
+                  <a href="/">
                     <img
                       src="/side_header.jpg"
                       style={{
@@ -229,7 +228,7 @@ const Layout = ({ children }) => {
                         }
                       }}
                     />
-                  </Link>
+                  </a>
                 </div>
               </Hidden>
 
@@ -239,20 +238,20 @@ const Layout = ({ children }) => {
                     <Container>
                       {user && user.role === 'admin' && (
                         <>
-                          <Link href="/admin/register">
+                          <a href="/admin/register">
                             <Button color="inherit">Create User</Button>
-                          </Link>
-                          <Link href="/admin/users">
+                          </a>
+                          <a href="/admin/users">
                             <Button color="inherit">Manage Users</Button>
-                          </Link>
+                          </a>
                         </>
                       )}
-                      <Link href="/admin/create-post">
+                      <a href="/admin/create-post">
                         <Button color="inherit">Create Post</Button>
-                      </Link>
-                      <Link href="/admin/posts">
+                      </a>
+                      <a href="/admin/posts">
                         <Button color="inherit">Manage Posts</Button>
-                      </Link>
+                      </a>
                     </Container>
                   </Hidden>
                   <Button
@@ -276,29 +275,29 @@ const Layout = ({ children }) => {
                       justifyContent="space-between"
                     >
                       <Box>
-                        <Link href="/news/সরকারি চাকরি/1">
+                        <a href="/news/সরকারি চাকরি/1">
                           <Button color="inherit">সরকারি চাকরি</Button>
-                        </Link>
+                        </a>
 
-                        <Link href="/news/বেসরকারি চাকরি/1">
+                        <a href="/news/বেসরকারি চাকরি/1">
                           <Button color="inherit">বেসরকারি চাকরি</Button>
-                        </Link>
+                        </a>
 
-                        <Link href="/news/পার্ট টাইম জব/1">
+                        <a href="/news/পার্ট টাইম জব/1">
                           <Button color="inherit">পার্ট টাইম জব</Button>
-                        </Link>
+                        </a>
 
-                        <Link href="/news/পরীক্ষার প্রস্তুতি/1">
+                        <a href="/news/পরীক্ষার প্রস্তুতি/1">
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
-                        </Link>
+                        </a>
 
-                        {/* <Link href="/news/রেজাল্ট/1">
+                        {/* <a href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>
-                        </Link> */}
+                        </a> */}
 
-                        <Link href="/news/নোটিশ/1">
+                        <a href="/news/নোটিশ/1">
                           <Button color="inherit">নোটিশ</Button>
-                        </Link>
+                        </a>
                       </Box>
                       <Box>
                         <IconButton
@@ -420,32 +419,32 @@ const Layout = ({ children }) => {
             <Grid item xs={12} sm={6}>
               <Box display="flex" flexDirection="row" justifyContent="center">
                 <Box marginRight={1}>
-                  <Link href="/about_us">
+                  <a href="/about_us">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       About Us
                     </MatLink>
-                  </Link>
+                  </a>
                 </Box>
                 <Box marginRight={1}>
-                  <Link href="/contact_us">
+                  <a href="/contact_us">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       Contact Us
                     </MatLink>
-                  </Link>
+                  </a>
                 </Box>
                 <Box marginRight={1}>
-                  <Link href="/dmca">
+                  <a href="/dmca">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       DMCA
                     </MatLink>
-                  </Link>
+                  </a>
                 </Box>
                 <Box marginRight={1}>
-                  <Link href="/privacy_policy">
+                  <a href="/privacy_policy">
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       Privacy Policy
                     </MatLink>
-                  </Link>
+                  </a>
                 </Box>
               </Box>
             </Grid>
