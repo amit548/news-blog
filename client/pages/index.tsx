@@ -166,11 +166,9 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
       </Head>
 
       <Grid container spacing={1}>
-        <Hidden smDown>
-          <Grid item xs={12}>
-            <AdBanner adClient="ca-pub-3501803361714853" adSlot="6680961132" />
-          </Grid>
-        </Hidden>
+        <Grid item xs={12} style={{ overflow: 'hidden' }}>
+          <AdBanner adClient="ca-pub-3501803361714853" adSlot="6680961132" />
+        </Grid>
 
         {trendingPost.length > 0 && (
           <Grid item xs={12}>
@@ -200,7 +198,7 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
           </Grid>
         )}
 
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ overflow: 'hidden' }}>
           <AdBanner adClient="ca-pub-3501803361714853" adSlot="1084293171" />
         </Grid>
 
