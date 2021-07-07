@@ -238,18 +238,18 @@ const Layout = ({ children }) => {
                     <Container>
                       {user && user.role === 'admin' && (
                         <>
-                          <a href="/admin/register">
+                          <a style={{ color: 'white' }} href="/admin/register">
                             <Button color="inherit">Create User</Button>
                           </a>
-                          <a href="/admin/users">
+                          <a style={{ color: 'white' }} href="/admin/users">
                             <Button color="inherit">Manage Users</Button>
                           </a>
                         </>
                       )}
-                      <a href="/admin/create-post">
+                      <a style={{ color: 'white' }} href="/admin/create-post">
                         <Button color="inherit">Create Post</Button>
                       </a>
-                      <a href="/admin/posts">
+                      <a style={{ color: 'white' }} href="/admin/posts">
                         <Button color="inherit">Manage Posts</Button>
                       </a>
                     </Container>
@@ -275,27 +275,39 @@ const Layout = ({ children }) => {
                       justifyContent="space-between"
                     >
                       <Box>
-                        <a href="/news/সরকারি চাকরি/1">
+                        <a
+                          href="/news/সরকারি চাকরি/1"
+                          style={{ color: 'white' }}
+                        >
                           <Button color="inherit">সরকারি চাকরি</Button>
                         </a>
 
-                        <a href="/news/বেসরকারি চাকরি/1">
+                        <a
+                          style={{ color: 'white' }}
+                          href="/news/বেসরকারি চাকরি/1"
+                        >
                           <Button color="inherit">বেসরকারি চাকরি</Button>
                         </a>
 
-                        <a href="/news/পার্ট টাইম জব/1">
+                        <a
+                          style={{ color: 'white' }}
+                          href="/news/পার্ট টাইম জব/1"
+                        >
                           <Button color="inherit">পার্ট টাইম জব</Button>
                         </a>
 
-                        <a href="/news/পরীক্ষার প্রস্তুতি/1">
+                        <a
+                          style={{ color: 'white' }}
+                          href="/news/পরীক্ষার প্রস্তুতি/1"
+                        >
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
                         </a>
 
-                        {/* <a href="/news/রেজাল্ট/1">
+                        {/* <a style={{ color: 'white' }} href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>
                         </a> */}
 
-                        <a href="/news/নোটিশ/1">
+                        <a style={{ color: 'white' }} href="/news/নোটিশ/1">
                           <Button color="inherit">নোটিশ</Button>
                         </a>
                       </Box>
