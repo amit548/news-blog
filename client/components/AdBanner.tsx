@@ -21,6 +21,7 @@ const AdBanner = ({
 
   const styles = {
     display: 'inline-block',
+    overflow: 'hidden',
   };
 
   return (
