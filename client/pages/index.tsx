@@ -12,6 +12,9 @@ import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
+import { useEffect } from 'react';
+import AdBanner from '../components/AdBanner';
+import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -163,6 +166,12 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
       </Head>
 
       <Grid container spacing={1}>
+        <Hidden smDown>
+          <Grid item xs={12}>
+            <AdBanner adClient="ca-pub-3501803361714853" adSlot="6680961132" />
+          </Grid>
+        </Hidden>
+
         {trendingPost.length > 0 && (
           <Grid item xs={12}>
             <Carousel
@@ -190,6 +199,10 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
             </Carousel>
           </Grid>
         )}
+
+        <Grid item xs={12}>
+          <AdBanner adClient="ca-pub-3501803361714853" adSlot="1084293171" />
+        </Grid>
 
         {posts.length < 0 ? (
           <Grid item xs={12}>
