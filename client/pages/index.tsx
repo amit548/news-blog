@@ -162,10 +162,6 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
       </Head>
 
       <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <AdBanner adSlot="2759696296" />
-        </Grid>
-
         {trendingPost.length > 0 && (
           <Grid item xs={12}>
             <Carousel
