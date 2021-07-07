@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -24,14 +23,15 @@ const useStyles = makeStyles({
 
 const PostCard = ({ post }) => {
   const classes = useStyles();
-  const router = useRouter();
 
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card variant="outlined">
         <CardActionArea
           onClick={() => {
-            router.push(`/post/${post._id}`);
+            if (process.browser) {
+              window.location.href = `/post/${post._id}`;
+            }
           }}
         >
           <CardMedia

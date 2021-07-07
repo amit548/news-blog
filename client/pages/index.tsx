@@ -11,7 +11,6 @@ import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-import AdBanner from '../components/AdBanner';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
