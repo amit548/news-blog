@@ -1,12 +1,6 @@
 import { useEffect } from 'react';
 
-const AdBanner = ({
-  adClient,
-  adSlot,
-}: {
-  adClient: string;
-  adSlot: string;
-}) => {
+const AdBanner = ({ adSlot }: { adSlot: string }) => {
   useEffect(() => {
     if (process.browser) {
       try {
@@ -20,16 +14,17 @@ const AdBanner = ({
   }, []);
 
   const styles = {
-    display: 'inline-block',
-    overflow: 'hidden',
+    display: 'block',
   };
 
   return (
     <ins
       className="adsbygoogle"
       style={styles}
-      data-ad-client={adClient}
+      data-ad-client="ca-pub-3501803361714853"
       data-ad-slot={adSlot}
+      data-ad-format="auto"
+      data-full-width-responsive="true"
     />
   );
 };
