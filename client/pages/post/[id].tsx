@@ -12,7 +12,6 @@ import { GetServerSideProps } from 'next';
 
 import SideBar from '../../components/SideBar';
 import { Box, Button } from '@material-ui/core';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -82,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 const Post = ({ post, images, videos, error }) => {
   const classes = useStyles();
-  const router = useRouter();
 
   if (error)
     return (
@@ -97,7 +95,11 @@ const Post = ({ post, images, videos, error }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => router.push('/')}
+          onClick={() => {
+            if (process.browser) {
+              window.location.href = `/`;
+            }
+          }}
         >
           Go To Home
         </Button>

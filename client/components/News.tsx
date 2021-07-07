@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 
 import PostCard from './PostCard';
 
 const News = ({ chipName, posts }) => {
-  const router = useRouter();
-
   return (
     <>
       <Grid item xs={12}>
@@ -15,7 +12,9 @@ const News = ({ chipName, posts }) => {
           color="primary"
           label={chipName}
           onClick={() => {
-            router.push(`/news/${chipName}/1`);
+            if (process.browser) {
+              window.location.href = `/news/${chipName}/1`;
+            }
           }}
         />
       </Grid>

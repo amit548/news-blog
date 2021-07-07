@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { Fragment, useContext, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -166,7 +166,11 @@ const Layout = ({ children }) => {
                     overflow: 'hidden',
                     cursor: 'pointer',
                   }}
-                  onClick={() => router.push('/')}
+                  onClick={() => {
+                    if (process.browser) {
+                      window.location.href = '/';
+                    }
+                  }}
                 />
               </Grid>
               <Grid item xs={12} md={8}>
@@ -180,7 +184,11 @@ const Layout = ({ children }) => {
                     overflow: 'hidden',
                     cursor: 'pointer',
                   }}
-                  onClick={() => router.push('/')}
+                  onClick={() => {
+                    if (process.browser) {
+                      window.location.href = '/';
+                    }
+                  }}
                 />
               </Grid>
             </Grid>
@@ -215,7 +223,11 @@ const Layout = ({ children }) => {
                         overflow: 'hidden',
                         cursor: 'pointer',
                       }}
-                      onClick={() => router.push('/')}
+                      onClick={() => {
+                        if (process.browser) {
+                          window.location.href = '/';
+                        }
+                      }}
                     />
                   </Link>
                 </div>
@@ -247,8 +259,9 @@ const Layout = ({ children }) => {
                     color="inherit"
                     onClick={() => {
                       logout();
-                      router.push('/');
-                      window.location.reload();
+                      if (process.browser) {
+                        window.location.href = '/';
+                      }
                     }}
                   >
                     Logout
@@ -335,7 +348,9 @@ const Layout = ({ children }) => {
               cursor: 'pointer',
             }}
             onClick={() => {
-              router.push('/');
+              if (process.browser) {
+                window.location.href = '/';
+              }
               setOpenDrawer(false);
             }}
           />
@@ -374,7 +389,10 @@ const Layout = ({ children }) => {
                 }
                 onClick={() => {
                   onDrawerClose();
-                  router.push(item.path);
+
+                  if (process.browser) {
+                    window.location.href = item.path;
+                  }
                 }}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>

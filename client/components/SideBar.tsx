@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -7,14 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 const SideBar = ({ video }) => {
-  const router = useRouter();
-
   return (
     <Grid item xs={12} sm={6} md={12}>
       <Card variant="outlined">
         <CardActionArea
           onClick={() => {
-            router.push(`/post/${video._id}`);
+            if (process.browser) {
+              window.location.href = `/post/${video._id}`;
+            }
           }}
         >
           <Grid container spacing={1}>

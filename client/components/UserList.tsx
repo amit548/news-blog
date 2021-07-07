@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,8 +14,6 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 const UserList = ({ registeredUser }) => {
-  const router = useRouter();
-
   const { deleteUser } = useContext(UserContext);
 
   return (
@@ -33,7 +30,9 @@ const UserList = ({ registeredUser }) => {
           <ListItemSecondaryAction>
             <IconButton
               onClick={() => {
-                router.push(`/admin/edit-user/${registeredUser._id}`);
+                if (process.browser) {
+                  window.location.href = `/admin/edit-user/${registeredUser._id}`;
+                }
               }}
             >
               <EditIcon color="primary" />
@@ -41,10 +40,9 @@ const UserList = ({ registeredUser }) => {
             <IconButton
               onClick={async () => {
                 try {
-                  await axios.delete(
-                    `/api/user/list/${registeredUser._id}`,
-                    { withCredentials: true }
-                  );
+                  await axios.delete(`/api/user/list/${registeredUser._id}`, {
+                    withCredentials: true,
+                  });
                   deleteUser(registeredUser._id);
                 } catch (error) {}
               }}

@@ -154,9 +154,11 @@ const ExentSlugPage = ({ postsAscategory, videos, pageCount, page }) => {
                     <Pagination
                       count={pageCount}
                       page={parseInt(page)}
-                      onChange={(_, value) =>
-                        router.push(`/news/${router.query.slug}/${value}`)
-                      }
+                      onChange={(_, value) => {
+                        if (process.browser) {
+                          window.location.href = `/news/${router.query.slug}/${value}`;
+                        }
+                      }}
                     />
                   </Grid>
                 )}

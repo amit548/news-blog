@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -12,9 +11,6 @@ import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-import { useEffect } from 'react';
-import AdBanner from '../components/AdBanner';
-import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -142,7 +138,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
   const classes = useStyles();
-  const router = useRouter();
 
   const title = 'কর্মের খোঁজ | আমাদের সতর্কতা আর আপনাদের চেষ্টা, সঙ্গে থাকুন';
   const description =
@@ -180,7 +175,9 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
                     className={classes.imageContainer}
                     key={post._id}
                     onClick={() => {
-                      router.push(`/post/${post._id}`);
+                      if (process.browser) {
+                        window.location.href = `/post/${post._id}`;
+                      }
                     }}
                   >
                     <img
