@@ -162,12 +162,12 @@ const Post = ({ post, images, videos, error }) => {
               <AdBanner adSlot="2980130093" />
             </div>
             <Typography component="div">{parser(post.description)}</Typography>
-            {post.videoUrl && (
-              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
-            )}
             <div style={{ overflow: 'hidden' }}>
               <AdBanner adSlot="4975738043" />
             </div>
+            {post.videoUrl && (
+              <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
+            )}
           </Grid>
           <Grid item xs={12} md={3}>
             <Grid container spacing={1}>
