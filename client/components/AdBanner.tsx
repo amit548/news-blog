@@ -15,6 +15,7 @@ const AdBanner = ({ adSlot }: { adSlot: string }) => {
 
   const styles = {
     display: 'block',
+    overflow: 'hidden',
   };
 
   return (

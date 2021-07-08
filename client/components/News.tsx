@@ -23,12 +23,8 @@ const News = ({ chipName, posts }) => {
       {posts &&
         posts.map((post: any) => <PostCard key={post._id} post={post} />)}
 
-      <Grid item xs={12} md={6} style={{ overflow: 'hidden' }}>
+      <Grid item xs={12} style={{ overflow: 'hidden' }}>
         <AdBanner adSlot="7344441587" />
-      </Grid>
-
-      <Grid item xs={12} md={6} style={{ overflow: 'hidden' }}>
-        <AdBanner adSlot="4335134861" />
       </Grid>
     </>
   );
