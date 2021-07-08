@@ -35,6 +35,7 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import TelegramIcon from '@material-ui/icons/Telegram';
 
 import { AuthContext } from '../context/AuthContext';
+import AdBanner from './AdBanner';
 
 const drawerWidth = 240;
 
@@ -459,6 +460,9 @@ const Layout = ({ children }) => {
                   </a>
                 </Box>
               </Box>
+            </Grid>
+            <Grid item xs={12} style={{ overflow: 'hidden' }}>
+              <AdBanner adSlot="8465472633" />
             </Grid>
           </Grid>
         </footer>

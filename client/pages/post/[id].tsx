@@ -11,6 +11,7 @@ import parser from 'html-react-parser';
 import { GetServerSideProps } from 'next';
 
 import SideBar from '../../components/SideBar';
+import AdBanner from '../../components/AdBanner';
 import { Box, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -139,6 +140,9 @@ const Post = ({ post, images, videos, error }) => {
         </Head>
 
         <Grid container spacing={1}>
+          <Grid item xs={12} md={9} style={{ overflow: 'hidden' }}>
+            <AdBanner adSlot="2980130093" />
+          </Grid>
           <Grid item xs={12} md={9}>
             <Typography variant="h4">{post.title}</Typography>
             <Typography variant="caption" color="textSecondary" gutterBottom>
@@ -154,10 +158,16 @@ const Post = ({ post, images, videos, error }) => {
                 </div>
               ))}
             </Carousel>
+            <div style={{ overflow: 'hidden' }}>
+              <AdBanner adSlot="2980130093" />
+            </div>
             <Typography component="div">{parser(post.description)}</Typography>
             {post.videoUrl && (
               <ReactPlayer url={post.videoUrl} width="100%" controls={true} />
             )}
+            <div style={{ overflow: 'hidden' }}>
+              <AdBanner adSlot="4975738043" />
+            </div>
           </Grid>
           <Grid item xs={12} md={3}>
             <Grid container spacing={1}>

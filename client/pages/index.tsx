@@ -11,6 +11,7 @@ import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
+import AdBanner from '../components/AdBanner';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
@@ -161,6 +162,10 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
       </Head>
 
       <Grid container spacing={1}>
+        <Grid item xs={12} style={{ overflow: 'hidden' }}>
+          <AdBanner adSlot="5850917581" />
+        </Grid>
+
         {trendingPost.length > 0 && (
           <Grid item xs={12}>
             <Carousel
@@ -190,6 +195,10 @@ const Home = ({ trendingPost, posts, postsAscategory, videos }) => {
             </Carousel>
           </Grid>
         )}
+
+        <Grid item xs={12} style={{ overflow: 'hidden' }}>
+          <AdBanner adSlot="4745719478" />
+        </Grid>
 
         {posts.length < 0 ? (
           <Grid item xs={12}>

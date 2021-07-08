@@ -9,6 +9,7 @@ import { GetServerSideProps } from 'next';
 
 import News from '../../../components/News';
 import SideBar from '../../../components/SideBar';
+import AdBanner from '../../../components/AdBanner';
 
 const postsPerPage = 20;
 
@@ -133,6 +134,9 @@ const ExentSlugPage = ({ postsAscategory, videos, pageCount, page }) => {
                       />
                       <meta name="keywords" content={categoryPostKey} />
                     </Head>
+                    <Grid item xs={12} style={{ overflow: 'hidden' }}>
+                      <AdBanner adSlot="6564151882" />
+                    </Grid>
                     <News
                       key={i}
                       chipName={categoryPostKey}
@@ -170,6 +174,9 @@ const ExentSlugPage = ({ postsAscategory, videos, pageCount, page }) => {
         </Grid>
         <Grid item xs={12} md={3}>
           <Grid container spacing={1}>
+            <Grid item xs={12} style={{ overflow: 'hidden' }}>
+              <AdBanner adSlot="2022271648" />
+            </Grid>
             <Grid item xs={12}>
               <Typography variant="h5">Useful videos</Typography>
             </Grid>
