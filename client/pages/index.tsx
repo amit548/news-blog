@@ -13,7 +13,9 @@ import { GetServerSideProps } from 'next';
 import News from '../components/News';
 import SideBar from '../components/SideBar';
 
-const AdBanner = dynamic(import('../components/AdBanner'), { ssr: false });
+const AdBanner = dynamic(() => import('../components/AdBanner'), {
+  ssr: false,
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {

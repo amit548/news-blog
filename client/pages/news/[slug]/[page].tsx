@@ -11,7 +11,7 @@ import dynamic from 'next/dynamic';
 import News from '../../../components/News';
 import SideBar from '../../../components/SideBar';
 
-const AdBanner = dynamic(import('../../../components/AdBanner'), {
+const AdBanner = dynamic(() => import('../../../components/AdBanner'), {
   ssr: false,
 });
 

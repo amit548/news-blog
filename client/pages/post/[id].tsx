@@ -15,7 +15,9 @@ import { GetServerSideProps } from 'next';
 
 import SideBar from '../../components/SideBar';
 
-const AdBanner = dynamic(import('../../components/AdBanner'), { ssr: false });
+const AdBanner = dynamic(() => import('../../components/AdBanner'), {
+  ssr: false,
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {

@@ -4,7 +4,7 @@ import Chip from '@material-ui/core/Chip';
 
 import PostCard from './PostCard';
 
-const AdBanner = dynamic(import('./AdBanner'), { ssr: false });
+const AdBanner = dynamic(() => import('./AdBanner'), { ssr: false });
 
 const News = ({ chipName, posts }) => {
   return (
