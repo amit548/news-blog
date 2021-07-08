@@ -1,8 +1,10 @@
+import dynamic from 'next/dynamic';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 
 import PostCard from './PostCard';
-import AdBanner from './AdBanner';
+
+const AdBanner = dynamic(import('./AdBanner'), { ssr: false });
 
 const News = ({ chipName, posts }) => {
   return (

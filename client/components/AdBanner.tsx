@@ -2,15 +2,7 @@ import { useEffect } from 'react';
 
 const AdBanner = ({ adSlot }: { adSlot: string }) => {
   useEffect(() => {
-    if (process.browser) {
-      try {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
-          {}
-        );
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }, []);
 
   const styles = {

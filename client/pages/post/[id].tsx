@@ -8,11 +8,14 @@ import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player';
 import Moment from 'react-moment';
 import parser from 'html-react-parser';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import dynamic from 'next/dynamic';
 import { GetServerSideProps } from 'next';
 
 import SideBar from '../../components/SideBar';
-import AdBanner from '../../components/AdBanner';
-import { Box, Button } from '@material-ui/core';
+
+const AdBanner = dynamic(import('../../components/AdBanner'), { ssr: false });
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {

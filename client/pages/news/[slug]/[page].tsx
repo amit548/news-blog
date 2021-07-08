@@ -6,10 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import { Fragment } from 'react';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 
 import News from '../../../components/News';
 import SideBar from '../../../components/SideBar';
-import AdBanner from '../../../components/AdBanner';
+
+const AdBanner = dynamic(import('../../../components/AdBanner'), {
+  ssr: false,
+});
 
 const postsPerPage = 20;
 

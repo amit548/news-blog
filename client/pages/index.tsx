@@ -7,11 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import { Carousel } from 'react-responsive-carousel';
 import { makeStyles, Theme } from '@material-ui/core';
 import axios from 'axios';
+import dynamic from 'next/dynamic';
 import { GetServerSideProps } from 'next';
 
 import News from '../components/News';
 import SideBar from '../components/SideBar';
-import AdBanner from '../components/AdBanner';
+
+const AdBanner = dynamic(import('../components/AdBanner'), { ssr: false });
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageContainer: {
