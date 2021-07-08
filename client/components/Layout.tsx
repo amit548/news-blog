@@ -238,18 +238,30 @@ const Layout = ({ children }) => {
                     <Container>
                       {user && user.role === 'admin' && (
                         <>
-                          <a style={{ color: 'white' }} href="/admin/register">
+                          <a
+                            style={{ color: 'white', textDecoration: 'none' }}
+                            href="/admin/register"
+                          >
                             <Button color="inherit">Create User</Button>
                           </a>
-                          <a style={{ color: 'white' }} href="/admin/users">
+                          <a
+                            style={{ color: 'white', textDecoration: 'none' }}
+                            href="/admin/users"
+                          >
                             <Button color="inherit">Manage Users</Button>
                           </a>
                         </>
                       )}
-                      <a style={{ color: 'white' }} href="/admin/create-post">
+                      <a
+                        style={{ color: 'white', textDecoration: 'none' }}
+                        href="/admin/create-post"
+                      >
                         <Button color="inherit">Create Post</Button>
                       </a>
-                      <a style={{ color: 'white' }} href="/admin/posts">
+                      <a
+                        style={{ color: 'white', textDecoration: 'none' }}
+                        href="/admin/posts"
+                      >
                         <Button color="inherit">Manage Posts</Button>
                       </a>
                     </Container>
@@ -277,37 +289,40 @@ const Layout = ({ children }) => {
                       <Box>
                         <a
                           href="/news/সরকারি চাকরি/1"
-                          style={{ color: 'white' }}
+                          style={{ color: 'white', textDecoration: 'none' }}
                         >
                           <Button color="inherit">সরকারি চাকরি</Button>
                         </a>
 
                         <a
-                          style={{ color: 'white' }}
+                          style={{ color: 'white', textDecoration: 'none' }}
                           href="/news/বেসরকারি চাকরি/1"
                         >
                           <Button color="inherit">বেসরকারি চাকরি</Button>
                         </a>
 
                         <a
-                          style={{ color: 'white' }}
+                          style={{ color: 'white', textDecoration: 'none' }}
                           href="/news/পার্ট টাইম জব/1"
                         >
                           <Button color="inherit">পার্ট টাইম জব</Button>
                         </a>
 
                         <a
-                          style={{ color: 'white' }}
+                          style={{ color: 'white', textDecoration: 'none' }}
                           href="/news/পরীক্ষার প্রস্তুতি/1"
                         >
                           <Button color="inherit">পরীক্ষার প্রস্তুতি</Button>
                         </a>
 
-                        {/* <a style={{ color: 'white' }} href="/news/রেজাল্ট/1">
+                        {/* <a style={{ color: 'white', textDecoration: 'none' }} href="/news/রেজাল্ট/1">
                           <Button color="inherit">রেজাল্ট</Button>
                         </a> */}
 
-                        <a style={{ color: 'white' }} href="/news/নোটিশ/1">
+                        <a
+                          style={{ color: 'white', textDecoration: 'none' }}
+                          href="/news/নোটিশ/1"
+                        >
                           <Button color="inherit">নোটিশ</Button>
                         </a>
                       </Box>
@@ -431,28 +446,28 @@ const Layout = ({ children }) => {
             <Grid item xs={12} sm={6}>
               <Box display="flex" flexDirection="row" justifyContent="center">
                 <Box marginRight={1}>
-                  <a href="/about_us">
+                  <a href="/about_us" style={{ textDecoration: 'none' }}>
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       About Us
                     </MatLink>
                   </a>
                 </Box>
                 <Box marginRight={1}>
-                  <a href="/contact_us">
+                  <a href="/contact_us" style={{ textDecoration: 'none' }}>
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       Contact Us
                     </MatLink>
                   </a>
                 </Box>
                 <Box marginRight={1}>
-                  <a href="/dmca">
+                  <a href="/dmca" style={{ textDecoration: 'none' }}>
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       DMCA
                     </MatLink>
                   </a>
                 </Box>
                 <Box marginRight={1}>
-                  <a href="/privacy_policy">
+                  <a href="/privacy_policy" style={{ textDecoration: 'none' }}>
                     <MatLink color="textPrimary" style={{ cursor: 'pointer' }}>
                       Privacy Policy
                     </MatLink>
