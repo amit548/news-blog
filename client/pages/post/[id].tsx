@@ -146,7 +146,7 @@ const Post = ({ post, images, videos, error }) => {
 
         <Grid container spacing={1}>
           <Grid item xs={12} md={9} style={{ overflow: 'hidden' }}>
-            <AdBanner adSlot="2980130093" />
+            <AdBanner adSlot="6564151882" />
           </Grid>
           <Grid item xs={12} md={9}>
             <Typography variant="h4">{post.title}</Typography>
