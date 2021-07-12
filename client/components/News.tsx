@@ -18,7 +18,8 @@ const News = ({ chipName, posts }) => {
             display: 'inline-block',
             marginBottom: '5px',
             color: pink[500],
-            fontWeight: 'bold',
+            fontWeight: 'bolder',
+            fontSize: '18px',
           }}
           variant="body1"
           onClick={() => {
